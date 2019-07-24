@@ -20,3 +20,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+#Los test
+test_unit/log
+test_ui/screen
