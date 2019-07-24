@@ -5,29 +5,31 @@
             <div class="col-md-12">
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" href="#" style="margin-right: 30px">Control Escolar</a>
+
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <router-link to="/">Home</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/about">Login</router-link>
+                                <router-link to="/login">Login</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/about">Dashboard</router-link>
+                                <router-link to="/dashboard">Dashboard</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/about">Asistencia</router-link>
+                                <router-link to="/asistencia">Asistencia</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/about">Grupos</router-link>
+                                <router-link to="/grupos">Grupos</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/about">Reportes</router-link>
+                                <router-link to="/reportes">Reportes</router-link>
                             </li>
                         </ul>
                     </div>
