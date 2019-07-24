@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-md-12">
-                <h1>Dashboard</h1>
+                <h1 id="tituloSeccion">Reportes</h1>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
 
 
 	export default {
-		name: 'dashboard',
+		name: 'reportes',
 		props: {},
 		components: {},
 		data() {
