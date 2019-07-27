@@ -2,8 +2,12 @@
     <div>
         <div class="row">
             <div class="col-md-12">
-                <h1  id="tituloSeccion">Grupos</h1>
+                <h1 id="tituloSeccion">Grupos</h1>
             </div>
+        </div>
+
+        <div v-if="isDebug">
+            {{}}
         </div>
 
     </div>
@@ -13,9 +17,8 @@
 
 <script>
 
-
+	import libConfig from "../lib/libConfig";
 	import dataService from "../services/dataService";
-
 
 
 	export default {
@@ -23,11 +26,13 @@
 		props: {},
 		components: {},
 		data() {
-			return {}
+			return {
+				isDebug:libConfig.isDebug
+            }
 		},
 		methods: {},
 		mounted() {
-            dataService.getlistaGrupos();
+			dataService.getlistaGrupos();
 		}
 
 

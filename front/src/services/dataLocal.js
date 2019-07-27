@@ -5,7 +5,7 @@
  */
 
 
-import data from "../../data";
+import data from "data";
 
 const listaGrupos = data.listaGrupos;
 const listaTareas = data.listaActividad;
@@ -14,7 +14,10 @@ const paginacion=2;
 
 let dataLocal = {
 	/* nos da una lista de objetos para ver como index*/
-	getIndexGrupos(pagina) {
+	async getIndexGrupos(pagina) {
+
+		return new Promise();
+
 		/* regresa un pbjectp
 		* success:true/false,
 		* msg:"",
@@ -25,6 +28,8 @@ let dataLocal = {
 	},
 	getGrupo(id) {
 		/* regresa todos los datos del grupo*/
+
+
 	},
 	updateGrupo(id, data) {
 		/*guarda los datos del grupo, si id es null se hace insert*/

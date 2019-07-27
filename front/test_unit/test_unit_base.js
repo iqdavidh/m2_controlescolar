@@ -1,14 +1,13 @@
 'use strict';
 
-describe("Prueba básica jasmine", function () {
-	it("Prueba dummy - true es true", function () {
+/**
+ * Created by David on 23/07/2019.
+ */
+const {assert} = require('chai');
 
-		expect(true).toBe(true)
+describe(`Base Dummy`, async () => {
 
-		// expect(true).toBe("function");
-		// expect((war.addViking)).toBe("function");
-		//expect(Soldier.length).toEqual(2);
-	});
-
-
+	it('verificar el test mocha esta disponible', async () => {
+		assert(true, 'Esto no deberia pasar');
+	}).timeout(20000)
 });
