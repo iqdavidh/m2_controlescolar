@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build_electron": "vue-cli-service build --dest dist_electron",
-
     "test_unit_datalocal": "mocha --compilers js:babel-core/register --timeout 20000 test_unit/test_dataLocal",
     "test_unit_base": "mocha --timeout 20000 test_unit/test_unit_base",
     "test_ui_base": "mocha --timeout 20000 test_ui/test_ui_base",
@@ -15,7 +14,8 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vue-sweet-calendar": "^0.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
@@ -39,11 +39,5 @@
       "test_unit/*"
     ],
     "delay": "2500"
-  },
-  "babel": {
-    "presets": [
-      "stage-3",
-      "latest"
-    ]
   }
 }

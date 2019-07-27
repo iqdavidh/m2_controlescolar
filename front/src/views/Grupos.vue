@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1  id="tituloSeccion">Grupos</h1>
+				
             </div>
         </div>
 
