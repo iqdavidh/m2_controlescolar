@@ -169,14 +169,15 @@ let listaTareas2C = [
 
 /* completar cada lista con los datos de alumnos */
 let listaCalificacionAlumnos2a = JSON.parse(JSON.stringify(lista2a));
+
 listaCalificacionAlumnos2a.forEach(a => {
-	a.evaluacion = null;
+	a.calificacion = null;
 });
 let jsonEval2a = JSON.stringify(listaCalificacionAlumnos2a);
 
 listaTareas2A
 	.forEach(t => {
-		t["id_grupo"] = "g01";
+		t["id_grupo"] = "g2a";
 		t["listaAlumnos"] = JSON.parse(jsonEval2a);
 	});
 
@@ -190,7 +191,7 @@ let jsonEval2b = JSON.stringify(listaCalificacionAlumnos2b);
 
 listaTareas2B
 	.forEach(t => {
-		t["id_grupo"] = "g02";
+		t["id_grupo"] = "g2b";
 		t["listaAlumnos"] = JSON.parse(jsonEval2b);
 	});
 
@@ -204,14 +205,14 @@ let jsonEval2c = JSON.stringify(listaCalificacionAlumnos2c);
 
 listaTareas2C
 	.forEach(t => {
-		t["id_grupo"] = "g03";
+		t["id_grupo"] = "g2c";
 		t["listaAlumnos"] = JSON.parse(jsonEval2c);
 	});
 
 
 let listaGrupos = [
 	{
-		"_id": "g01",
+		"_id": "g2a",
 		"nombre": "2a",
 		"escuela": "x",
 		"tag_escuela": "x",
@@ -223,7 +224,7 @@ let listaGrupos = [
 		"lista_alumnos": lista2a
 	},
 	{
-		"_id": "g02",
+		"_id": "g2b",
 		"nombre": "2b",
 		"escuela": "x",
 		"tag_escuela": "x",
@@ -235,8 +236,8 @@ let listaGrupos = [
 		"lista_alumnos": lista2b
 	},
 	{
-		"_id": "g03",
-		"nombre": "2b",
+		"_id": "g2c",
+		"nombre": "2c",
 		"escuela": "x",
 		"tag_escuela": "x",
 		"materia": "ma",
@@ -258,4 +259,4 @@ let data = {
 	listaTipoActividad:listaTipoActividad
 };
 
-export default data;
+

@@ -62,7 +62,7 @@ let dataLocal = {
 	getIndexAsistencia(id_grupo,finiDMY,ffinDMY){
 
 	},
-	updateAsistencia(id_grupo,fDMY, estatus_asitencia){
+	updateAsistencia(id_grupo, fDMY, id_alumno, estatus_asistencia){
 
 	}
 };

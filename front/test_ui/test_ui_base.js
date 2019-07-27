@@ -15,9 +15,6 @@ after(async () => {
 	await browser.close()
 });
 
-let listaPage = [
-	{urlRel: '/', nombre: 'home'},
-];
 
 
 const urlSite = 'http://localhost:8080';
@@ -76,6 +73,9 @@ let fnTestPage = itemPagina => {
 	});
 };
 
+let listaPage = [
+	{urlRel: '/', nombre: 'home'},
+];
 
 listaPage.forEach(itemPagina => {
 
