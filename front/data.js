@@ -1,6 +1,8 @@
 'use strict';
 
 
+
+
 let lista2a = [
 	{"_id": "01", "nombre": "Lesli Vanbrunt"},
 	{"_id": "02", "nombre": "Latrina Govan"},
@@ -260,3 +262,4 @@ let data = {
 };
 
 
+//export default data;

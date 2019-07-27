@@ -6,9 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build_electron": "vue-cli-service build --dest dist_electron",
-
-    "test_unit_datalocal": "mocha --compilers js:babel-core/register --timeout 20000 test_unit/test_dataLocal",
-    "test_unit_base": "mocha --timeout 20000 test_unit/test_unit_base",
+    "test_jasmine": "nodemon serverStaticJasmine.js",
     "test_ui_base": "mocha --timeout 20000 test_ui/test_ui_base",
     "test": "mocha --timeout 20000 test_unit/"
   },
@@ -21,6 +19,7 @@
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
     "chai": "^4.2.0",
+    "nodemon": "^1.19.1",
     "puppeteer": "^1.19.0",
     "vue-template-compiler": "^2.6.10"
   },
