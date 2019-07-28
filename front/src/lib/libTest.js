@@ -40,6 +40,11 @@ const libTest = {
       listaErrorAcumulado.push(msgError);
     }
   },
+  ValidarRespuesta(listaErrorAcumulado, p){
+    this.Validar(listaErrorAcumulado, p.success, "success no es true");
+    this.Validar(listaErrorAcumulado, p.msg === '', "msg no vacio");
+    this.Validar(listaErrorAcumulado, typeof p.data === 'object', "el data no es object");
+  },
   ValidarTieneProp(listaErrorAcumulado, objeto, listaCNotNull, listaCPosibleNull = []) {
 
     let isValid = true;

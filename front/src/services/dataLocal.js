@@ -4,12 +4,14 @@
  * Created by David on 25/07/2019.
  */
 
+
 import dataSeed from "../services/dataSeed"
 
-const listaActividad = dataSeed.listaActividad;
+const listaTipoActividad=['Tarea','Examen'];
+
 
 const listaGrupos = dataSeed.listaGrupos;
-const listaTareas = dataSeed.listaActividad;
+const listaActividad = dataSeed.listaActividad;
 const paginacion = 2;
 
 
@@ -41,7 +43,7 @@ let dataLocal = {
         })
     ;
 
-    const payload = {
+    const respuesta = {
       success: true,
       msg: "",
       data: {
@@ -49,7 +51,7 @@ let dataLocal = {
       }
     };
 
-    return Promise.resolve(payload);
+    return Promise.resolve(respuesta);
   },
   updateGrupo(id, data) {
 
@@ -64,31 +66,53 @@ let dataLocal = {
     Object
         .keys(data)
         .forEach(k => {
-            listaGrupos[index][k]=data[k];
+          listaGrupos[index][k] = data[k];
         })
     ;
 
 
-    const payload = {
+    const respuesta = {
       success: true,
       msg: "",
       data: {}
     };
 
-    return Promise.resolve(payload);
+    return Promise.resolve(respuesta);
 
   },
-  insertGrupo(id, data) {
-    /*guarda los datos del grupo, si id es null se hace insert*/
+  insertGrupo(data) {
+    /*guarda los datos del grupo, insert*/
+
+
+    const id_new = "5z" + (listaGrupos.length + 1);
+    data._id= id_new;
+    listaGrupos.push(data);
+
+
+    const respuesta = {
+      success: true,
+      msg: "",
+      data: {_id: id_new}
+    };
+
+    return Promise.resolve(respuesta);
+
   },
   getIndexTipoActividad() {
-    /* regresa un pbjectp - es la misma logica que
-* success:true/false,
-* msg:"",
-* data:{
-* 	total (el numero total de registros que hay), items, next
-* }
-* */
+
+    //por el momento no importa la paginacion
+    const d = {
+      success: true,
+      msg: "",
+      data: {
+        total: listaTipoActividad.length,
+        items: listaTipoActividad,
+        next: ''
+      }
+    };
+
+    return Promise.resolve(d);
+
   },
   getIndexActividades(pagina) {
 
