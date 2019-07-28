@@ -1,8 +1,6 @@
 'use strict';
 
 
-
-
 let lista2a = [
 	{"_id": "01", "nombre": "Lesli Vanbrunt"},
 	{"_id": "02", "nombre": "Latrina Govan"},
@@ -255,11 +253,11 @@ let listaTareas = [...listaTareas2A, ...listaTareas2B, ...listaTareas2C];
 
 let listaTipoActividad=[{"_id":"Tarea"},{"_id":"Exámen"}];
 
-let data = {
+let dataSeed = {
 	listaGrupos: listaGrupos,
 	listaActividad: listaTareas,
 	listaTipoActividad:listaTipoActividad
 };
 
 
-//export default data;
+export default dataSeed;

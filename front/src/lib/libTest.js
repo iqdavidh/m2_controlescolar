@@ -1,20 +1,20 @@
 class UnitTestVue {
 
-  constructor(nombre, msgError, fnToTest) {
+  constructor(nombre,  fnToTest) {
 
     this.nombre = nombre;
-    this.msgError = msgError;
+
     this.fnToTest = fnToTest;
     this.isRunTest = true;
     this.resultado = '';
-    this.isSuccess=null;
-    this.run=()=>{
+    this.isSuccess = null;
+    this.run = async () => {
       // no correr test si esta marcado como no correr
       if (!this.isRunTest) {
         return;
       }
-      this.resultado = this.fnToTest();
-      this.isSuccess= this.resultado==='';
+      this.resultado = await this.fnToTest();
+      this.isSuccess = this.resultado === '';
     }
   }
 }
@@ -22,10 +22,18 @@ class UnitTestVue {
 
 const libTest = {
 
-  FactoryTest(nombre, msgError, fnToTest) {
-    return new UnitTestVue(nombre, msgError, fnToTest)
-  }
+  FactoryTest(nombre,  fnToTest) {
+    return new UnitTestVue(nombre,  fnToTest)
+  },
+  Validar(listaErrorAcumulado, evaluacion, msgError) {
+    if (evaluacion !== true) {
+      listaErrorAcumulado.push(msgError);
+    }
 
+  },
+  GetMsgErrorTotal(listaErrorAcumulado) {
+    return listaErrorAcumulado.join(',');
+  }
 
 };
 

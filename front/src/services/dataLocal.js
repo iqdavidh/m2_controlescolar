@@ -4,72 +4,80 @@
  * Created by David on 25/07/2019.
  */
 
+import dataSeed from "../services/dataSeed"
 
-import data from "data";
+const listaActividad=dataSeed.listaActividad;
 
-const listaGrupos = data.listaGrupos;
-const listaTareas = data.listaActividad;
-const paginacion=2;
+const listaGrupos = dataSeed.listaGrupos;
+const listaTareas = dataSeed.listaActividad;
+const paginacion = 2;
 
 
 let dataLocal = {
-	/* nos da una lista de objetos para ver como index*/
-	async getIndexGrupos(pagina) {
+  /* nos da una lista de objetos para ver como index*/
+  getIndexGrupos: async (pagina) => {
 
-		return new Promise();
+    //por el momento no importa la paginacion
+    const d = {
+      success: true,
+      msg: "",
+      data: {
+        total: listaGrupos.length,
+        items: listaGrupos,
+        next: ''
+      }
+    };
 
-		/* regresa un pbjectp
-		* success:true/false,
-		* msg:"",
-		* data:{
-		* 	total (el numero total de registros que hay), items, next
-		* }
-		* */
-	},
-	getGrupo(id) {
-		/* regresa todos los datos del grupo*/
+    return Promise.resolve(d);
 
 
-	},
-	updateGrupo(id, data) {
-		/*guarda los datos del grupo, si id es null se hace insert*/
-	},
-	insertGrupo(id, data) {
-		/*guarda los datos del grupo, si id es null se hace insert*/
-	},
-	getIndexTipoActividad() {
-		/* regresa un pbjectp - es la misma logica que
+  },
+  getGrupo(id) {
+    /* regresa todos los datos del grupo*/
+
+
+  },
+  updateGrupo(id, data) {
+    /*guarda los datos del grupo, si id es null se hace insert*/
+  },
+  insertGrupo(id, data) {
+    /*guarda los datos del grupo, si id es null se hace insert*/
+  },
+  getIndexTipoActividad() {
+    /* regresa un pbjectp - es la misma logica que
 * success:true/false,
 * msg:"",
 * data:{
 * 	total (el numero total de registros que hay), items, next
 * }
 * */
-	},
-	getIndexActividades(pagina) {
-		/* regresa un pbjectp - es la misma logica que
-	* success:true/false,
-	* msg:"",
-	* data:{
-	* 	total (el numero total de registros que hay), items, next
-	* }
-	* */
-	},
-	updateActividad(id, data){
+  },
+  getIndexActividades(pagina) {
 
-	},
-	insertActividad(data){
 
-	},
-	updateActividadCalificacionAlumno(id,id_alumno, calificacion){
+    /* regresa un pbjectp - es la misma logica que
+  * success:true/false,
+  * msg:"",
+  * data:{
+  * 	total (el numero total de registros que hay), items, next
+  * }
+  * */
+  },
+  updateActividad(id, data) {
 
-	},
-	getIndexAsistencia(id_grupo,finiDMY,ffinDMY){
+  },
+  insertActividad(data) {
 
-	},
-	updateAsistencia(id_grupo, fDMY, id_alumno, estatus_asistencia){
+  },
+  updateActividadCalificacionAlumno(id, id_alumno, calificacion) {
 
-	}
+  },
+  getIndexAsistencia(id_grupo, finiDMY, ffinDMY) {
+
+  },
+  updateAsistencia(id_grupo, fDMY, id_alumno, estatus_asistencia) {
+
+  }
 };
 
 export default dataLocal;
