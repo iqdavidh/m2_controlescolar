@@ -114,21 +114,73 @@ let dataLocal = {
     return Promise.resolve(d);
 
   },
-  getIndexActividades(pagina) {
+  getIndexActividades(id_grupo, fIniDMY,fFinDMY) {
 
 
-    /* regresa un pbjectp - es la misma logica que
-  * success:true/false,
-  * msg:"",
-  * data:{
-  * 	total (el numero total de registros que hay), items, next
-  * }
-  * */
+    /*trae todas las actividades de una fecha*/
+
+    let lista=listaActividad
+        .filter(a=>{
+          return a.id_grupo===id_grupo;
+        });
+
+
+    //por el momento no importa la paginacion
+    const d = {
+      success: true,
+      msg: "",
+      data: {
+        total: lista.length,
+        items: lista,
+        next: ''
+      }
+    };
+
+    return Promise.resolve(d);
+
   },
-  updateActividad(id, data) {
+
+  updateActividad(id_actividad, data) {
+
+    let actividad=listaActividad
+        .filter(a=>{
+          return a._id===id_actividad;
+        });
+
+    Object
+        .keys(data)
+        .forEach(k=>{
+          actividad[k]=data[k];
+        })
+    ;
+
+
+
+    //por el momento no importa la paginacion
+    const d = {
+      success: true,
+      msg: "",
+      data: {}
+    };
+
+    return Promise.resolve(d);
 
   },
-  insertActividad(data) {
+  insertActividad( data) {
+
+
+    const id_new = "t_z" + (listaActividad.length + 1);
+    data._id= id_new;
+    listaActividad.push(data);
+
+
+    const respuesta = {
+      success: true,
+      msg: "",
+      data: {_id: id_new}
+    };
+
+    return Promise.resolve(respuesta);
 
   },
   updateActividadCalificacionAlumno(id, id_alumno, calificacion) {

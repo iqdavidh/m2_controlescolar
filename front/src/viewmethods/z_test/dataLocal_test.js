@@ -74,6 +74,10 @@ listaTest.push(libTest.FactoryTest("dataLocal.insertGrupo(data)", async () => {
 
   libTest.ValidarRespuesta(listaError, respuesta);
 
+  //el data trae el id del grupo creado
+  libTest.Validar(listaError, typeof respuesta.data._id === 'string','no viene el id');
+  libTest.Validar(listaError,  respuesta.data._id.length>0,'no es un id valido');
+
   return listaError;
 
 }));
@@ -96,6 +100,65 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexTipoActividad()", async ()
   return listaError;
 
 }));
+
+
+listaTest.push(libTest.FactoryTest("dataLocal.getIndexActividades(id_grupo, fIniDMY,fFinDMY)", async () => {
+
+  let respuesta = await dataLocal.getIndexActividades('g2a', '01/17/2019', '01/05/202');
+
+  let listaError = [];
+
+  libTest.ValidarRespuesta(listaError, respuesta);
+
+  libTest.Validar(listaError, respuesta.data.total > 0, "El data no tiene total >0 ");
+  libTest.Validar(listaError, respuesta.data.items.length > 0, "El data no tiene items ");
+  libTest.Validar(listaError, typeof respuesta.data.next === 'string', "El data no tiene next - puede ser vacio, solo se requiere type string ");
+
+  //console.log(respuesta.data.items);
+
+  return listaError;
+
+}));
+
+
+listaTest.push(libTest.FactoryTest("dataLocal.updateActividad(id_actividad, data)", async () => {
+
+  let dataUpdate = {'titulo': 'supertitulo'};
+  let respuesta = await dataLocal.updateActividad('t01', dataUpdate);
+
+  let listaError = [];
+
+  libTest.ValidarRespuesta(listaError, respuesta);
+
+  return listaError;
+
+}));
+
+
+
+listaTest.push(libTest.FactoryTest("dataLocal.insertActividad(data)", async () => {
+
+
+  //este metodo devuelve un _id con el id de la nueva tarea
+
+  let dataInsert = {'id_grupo': 'g2a', "tipo":"tarea","titulo":"no hacer nada","lista_alumnos":[]};
+  let respuesta = await dataLocal.insertActividad(dataInsert);
+
+
+  let listaError = [];
+
+  libTest.ValidarRespuesta(listaError, respuesta);
+
+  libTest.Validar(listaError, typeof respuesta.data._id === 'string','no viene el id');
+  libTest.Validar(listaError,  respuesta.data._id.length>0,'no es un id valido');
+
+
+  //console.log(respuesta.data);
+
+  return listaError;
+
+}));
+
 
 
 export default listaTest;

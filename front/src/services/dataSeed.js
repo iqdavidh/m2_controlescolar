@@ -185,7 +185,7 @@ listaTareas2A
 /* completar cada lista con los datos de alumnos */
 let listaCalificacionAlumnos2b = JSON.parse(JSON.stringify(lista2b));
 listaCalificacionAlumnos2b.forEach(a => {
-	a.evaluacion = null;
+	a.calificacion = null;
 });
 let jsonEval2b = JSON.stringify(listaCalificacionAlumnos2b);
 
@@ -199,7 +199,7 @@ listaTareas2B
 /* completar cada lista con los datos de alumnos */
 let listaCalificacionAlumnos2c = JSON.parse(JSON.stringify(lista2c));
 listaCalificacionAlumnos2c.forEach(a => {
-	a.evaluacion = null;
+	a.calificacion = null;
 });
 let jsonEval2c = JSON.stringify(listaCalificacionAlumnos2c);
 
