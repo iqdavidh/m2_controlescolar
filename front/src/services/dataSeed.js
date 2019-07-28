@@ -2,101 +2,102 @@
 
 
 let lista2a = [
-	{"_id": "01", "nombre": "Lesli Vanbrunt"},
-	{"_id": "02", "nombre": "Latrina Govan"},
-	{"_id": "03", "nombre": "Leeanna Rascon"},
-	{"_id": "04", "nombre": "Nga Toney"},
-	{"_id": "05", "nombre": "Debbra Hofmann"},
-	{"_id": "06", "nombre": "Barrie Shanklin"},
-	{"_id": "07", "nombre": "Floyd Sherrer"},
-	{"_id": "08", "nombre": "Zofia Kinsman"},
-	{"_id": "09", "nombre": "Azalee Lemos"},
-	{"_id": "10", "nombre": "Columbus Nickel"},
-	{"_id": "11", "nombre": "Deshawn Gurrola"},
-	{"_id": "12", "nombre": "Erin Mingo"},
-	{"_id": "13", "nombre": "Katelin Lovern"},
-	{"_id": "14", "nombre": "Julio Chess"},
-	{"_id": "15", "nombre": "Jarrod Bradway"},
-	{"_id": "16", "nombre": "Tobie Newhart"},
-	{"_id": "17", "nombre": "Griselda Roehr"},
-	{"_id": "18", "nombre": "George Yarbro"},
-	{"_id": "19", "nombre": "Otto Riffel"},
-	{"_id": "20", "nombre": "Lorretta Derrico"},
-	{"_id": "21", "nombre": "Epifania Lococo"},
-	{"_id": "22", "nombre": "Toni Mckeithan"},
-	{"_id": "23", "nombre": "Rocco Carmen"},
-	{"_id": "24", "nombre": "Marget Dearman"},
-	{"_id": "25", "nombre": "Celestina Greenhill"},
-	{"_id": "26", "nombre": "Rosamaria Levesque"},
-	{"_id": "27", "nombre": "Kim Beres"},
-	{"_id": "28", "nombre": "Candida Prophet"},
-	{"_id": "29", "nombre": "Lora Yarnall"},
-	{"_id": "30", "nombre": "Windy Eisen"},
+	{"id": "01","apellidos":"Vanbrunt", "nombre": "Lesli"},
+	{"id": "02","apellidos":"Govan", "nombre": "Latrina"},
+	{"id": "03","apellidos":"Rascon", "nombre": "Leeanna"},
+	{"id": "04","apellidos":"Toney", "nombre": "Nga"},
+	{"id": "05","apellidos":"Hofmann", "nombre": "Debbra"},
+	{"id": "06","apellidos":"Shanklin", "nombre": "Barrie"},
+	{"id": "07","apellidos":"Sherrer", "nombre": "Floyd"},
+	{"id": "08","apellidos":"Kinsman", "nombre": "Zofia"},
+	{"id": "09","apellidos":"Lemos", "nombre": "Azalee"},
+	{"id": "10","apellidos":"Nickel", "nombre": "Columbus"},
+	{"id": "11","apellidos":"Gurrola", "nombre": "Deshawn"},
+	{"id": "12","apellidos":"Mingo", "nombre": "Erin"},
+	{"id": "13","apellidos":"Lovern", "nombre": "Katelin"},
+	{"id": "14","apellidos":"Chess", "nombre": "Julio"},
+	{"id": "15","apellidos":"Bradway", "nombre": "Jarrod"},
+	{"id": "16","apellidos":"Newhart", "nombre": "Tobie"},
+	{"id": "17","apellidos":"Roehr", "nombre": "Griselda"},
+	{"id": "18","apellidos":"Yarbro", "nombre": "George"},
+	{"id": "19","apellidos":"Riffel", "nombre": "Otto"},
+	{"id": "20","apellidos":"Derrico", "nombre": "Lorretta"},
+	{"id": "21","apellidos":"Lococo", "nombre": "Epifania"},
+	{"id": "22","apellidos":"Mckeithan", "nombre": "Toni"},
+	{"id": "23","apellidos":"Carmen", "nombre": "Rocco"},
+	{"id": "24","apellidos":"Dearman", "nombre": "Marget"},
+	{"id": "25","apellidos":"Greenhill", "nombre": "Celestina"},
+	{"id": "26","apellidos":"Levesque", "nombre": "Rosamaria"},
+	{"id": "27","apellidos":"Beres", "nombre": "Kim"},
+	{"id": "28","apellidos":"Prophet", "nombre": "Candida"},
+	{"id": "29","apellidos":"Yarnall", "nombre": "Lora"},
+	{"id": "30","apellidos":"Eisen", "nombre": "Windy"},
 ];
 
 let lista2b = [
-	{"_id": "01", "nombre": "Tonya Jerkins"},
-	{"_id": "02", "nombre": "Kenny Lamers"},
-	{"_id": "03", "nombre": "Hai Westbrooks"},
-	{"_id": "04", "nombre": "Guy Greb"},
-	{"_id": "05", "nombre": "Jacquelyn Zemke"},
-	{"_id": "06", "nombre": "Suzann Gilstrap"},
-	{"_id": "07", "nombre": "Yanira Valero"},
-	{"_id": "08", "nombre": "Ernest Graddy"},
-	{"_id": "09", "nombre": "Celena Casanova"},
-	{"_id": "10", "nombre": "Ester Dionisio"},
-	{"_id": "11", "nombre": "Lizzie Buell"},
-	{"_id": "12", "nombre": "Consuelo Sandquist"},
-	{"_id": "13", "nombre": "Belkis Schaper"},
-	{"_id": "14", "nombre": "Cedrick Janicki"},
-	{"_id": "15", "nombre": "Enola Gose"},
-	{"_id": "16", "nombre": "Linsey Bement"},
-	{"_id": "17", "nombre": "Fannie Levalley"},
-	{"_id": "18", "nombre": "Kum Delman"},
-	{"_id": "19", "nombre": "Sana Tondreau"},
-	{"_id": "20", "nombre": "Shawnna Langdon"},
-	{"_id": "21", "nombre": "Krista Janda"},
-	{"_id": "22", "nombre": "Dalia Lowrance"},
-	{"_id": "23", "nombre": "Jospeh Carter"},
-	{"_id": "24", "nombre": "Josephina Monty"},
-	{"_id": "25", "nombre": "Dulce Bealer"},
-	{"_id": "26", "nombre": "Gerard Veliz"},
-	{"_id": "27", "nombre": "Eleanor Konecny"},
-	{"_id": "28", "nombre": "Carolyn Smyers"},
-	{"_id": "29", "nombre": "Bryan Jacob"}
+	{"id": "01","apellidos":"Jerkins", "nombre": "Tonya"},
+	{"id": "02","apellidos":"Lamers", "nombre": "Kenny"},
+	{"id": "03","apellidos":"Westbrooks", "nombre": "Hai"},
+	{"id": "04","apellidos":"Greb", "nombre": "Guy"},
+	{"id": "05","apellidos":"Zemke", "nombre": "Jacquelyn"},
+	{"id": "06","apellidos":"Gilstrap", "nombre": "Suzann"},
+	{"id": "07","apellidos":"Valero", "nombre": "Yanira"},
+	{"id": "08","apellidos":"Graddy", "nombre": "Ernest"},
+	{"id": "09","apellidos":"Casanova", "nombre": "Celena"},
+	{"id": "10","apellidos":"Dionisio", "nombre": "Ester"},
+	{"id": "11","apellidos":"Buell", "nombre": "Lizzie"},
+	{"id": "12","apellidos":"Sandquist", "nombre": "Consuelo"},
+	{"id": "13","apellidos":"Schaper", "nombre": "Belkis"},
+	{"id": "14","apellidos":"Janicki", "nombre": "Cedrick"},
+	{"id": "15","apellidos":"Gose", "nombre": "Enola"},
+	{"id": "16","apellidos":"Bement", "nombre": "Linsey"},
+	{"id": "17","apellidos":"Levalley", "nombre": "Fannie"},
+	{"id": "18","apellidos":"Delman", "nombre": "Kum"},
+	{"id": "19","apellidos":"Tondreau", "nombre": "Sana"},
+	{"id": "20","apellidos":"Langdon", "nombre": "Shawnna"},
+	{"id": "21","apellidos":"Janda", "nombre": "Krista"},
+	{"id": "22","apellidos":"Lowrance", "nombre": "Dalia"},
+	{"id": "23","apellidos":"Carter", "nombre": "Jospeh"},
+	{"id": "24","apellidos":"Monty", "nombre": "Josephina"},
+	{"id": "25","apellidos":"Bealer", "nombre": "Dulce"},
+	{"id": "26","apellidos":"Veliz", "nombre": "Gerard"},
+	{"id": "27","apellidos":"Konecny", "nombre": "Eleanor"},
+	{"id": "28","apellidos":"Smyers", "nombre": "Carolyn"},
+	{"id": "29","apellidos":"Jacob", "nombre": "Bryan"}
 ];
 
 
 let lista2c = [
-	{"_id": "a01", "nombre": "Colby Istre"},
-	{"_id": "a02", "nombre": "Antwan Maxham"},
-	{"_id": "a03", "nombre": "Zora Weinberger"},
-	{"_id": "a04", "nombre": "Jaymie Mcpeters"},
-	{"_id": "a05", "nombre": "Sonny Korte"},
-	{"_id": "a06", "nombre": "Jenni Hodgin"},
-	{"_id": "a07", "nombre": "Torri Maass"},
-	{"_id": "a08", "nombre": "Jayne Lepe"},
-	{"_id": "a09", "nombre": "Madison Coco"},
-	{"_id": "a10", "nombre": "Nohemi Kehr"},
-	{"_id": "a11", "nombre": "Cameron Currence"},
-	{"_id": "a12", "nombre": "Tori Gunnells"},
-	{"_id": "a13", "nombre": "Jeni Borton"},
-	{"_id": "a14", "nombre": "Adolfo Streets"},
-	{"_id": "a15", "nombre": "Clark Bent"},
-	{"_id": "a16", "nombre": "Yael Jewell"},
-	{"_id": "a17", "nombre": "Rick Wilbanks"},
-	{"_id": "a18", "nombre": "Sherri Champney"},
-	{"_id": "a19", "nombre": "Christie Laver"},
-	{"_id": "a20", "nombre": "Ferdinand Macbeth"},
-	{"_id": "a21", "nombre": "Leon Noonkester"},
-	{"_id": "a22", "nombre": "Christin Scruton"},
-	{"_id": "a23", "nombre": "Brook Pellegrino"},
-	{"_id": "a24", "nombre": "Joleen Oleary"},
-	{"_id": "a25", "nombre": "Eusebio Barnum"},
-	{"_id": "a26", "nombre": "Pierre Worthy"},
-	{"_id": "a27", "nombre": "Pasquale Dubois"},
-	{"_id": "a28", "nombre": "Nan Segui"},
-	{"_id": "a29", "nombre": "Keva Rall"}
+	{"id": "a01","apellidos":"Istre", "nombre": "Colby"},
+	{"id": "a02","apellidos":"Maxham", "nombre": "Antwan"},
+	{"id": "a03","apellidos":"Weinberger", "nombre": "Zora"},
+	{"id": "a04","apellidos":"Mcpeters", "nombre": "Jaymie"},
+	{"id": "a05","apellidos":"Korte", "nombre": "Sonny"},
+
+	{"id": "a06","apellidos":"Hodgin", "nombre": "Jenni"},
+	{"id": "a07","apellidos":"Maass", "nombre": "Torri"},
+	{"id": "a08","apellidos":"Lepe", "nombre": "Jayne"},
+	{"id": "a09","apellidos":"Coco", "nombre": "Madison"},
+	{"id": "a10","apellidos":"Kehr", "nombre": "Nohemi"},
+	{"id": "a11","apellidos":"Currence", "nombre": "Cameron"},
+	{"id": "a12","apellidos":"Gunnells", "nombre": "Tori"},
+	{"id": "a13","apellidos":"Borton", "nombre": "Jeni"},
+	{"id": "a14","apellidos":"Streets", "nombre": "Adolfo"},
+	{"id": "a15","apellidos":"Bent", "nombre": "Clark"},
+	{"id": "a16","apellidos":"Jewell", "nombre": "Yael"},
+	{"id": "a17","apellidos":"Wilbanks", "nombre": "Rick"},
+	{"id": "a18","apellidos":"Champney", "nombre": "Sherri"},
+	{"id": "a19","apellidos":"Laver", "nombre": "Christie"},
+	{"id": "a20","apellidos":"Macbeth", "nombre": "Ferdinand"},
+	{"id": "a21","apellidos":"Noonkester", "nombre": "Leon"},
+	{"id": "a22","apellidos":"Scruton", "nombre": "Christin"},
+	{"id": "a23","apellidos":"Pellegrino", "nombre": "Brook"},
+	{"id": "a24","apellidos":"Oleary", "nombre": "Joleen"},
+	{"id": "a25","apellidos":"Barnum", "nombre": "Eusebio"},
+	{"id": "a26","apellidos":"Worthy", "nombre": "Pierre"},
+	{"id": "a27","apellidos":"Dubois", "nombre": "Pasquale"},
+	{"id": "a28","apellidos":"Segui", "nombre": "Nan"},
+	{"id": "a29","apellidos":"Rall", "nombre": "Keva"}
 ];
 
 
@@ -178,7 +179,7 @@ let jsonEval2a = JSON.stringify(listaCalificacionAlumnos2a);
 listaTareas2A
 	.forEach(t => {
 		t["id_grupo"] = "g2a";
-		t["listaAlumnos"] = JSON.parse(jsonEval2a);
+		t["lista_alumnos"] = JSON.parse(jsonEval2a);
 	});
 
 
@@ -192,7 +193,7 @@ let jsonEval2b = JSON.stringify(listaCalificacionAlumnos2b);
 listaTareas2B
 	.forEach(t => {
 		t["id_grupo"] = "g2b";
-		t["listaAlumnos"] = JSON.parse(jsonEval2b);
+		t["lista_alumnos"] = JSON.parse(jsonEval2b);
 	});
 
 
@@ -206,7 +207,7 @@ let jsonEval2c = JSON.stringify(listaCalificacionAlumnos2c);
 listaTareas2C
 	.forEach(t => {
 		t["id_grupo"] = "g2c";
-		t["listaAlumnos"] = JSON.parse(jsonEval2c);
+		t["lista_alumnos"] = JSON.parse(jsonEval2c);
 	});
 
 
@@ -249,14 +250,22 @@ let listaGrupos = [
 	},
 ];
 
-let listaTareas = [...listaTareas2A, ...listaTareas2B, ...listaTareas2C];
 
-let listaTipoActividad=[{"_id":"Tarea"},{"_id":"Exámen"}];
+listaGrupos.forEach(g=>{
+	g.lista_asistencia=[
+		{fecha:'20191210', alumnos:[]}
+	];
+});
+
+let listaActividad = [...listaTareas2A, ...listaTareas2B, ...listaTareas2C];
+
+
 
 let dataSeed = {
 	listaGrupos: listaGrupos,
-	listaActividad: listaTareas,
-	listaTipoActividad:listaTipoActividad
+	listaActividad: listaActividad,
+	listaAsistencia:[],
+	listaTipoActividad:['Tarea', 'Examen']
 };
 
 

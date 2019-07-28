@@ -6,14 +6,18 @@
 
 
 import dataSeed from "../services/dataSeed"
+import libFecha from "../lib/libFecha";
 
-const listaTipoActividad=['Tarea','Examen'];
+const listaTipoActividad = dataSeed.listaTipoActividad;
 
 
 const listaGrupos = dataSeed.listaGrupos;
 const listaActividad = dataSeed.listaActividad;
+const listaAsistencia = dataSeed.listaAsistencia;
+
 const paginacion = 2;
 
+const listaDiaSemana = ['Dom', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sab'];
 
 let dataLocal = {
   /* nos da una lista de objetos para ver como index*/
@@ -85,7 +89,7 @@ let dataLocal = {
 
 
     const id_new = "5z" + (listaGrupos.length + 1);
-    data._id= id_new;
+    data._id = id_new;
     listaGrupos.push(data);
 
 
@@ -114,16 +118,14 @@ let dataLocal = {
     return Promise.resolve(d);
 
   },
-  getIndexActividades(id_grupo, fIniDMY,fFinDMY) {
-
+  getIndexActividades(id_grupo, fIniDMY, fFinDMY) {
 
     /*trae todas las actividades de una fecha*/
 
-    let lista=listaActividad
-        .filter(a=>{
-          return a.id_grupo===id_grupo;
+    let lista = listaActividad
+        .filter(a => {
+          return a.id_grupo === id_grupo;
         });
-
 
     //por el momento no importa la paginacion
     const d = {
@@ -142,19 +144,17 @@ let dataLocal = {
 
   updateActividad(id_actividad, data) {
 
-    let actividad=listaActividad
-        .find(a=>{
-          return a._id===id_actividad;
+    let actividad = listaActividad
+        .find(a => {
+          return a._id === id_actividad;
         });
 
     Object
         .keys(data)
-        .forEach(k=>{
-          actividad[k]=data[k];
+        .forEach(k => {
+          actividad[k] = data[k];
         })
     ;
-
-
 
     //por el momento no importa la paginacion
     const d = {
@@ -166,10 +166,10 @@ let dataLocal = {
     return Promise.resolve(d);
 
   },
-  insertActividad( data) {
+  insertActividad(data) {
 
     const id_new = "t_z" + (listaActividad.length + 1);
-    data._id= id_new;
+    data._id = id_new;
     listaActividad.push(data);
 
 
@@ -185,17 +185,17 @@ let dataLocal = {
 
   updateActividadCalificacionAlumno(id_actividad, id_alumno, calificacion) {
 
-    let actividad=listaActividad
-        .find(a=>{
-          return a._id===id_actividad;
+    let actividad = listaActividad
+        .find(a => {
+          return a._id === id_actividad;
         });
 
 
-    let alumno=actividad.listaAlumnos.find(a=>{
-      return a._id===id_alumno
+    let alumno = actividad.lista_alumnos.find(a => {
+      return a.id === id_alumno
     });
 
-    alumno.calificacion=calificacion;
+    alumno.calificacion = calificacion;
 
     //por el momento no importa la paginacion
     const d = {
@@ -209,8 +209,83 @@ let dataLocal = {
   },
   getIndexAsistencia(id_grupo, finiDMY, ffinDMY) {
 
+    //buscar un grupo en la lista de asistencia, si no esta crear una lista
+
+    let finiYMD = libFecha.convertDMYToYMD(finiDMY);
+    let ffinYMD = libFecha.convertDMYToYMD(ffinDMY);
+
+    let listaFechasRegistradas = listaAsistencia.filter(a => {
+      return a.id_grupo === id_grupo && (a.fecha >= finiYMD || a.fecha <= ffinYMD);
+    });
+
+    let listaAlumnosNew = listaGrupos
+        .find(g => {
+          return g._id === id_grupo
+        })
+        .lista_alumnos
+    ;
+
+    listaAlumnosNew = JSON.parse(JSON.stringify(listaAlumnosNew));
+    listaAlumnosNew.forEach(a => {
+      a.valor = 1;
+    });
+
+
+    let isFechaFinalalcanzada = false;
+    let listaFechas = [];
+    let fYMD = finiYMD;
+
+    let dateAsistencia = libFecha.factoryFromYMD(finiYMD);
+
+    while (!isFechaFinalalcanzada) {
+
+      let asistenciaDia = listaFechasRegistradas.find(a => {
+        return a.fecha === fYMD;
+      });
+
+      if (asistenciaDia) {
+        asistenciaDia.fechaDMY = libFecha.convertYMDtoDMY(fYMD);
+
+      } else {
+        asistenciaDia = {
+          id_grupo: id_grupo,
+          fecha: fYMD,
+          fechaDMY: libFecha.convertYMDtoDMY(fYMD),
+          lista_alumnos: listaAlumnosNew
+        };
+      }
+
+      asistenciaDia.diaSemana = dateAsistencia.getDay();
+      asistenciaDia.tagDia = listaDiaSemana[asistenciaDia.diaSemana];
+      asistenciaDia.isEnable = !(asistenciaDia.diaSemana === 6 || asistenciaDia.diaSemana === 0);
+
+      listaFechas.push(asistenciaDia);
+
+      isFechaFinalalcanzada = fYMD === ffinYMD;
+
+      dateAsistencia = dateAsistencia.addDays(1);
+      fYMD = dateAsistencia.toFechaYMD();
+
+
+    }
+
+
+    //por el momento no importa la paginacion
+    const d = {
+      success: true,
+      msg: "",
+      data: {
+        total: listaFechas.length,
+        items: listaFechas,
+        next: ''
+      }
+    };
+
+    return Promise.resolve(d);
+
   },
   updateAsistencia(id_grupo, fDMY, id_alumno, estatus_asistencia) {
+
 
   }
 };

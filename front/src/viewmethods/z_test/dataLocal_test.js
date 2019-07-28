@@ -184,4 +184,35 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateActividadCalificacionAlumno(
 }));
 
 
+
+
+listaTest.push(libTest.FactoryTest("getIndexAsistencia(id_grupo, finiDMY, ffinDMY)  ", async () => {
+
+
+  //este metodo devuelve un _id con el id de la nueva tarea
+
+  let id_grupo ='g2a';
+  let finiDMY ='01/01/2019';
+  let ffinDMY ='05/01/2019';
+
+
+  let respuesta = await dataLocal.getIndexAsistencia(id_grupo, finiDMY,ffinDMY);
+
+
+  let listaError = [];
+
+  libTest.ValidarRespuesta(listaError, respuesta);
+
+  let row = respuesta.data.items[0];
+  let listaP = ['fecha', 'id_grupo', 'diaSemana', 'isEnable', 'fechaDMY','tagDia','diaSemana','lista_alumnos'];
+  libTest.ValidarTieneProp(listaError, row, listaP, []);
+
+  console.log(respuesta.data);
+
+  return listaError;
+
+}));
+
+
+
 export default listaTest;
