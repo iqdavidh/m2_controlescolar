@@ -161,4 +161,27 @@ listaTest.push(libTest.FactoryTest("dataLocal.insertActividad(data)", async () =
 
 
 
+listaTest.push(libTest.FactoryTest("dataLocal.updateActividadCalificacionAlumno(id_actividad, id_alumno, calificacion) ", async () => {
+
+
+  //este metodo devuelve un _id con el id de la nueva tarea
+
+  let id_actividad ='t41';/*2c*/
+  let id_alumno ='a29';
+  let calificacion='8';
+
+  let respuesta = await dataLocal.updateActividadCalificacionAlumno(id_actividad, id_alumno, calificacion);
+
+
+  let listaError = [];
+
+  libTest.ValidarRespuesta(listaError, respuesta);
+
+  //console.log(respuesta.data);
+
+  return listaError;
+
+}));
+
+
 export default listaTest;

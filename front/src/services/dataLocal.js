@@ -143,7 +143,7 @@ let dataLocal = {
   updateActividad(id_actividad, data) {
 
     let actividad=listaActividad
-        .filter(a=>{
+        .find(a=>{
           return a._id===id_actividad;
         });
 
@@ -168,7 +168,6 @@ let dataLocal = {
   },
   insertActividad( data) {
 
-
     const id_new = "t_z" + (listaActividad.length + 1);
     data._id= id_new;
     listaActividad.push(data);
@@ -183,7 +182,29 @@ let dataLocal = {
     return Promise.resolve(respuesta);
 
   },
-  updateActividadCalificacionAlumno(id, id_alumno, calificacion) {
+
+  updateActividadCalificacionAlumno(id_actividad, id_alumno, calificacion) {
+
+    let actividad=listaActividad
+        .find(a=>{
+          return a._id===id_actividad;
+        });
+
+
+    let alumno=actividad.listaAlumnos.find(a=>{
+      return a._id===id_alumno
+    });
+
+    alumno.calificacion=calificacion;
+
+    //por el momento no importa la paginacion
+    const d = {
+      success: true,
+      msg: "",
+      data: {}
+    };
+
+    return Promise.resolve(d);
 
   },
   getIndexAsistencia(id_grupo, finiDMY, ffinDMY) {
