@@ -13,11 +13,29 @@ const listaTipoActividad = dataSeed.listaTipoActividad;
 
 const listaGrupos = dataSeed.listaGrupos;
 const listaActividad = dataSeed.listaActividad;
-const listaAsistencia = dataSeed.listaAsistencia;
+
 
 const paginacion = 2;
 
 const listaDiaSemana = ['Dom', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sab'];
+
+
+const getListaAsistAlumnosNew = (id_grupo) => {
+  let listaAlumnosNew = listaGrupos
+      .find(g => {
+        return g._id === id_grupo
+      })
+      .lista_alumnos
+  ;
+
+  listaAlumnosNew = JSON.parse(JSON.stringify(listaAlumnosNew));
+  listaAlumnosNew.forEach(a => {
+    a.valor = 1;
+  });
+
+  return listaAlumnosNew;
+};
+
 
 let dataLocal = {
   /* nos da una lista de objetos para ver como index*/
@@ -214,21 +232,21 @@ let dataLocal = {
     let finiYMD = libFecha.convertDMYToYMD(finiDMY);
     let ffinYMD = libFecha.convertDMYToYMD(ffinDMY);
 
+    let grupo = listaGrupos.find(g => {
+      return g._id = id_grupo;
+    });
+
+    let listaAsistencia = [];
+
+    if (grupo) {
+      listaAsistencia = grupo.asistencia;
+    }
+
     let listaFechasRegistradas = listaAsistencia.filter(a => {
-      return a.id_grupo === id_grupo && (a.fecha >= finiYMD || a.fecha <= ffinYMD);
+      return (a.fecha >= finiYMD || a.fecha <= ffinYMD);
     });
 
-    let listaAlumnosNew = listaGrupos
-        .find(g => {
-          return g._id === id_grupo
-        })
-        .lista_alumnos
-    ;
-
-    listaAlumnosNew = JSON.parse(JSON.stringify(listaAlumnosNew));
-    listaAlumnosNew.forEach(a => {
-      a.valor = 1;
-    });
+    let listaAlumnosNew = getListaAsistAlumnosNew(id_grupo);
 
 
     let isFechaFinalalcanzada = false;
@@ -248,10 +266,9 @@ let dataLocal = {
 
       } else {
         asistenciaDia = {
-          id_grupo: id_grupo,
           fecha: fYMD,
           fechaDMY: libFecha.convertYMDtoDMY(fYMD),
-          lista_alumnos: listaAlumnosNew
+          alumnos: listaAlumnosNew
         };
       }
 
@@ -269,7 +286,6 @@ let dataLocal = {
 
     }
 
-
     //por el momento no importa la paginacion
     const d = {
       success: true,
@@ -284,7 +300,68 @@ let dataLocal = {
     return Promise.resolve(d);
 
   },
+
   updateAsistencia(id_grupo, fDMY, id_alumno, estatus_asistencia) {
+
+
+    let fYMD = libFecha.convertDMYToYMD(fDMY);
+
+    let grupo = listaGrupos.find(g => {
+      return g._id = id_grupo;
+    });
+
+    let listaAsistencia = grupo.asistencia;
+
+    let diaAsistencia = listaAsistencia.find(a => {
+      return a.fecha === fYMD;
+    });
+
+
+    if (diaAsistencia === undefined) {
+
+      let listaAlumnosNew = getListaAsistAlumnosNew(id_grupo);
+
+      listaAlumnosNew.forEach(a => {
+        a.valor = 1;
+      });
+
+      diaAsistencia = {
+        fecha: fYMD,
+        dechaDMY: fDMY,
+        alumnos: listaAlumnosNew
+      };
+
+      grupo.asistencia.push(diaAsistencia);
+      grupo.asistencia.sort((a, b) => {
+        if (a.fecha === b.fecha) {
+          return 0;
+        }
+
+        if (a.fecha > b.fecha) {
+          return 1;
+        } else {
+          return -1;
+        }
+
+      });
+    }
+
+    let alumno = diaAsistencia.alumnos
+        .find(d => {
+          return d.id === id_alumno
+        })
+    ;
+
+    alumno.valor = estatus_asistencia;
+
+
+    const d = {
+      success: true,
+      msg: "",
+      data: {}
+    };
+
+    return Promise.resolve(d);
 
 
   }

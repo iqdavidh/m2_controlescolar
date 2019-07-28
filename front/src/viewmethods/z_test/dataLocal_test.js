@@ -186,7 +186,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateActividadCalificacionAlumno(
 
 
 
-listaTest.push(libTest.FactoryTest("getIndexAsistencia(id_grupo, finiDMY, ffinDMY)  ", async () => {
+listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiDMY, ffinDMY)  ", async () => {
 
 
   //este metodo devuelve un _id con el id de la nueva tarea
@@ -204,15 +204,32 @@ listaTest.push(libTest.FactoryTest("getIndexAsistencia(id_grupo, finiDMY, ffinDM
   libTest.ValidarRespuesta(listaError, respuesta);
 
   let row = respuesta.data.items[0];
-  let listaP = ['fecha', 'id_grupo', 'diaSemana', 'isEnable', 'fechaDMY','tagDia','diaSemana','lista_alumnos'];
+  let listaP = ['fecha', 'diaSemana', 'isEnable', 'fechaDMY','tagDia','diaSemana','alumnos'];
   libTest.ValidarTieneProp(listaError, row, listaP, []);
 
-  console.log(respuesta.data);
+  //console.log(respuesta.data);
 
   return listaError;
 
 }));
 
+
+
+listaTest.push(libTest.FactoryTest("dataLocal.updateAsistencia(id_grupo, dDMY, idAlumno, estatus_asistencia)  ", async () => {
+
+  let id_grupo ='g2a';
+  let fDMY ='02/01/2019';
+
+  let respuesta = await dataLocal.updateAsistencia(id_grupo, fDMY,"03",0);
+
+  let listaError = [];
+
+  libTest.ValidarRespuesta(listaError, respuesta);
+
+
+  return listaError;
+
+}));
 
 
 export default listaTest;

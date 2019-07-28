@@ -252,8 +252,8 @@ let listaGrupos = [
 
 
 listaGrupos.forEach(g=>{
-	g.lista_asistencia=[
-		{fecha:'20191210', alumnos:[]}
+	g.asistencia=[
+		{fecha:'2019-12-10', alumnos:[]}
 	];
 });
 
@@ -264,7 +264,6 @@ let listaActividad = [...listaTareas2A, ...listaTareas2B, ...listaTareas2C];
 let dataSeed = {
 	listaGrupos: listaGrupos,
 	listaActividad: listaActividad,
-	listaAsistencia:[],
 	listaTipoActividad:['Tarea', 'Examen']
 };
 
