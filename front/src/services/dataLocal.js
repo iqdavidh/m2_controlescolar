@@ -6,7 +6,7 @@
 
 import dataSeed from "../services/dataSeed"
 
-const listaActividad=dataSeed.listaActividad;
+const listaActividad = dataSeed.listaActividad;
 
 const listaGrupos = dataSeed.listaGrupos;
 const listaTareas = dataSeed.listaActividad;
@@ -32,10 +32,24 @@ let dataLocal = {
 
 
   },
-  getGrupo(id) {
+  getGrupo: async (id) => {
     /* regresa todos los datos del grupo*/
 
+    const grupo = listaGrupos
+        .find(g => {
+          return g._id === id;
+        })
+    ;
 
+    const payload = {
+      success: true,
+      msg: "",
+      data: {
+        grupo: grupo
+      }
+    };
+
+    return Promise.resolve(payload);
   },
   updateGrupo(id, data) {
     /*guarda los datos del grupo, si id es null se hace insert*/
