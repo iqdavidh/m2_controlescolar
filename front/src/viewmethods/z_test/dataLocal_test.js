@@ -53,4 +53,22 @@ listaTest.push(libTest.FactoryTest("dataLocal.getGrupo(id)", async () => {
 }));
 
 
+listaTest.push(libTest.FactoryTest("dataLocal.updateGrupo(id,data)", async () => {
+
+
+  let dataUpdate = {'nombre': 'nuevo nombre', 'materia': 'nueva materia'};
+  let p = await dataLocal.updateGrupo('g2a', dataUpdate);
+
+
+  let listaError = [];
+
+  libTest.Validar(listaError, p.success, "success no es true");
+  libTest.Validar(listaError, p.msg === '', "msg no vacio");
+  libTest.Validar(listaError, typeof p.data === 'object', "el data no es object");
+
+  return listaError;
+
+}));
+
+
 export default listaTest;

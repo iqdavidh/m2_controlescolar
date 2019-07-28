@@ -52,7 +52,31 @@ let dataLocal = {
     return Promise.resolve(payload);
   },
   updateGrupo(id, data) {
-    /*guarda los datos del grupo, si id es null se hace insert*/
+
+    /* actualiza los datos , se manda  un paylaod de qconfirmacion*/
+
+    const index = listaGrupos
+        .findIndex(g => {
+          return g._id === id;
+        })
+    ;
+
+    Object
+        .keys(data)
+        .forEach(k => {
+            listaGrupos[index][k]=data[k];
+        })
+    ;
+
+
+    const payload = {
+      success: true,
+      msg: "",
+      data: {}
+    };
+
+    return Promise.resolve(payload);
+
   },
   insertGrupo(id, data) {
     /*guarda los datos del grupo, si id es null se hace insert*/
