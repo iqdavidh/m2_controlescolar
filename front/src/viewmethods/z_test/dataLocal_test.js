@@ -235,12 +235,10 @@ listaTest.push(libTest.FactoryTest("dataLocal.reporteAsistencia(id_grupo,y,m)", 
 
   let respuesta = await dataLocal.reporteAsistencia(id_grupo, y, m);
 
+  console.log(respuesta.data.items);
+
   let listaError = [];
   libTest.ValidarRespuesta(listaError, respuesta);
-
-  libTest.Validar(listaError, respuesta.data.items.length>0,"No hay arraay de reporet");
-
-
   return listaError;
 
 }));
@@ -251,7 +249,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.reporteActividades(id_grupo,y,m)  
   let y = 2019;
   let m = 1;
 
-  let respuesta = await dataLocal.reporteAsistencia(id_grupo, y, m);
+  let respuesta = await dataLocal.reporteActividades(id_grupo, y, m);
 
   let listaError = [];
   libTest.ValidarRespuesta(listaError, respuesta);

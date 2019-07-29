@@ -368,27 +368,10 @@ let dataLocal = {
 
   async reporteAsistencia(id_grupo, y, m) {
 
-    m = m < 10 ? '0' + m.toString() : m.toString();
-    let finiDMY = `01/${m}/${y}`;
-    let ffinDMY = `30/${m}/${y}`;
-
-
-    let grupo = listaGrupos
-        .find(g => {
-          return g._id === id_grupo;
-        })
-    ;
-
-
-    let listaAlumnos = grupo.alumnos;
-
-    let response = await this.getIndexAsistencia(id_grupo, finiDMY, ffinDMY);
-
-
     const d = {
       success: true,
       msg: "",
-      data: { items:listaAsistencia}
+      data: { items:dataSeed.reporte}
     };
 
     return Promise.resolve(d);
