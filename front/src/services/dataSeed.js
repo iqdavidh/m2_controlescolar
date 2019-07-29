@@ -179,7 +179,7 @@ let jsonEval2a = JSON.stringify(listaCalificacionAlumnos2a);
 listaTareas2A
 	.forEach(t => {
 		t["id_grupo"] = "g2a";
-		t["lista_alumnos"] = JSON.parse(jsonEval2a);
+		t["alumnos"] = JSON.parse(jsonEval2a);
 	});
 
 
@@ -193,7 +193,7 @@ let jsonEval2b = JSON.stringify(listaCalificacionAlumnos2b);
 listaTareas2B
 	.forEach(t => {
 		t["id_grupo"] = "g2b";
-		t["lista_alumnos"] = JSON.parse(jsonEval2b);
+		t["alumnos"] = JSON.parse(jsonEval2b);
 	});
 
 
@@ -207,7 +207,7 @@ let jsonEval2c = JSON.stringify(listaCalificacionAlumnos2c);
 listaTareas2C
 	.forEach(t => {
 		t["id_grupo"] = "g2c";
-		t["lista_alumnos"] = JSON.parse(jsonEval2c);
+		t["alumnos"] = JSON.parse(jsonEval2c);
 	});
 
 
@@ -222,7 +222,7 @@ let listaGrupos = [
 		"ymini": 201809,
 		"ymfin": 201907,
 		"comentarios": "",
-		"lista_alumnos": lista2a
+		"alumnos": lista2a
 	},
 	{
 		"_id": "g2b",
@@ -234,7 +234,7 @@ let listaGrupos = [
 		"ymini": 201809,
 		"ymfin": 201907,
 		"comentarios": "",
-		"lista_alumnos": lista2b
+		"alumnos": lista2b
 	},
 	{
 		"_id": "g2c",
@@ -246,7 +246,7 @@ let listaGrupos = [
 		"ymini": 201809,
 		"ymfin": 201907,
 		"comentarios": "",
-		"lista_alumnos": lista2c
+		"alumnos": lista2c
 	},
 ];
 
@@ -258,6 +258,15 @@ listaGrupos.forEach(g=>{
 });
 
 let listaActividad = [...listaTareas2A, ...listaTareas2B, ...listaTareas2C];
+
+
+
+/*reporte asistencia*/
+let reporte={
+	year:2019,
+	mes:1,
+	alumnos:[]
+};
 
 
 

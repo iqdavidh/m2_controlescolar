@@ -21,7 +21,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexGrupos", async () => {
 
   /*ver el primer item delkdata*/
   let row = respuesta.data.items[0];
-  let listaP = ['_id', 'nombre', 'escuela', 'materia', 'lista_alumnos'];
+  let listaP = ['_id', 'nombre', 'escuela', 'materia', 'alumnos'];
   libTest.ValidarTieneProp(listaError, row, listaP, []);
 
 
@@ -67,7 +67,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateGrupo(id,data)", async () =>
 listaTest.push(libTest.FactoryTest("dataLocal.insertGrupo(data)", async () => {
 
 
-  let dataInsert = {'nombre': '5z', 'materia': 'recicalje', 'lista_alumnos': []};
+  let dataInsert = {'nombre': '5z', 'materia': 'recicalje', 'alumnos': []};
   let respuesta = await dataLocal.insertGrupo(dataInsert);
 
   let listaError = [];
@@ -75,8 +75,8 @@ listaTest.push(libTest.FactoryTest("dataLocal.insertGrupo(data)", async () => {
   libTest.ValidarRespuesta(listaError, respuesta);
 
   //el data trae el id del grupo creado
-  libTest.Validar(listaError, typeof respuesta.data._id === 'string','no viene el id');
-  libTest.Validar(listaError,  respuesta.data._id.length>0,'no es un id valido');
+  libTest.Validar(listaError, typeof respuesta.data._id === 'string', 'no viene el id');
+  libTest.Validar(listaError, respuesta.data._id.length > 0, 'no es un id valido');
 
   return listaError;
 
@@ -135,13 +135,12 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateActividad(id_actividad, data
 }));
 
 
-
 listaTest.push(libTest.FactoryTest("dataLocal.insertActividad(data)", async () => {
 
 
   //este metodo devuelve un _id con el id de la nueva tarea
 
-  let dataInsert = {'id_grupo': 'g2a', "tipo":"tarea","titulo":"no hacer nada","lista_alumnos":[]};
+  let dataInsert = {'id_grupo': 'g2a', "tipo": "tarea", "titulo": "no hacer nada", "alumnos": []};
   let respuesta = await dataLocal.insertActividad(dataInsert);
 
 
@@ -149,8 +148,8 @@ listaTest.push(libTest.FactoryTest("dataLocal.insertActividad(data)", async () =
 
   libTest.ValidarRespuesta(listaError, respuesta);
 
-  libTest.Validar(listaError, typeof respuesta.data._id === 'string','no viene el id');
-  libTest.Validar(listaError,  respuesta.data._id.length>0,'no es un id valido');
+  libTest.Validar(listaError, typeof respuesta.data._id === 'string', 'no viene el id');
+  libTest.Validar(listaError, respuesta.data._id.length > 0, 'no es un id valido');
 
 
   //console.log(respuesta.data);
@@ -160,15 +159,14 @@ listaTest.push(libTest.FactoryTest("dataLocal.insertActividad(data)", async () =
 }));
 
 
-
 listaTest.push(libTest.FactoryTest("dataLocal.updateActividadCalificacionAlumno(id_actividad, id_alumno, calificacion) ", async () => {
 
 
   //este metodo devuelve un _id con el id de la nueva tarea
 
-  let id_actividad ='t41';/*2c*/
-  let id_alumno ='a29';
-  let calificacion='8';
+  let id_actividad = 't41';/*2c*/
+  let id_alumno = 'a29';
+  let calificacion = '8';
 
   let respuesta = await dataLocal.updateActividadCalificacionAlumno(id_actividad, id_alumno, calificacion);
 
@@ -184,19 +182,17 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateActividadCalificacionAlumno(
 }));
 
 
-
-
 listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiDMY, ffinDMY)  ", async () => {
 
 
   //este metodo devuelve un _id con el id de la nueva tarea
 
-  let id_grupo ='g2a';
-  let finiDMY ='01/01/2019';
-  let ffinDMY ='05/01/2019';
+  let id_grupo = 'g2a';
+  let finiDMY = '01/01/2019';
+  let ffinDMY = '05/01/2019';
 
 
-  let respuesta = await dataLocal.getIndexAsistencia(id_grupo, finiDMY,ffinDMY);
+  let respuesta = await dataLocal.getIndexAsistencia(id_grupo, finiDMY, ffinDMY);
 
 
   let listaError = [];
@@ -204,7 +200,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiD
   libTest.ValidarRespuesta(listaError, respuesta);
 
   let row = respuesta.data.items[0];
-  let listaP = ['fecha', 'diaSemana', 'isEnable', 'fechaDMY','tagDia','diaSemana','alumnos'];
+  let listaP = ['fecha', 'diaSemana', 'isEnable', 'fechaDMY', 'tagDia', 'diaSemana', 'alumnos'];
   libTest.ValidarTieneProp(listaError, row, listaP, []);
 
   //console.log(respuesta.data);
@@ -214,13 +210,12 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiD
 }));
 
 
-
 listaTest.push(libTest.FactoryTest("dataLocal.updateAsistencia(id_grupo, dDMY, idAlumno, estatus_asistencia)  ", async () => {
 
-  let id_grupo ='g2a';
-  let fDMY ='02/01/2019';
+  let id_grupo = 'g2a';
+  let fDMY = '02/01/2019';
 
-  let respuesta = await dataLocal.updateAsistencia(id_grupo, fDMY,"03",0);
+  let respuesta = await dataLocal.updateAsistencia(id_grupo, fDMY, "03", 0);
 
   let listaError = [];
 
@@ -231,5 +226,39 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateAsistencia(id_grupo, dDMY, i
 
 }));
 
+
+listaTest.push(libTest.FactoryTest("dataLocal.reporteAsistencia(id_grupo,y,m)", async () => {
+
+  let id_grupo = 'g2a';
+  let y = 2019;
+  let m = 1;
+
+  let respuesta = await dataLocal.reporteAsistencia(id_grupo, y, m);
+
+  let listaError = [];
+  libTest.ValidarRespuesta(listaError, respuesta);
+
+  libTest.Validar(listaError, respuesta.data.items.length>0,"No hay arraay de reporet");
+
+
+  return listaError;
+
+}));
+
+listaTest.push(libTest.FactoryTest("dataLocal.reporteActividades(id_grupo,y,m)  ", async () => {
+
+  let id_grupo = 'g2a';
+  let y = 2019;
+  let m = 1;
+
+  let respuesta = await dataLocal.reporteAsistencia(id_grupo, y, m);
+
+  let listaError = [];
+  libTest.ValidarRespuesta(listaError, respuesta);
+
+
+  return listaError;
+
+}));
 
 export default listaTest;
