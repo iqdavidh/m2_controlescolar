@@ -12,6 +12,17 @@ export default new Router({
       component: Home
     },
     {
+      path: '/grupos',
+      name: 'grupos',
+      component: () => import(/* webpackChunkName: "grupos" */ './views/Grupos.vue')
+    },
+    {
+      path: '/grupo/:id',
+      name: 'grupo',
+      component: () => import(/* webpackChunkName: "grupo" */ './views/GrupoDetalle.vue')
+    },
+
+    {
       path: '/login',
       name: 'login',
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
@@ -25,11 +36,6 @@ export default new Router({
       path: '/asistencia',
       name: 'asistencia',
       component: () => import(/* webpackChunkName: "asistencia" */ './views/Asistencia.vue')
-    },
-    {
-      path: '/grupos',
-      name: 'grupos',
-      component: () => import(/* webpackChunkName: "grupos" */ './views/Grupos.vue')
     },
     {
       path: '/reportes',

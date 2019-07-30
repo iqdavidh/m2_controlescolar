@@ -1,11 +1,12 @@
 <template>
   <div>
 
-    <div class="row" style="margin-bottom: 10px">
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
       <div class="col-md-12">
         <span class="btn btn-primary" title="Agregar Grupo" @click="onShowFormAdd">
-        <i class="fa fa-plus"></i> Grupos
-      </span>
+          <i class="fa fa-plus"></i> Grupos
+        </span>
+        <span style="margin-left: 20px">{{listaGrupos.length}} Grupos Registrados</span>
       </div>
     </div>
 
@@ -17,12 +18,22 @@
              v-for="g in listaGrupos"
              :key="g._id"
         >
-          <h3 class="display-4">{{g.materia }}  <span>Grupo {{g.nombre}}</span></h3>
-          <p class="lead">Escuela : {{g.escuela}}</p>
-          <p>Ciclo {{g.tipo_ciclo.ciclo}}</p>
-          <a class="btn btn-primary btn-lg" href="#" role="button">Ver más</a>
-        </div>
+          <h4 class="display-4">{{g.materia }} <span>Grupo {{g.nombre}}</span></h4>
+          <p class="lead"><i class="fa fa-building"></i> Escuela : {{g.escuela}}
+            <i class="fa fa-calendar" style="margin-left: 20px"></i>
+            Ciclo {{g.tipo_ciclo.ciclo}}
+          </p>
 
+          <div style="text-align: right">
+
+            <router-link
+                class="btn btn-primary btn-md"
+                :to="{name:'grupo', params: {id:g._id}}"
+                >Ver más</router-link>
+
+          </div>
+
+        </div>
 
 
       </div>
@@ -62,11 +73,11 @@
     async mounted() {
       const response = await dataService.getIndexGrupos();
 
-      if(!response.success){
+      if (!response.success) {
         libToast.alert(response.msg);
       }
 
-      this.listaGrupos=response.data.items;
+      this.listaGrupos = response.data.items;
 
     }
 
