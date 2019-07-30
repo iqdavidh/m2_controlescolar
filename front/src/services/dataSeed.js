@@ -1,6 +1,8 @@
 'use strict';
 
 
+import libFecha from "../lib/libFecha";
+
 let lista2a = [
   {"id": "01", "apellidos": "Vanbrunt", "nombre": "Lesli"},
   {"id": "02", "apellidos": "Govan", "nombre": "Latrina"},
@@ -260,17 +262,17 @@ listaGrupos.forEach(g => {
 let listaActividad = [...listaTareas2A, ...listaTareas2B, ...listaTareas2C];
 
 
-let fechas = [];
+let fechasAsistencia = [];
 for (let i = 1; i <= 30; i++) {
   let code = (i < 10 ? '0' : '') + i.toString();
   code = `${code}/01/2019`;
-  fechas.push({fecha: code, valor: 1});
+  fechasAsistencia.push({fecha: code, valor: 1});
 }
 
-fechas = JSON.stringify(fechas);
+fechasAsistencia = JSON.stringify(fechasAsistencia);
 let listaAAlu = JSON.parse(JSON.stringify(lista2a));
 listaAAlu.forEach(aa => {
-  aa.fechas = JSON.parse(fechas);
+  aa.fechas = JSON.parse(fechasAsistencia);
   aa.asistencia_total = 30;
   aa.falta_total = 30;
 });
@@ -282,12 +284,37 @@ let reporte2a = {
   alumnos: listaAAlu
 };
 
+let indexAsistencia = JSON.parse(JSON.stringify(lista2a));
+indexAsistencia.forEach(aa => {
+  aa.fechas = JSON.parse(fechasAsistencia);
+
+});
+
+
+/* reporte actividades */
+let reporteActividad = JSON.parse(JSON.stringify(lista2a));
+
+reporteActividad.forEach(a => {
+  let listaT = JSON.parse(JSON.stringify(listaTareas2A));
+  listaT.forEach(t => {
+    t.calificacion = 9.5;
+  });
+  a.actividades = listaT;
+  a.promedio = 9.5;
+  a.y=2019;
+  a.m=1;
+});
+
+
+/* ***************************************************************** */
 
 let dataSeed = {
   listaGrupos: listaGrupos,
   listaActividad: listaActividad,
   listaTipoActividad: ['Tarea', 'Examen'],
-  reporte: reporte2a
+  reporte: reporte2a,
+  reporteActividad: reporteActividad,
+  indexAsistencia: indexAsistencia
 };
 
 

@@ -227,72 +227,16 @@ let dataLocal = {
   },
   getIndexAsistencia(id_grupo, finiDMY, ffinDMY) {
 
-    //buscar un grupo en la lista de asistencia, si no esta crear una lista
-
-    let finiYMD = libFecha.convertDMYToYMD(finiDMY);
-    let ffinYMD = libFecha.convertDMYToYMD(ffinDMY);
-
-    let grupo = listaGrupos.find(g => {
-      return g._id = id_grupo;
-    });
-
-    let listaAsistencia = [];
-
-    if (grupo) {
-      listaAsistencia = grupo.asistencia;
-    }
-
-    let listaFechasRegistradas = listaAsistencia.filter(a => {
-      return (a.fecha >= finiYMD || a.fecha <= ffinYMD);
-    });
-
-    let listaAlumnosNew = getListaAsistAlumnosNew(id_grupo);
-
-
-    let isFechaFinalalcanzada = false;
-    let listaFechas = [];
-    let fYMD = finiYMD;
-
-    let dateAsistencia = libFecha.factoryFromYMD(finiYMD);
-
-    while (!isFechaFinalalcanzada) {
-
-      let asistenciaDia = listaFechasRegistradas.find(a => {
-        return a.fecha === fYMD;
-      });
-
-      if (asistenciaDia) {
-        asistenciaDia.fechaDMY = libFecha.convertYMDtoDMY(fYMD);
-
-      } else {
-        asistenciaDia = {
-          fecha: fYMD,
-          fechaDMY: libFecha.convertYMDtoDMY(fYMD),
-          alumnos: listaAlumnosNew
-        };
-      }
-
-      asistenciaDia.diaSemana = dateAsistencia.getDay();
-      asistenciaDia.tagDia = listaDiaSemana[asistenciaDia.diaSemana];
-      asistenciaDia.isEnable = !(asistenciaDia.diaSemana === 6 || asistenciaDia.diaSemana === 0);
-
-      listaFechas.push(asistenciaDia);
-
-      isFechaFinalalcanzada = fYMD === ffinYMD;
-
-      dateAsistencia = dateAsistencia.addDays(1);
-      fYMD = dateAsistencia.toFechaYMD();
-
-
-    }
+    let lista=dataSeed.indexAsistencia;
 
     //por el momento no importa la paginacion
     const d = {
       success: true,
       msg: "",
       data: {
-        total: listaFechas.length,
-        items: listaFechas,
+        total: lista.length,
+        items: lista,
+
         next: ''
       }
     };
@@ -366,12 +310,12 @@ let dataLocal = {
 
   },
 
-  async reporteAsistencia(id_grupo, y, m) {
+  reporteAsistencia(id_grupo, y, m) {
 
     const d = {
       success: true,
       msg: "",
-      data: { items:dataSeed.reporte}
+      data: dataSeed.reporte
     };
 
     return Promise.resolve(d);
@@ -379,6 +323,15 @@ let dataLocal = {
 
   },
   reporteActividades(id_grupo, y, m) {
+
+    const d = {
+      success: true,
+      msg: "",
+      data: { alumnos : dataSeed.reporteActividad}
+    };
+
+    return Promise.resolve(d);
+
 
   }
 };

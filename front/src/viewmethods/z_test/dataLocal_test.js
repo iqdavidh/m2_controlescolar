@@ -200,10 +200,15 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiD
   libTest.ValidarRespuesta(listaError, respuesta);
 
   let row = respuesta.data.items[0];
-  let listaP = ['fecha', 'diaSemana', 'isEnable', 'fechaDMY', 'tagDia', 'diaSemana', 'alumnos'];
+  let listaP = ['id', 'apellidos', 'nombre', 'fechas'];
   libTest.ValidarTieneProp(listaError, row, listaP, []);
 
-  //console.log(respuesta.data);
+  let rowFecha = row.fechas[0];
+  libTest.ValidarTieneProp(listaError, rowFecha, ['fecha', 'valor']);
+
+
+  console.log('indexAsistencia');
+  console.log(respuesta.data);
 
   return listaError;
 
@@ -235,15 +240,31 @@ listaTest.push(libTest.FactoryTest("dataLocal.reporteAsistencia(id_grupo,y,m)", 
 
   let respuesta = await dataLocal.reporteAsistencia(id_grupo, y, m);
 
-  console.log(respuesta.data.items);
+  console.log('reporte asistencia');
+  console.log(respuesta.data);
+
 
   let listaError = [];
   libTest.ValidarRespuesta(listaError, respuesta);
+
+
+  /*estuctura del reporte*/
+
+  libTest.ValidarTieneProp(listaError, respuesta.data,
+      ['alumnos', 'mes', 'year']);
+
+  /*estructura secuntario 1er elemento de alumno*/
+  libTest.ValidarTieneProp(listaError, respuesta.data.alumnos[0],
+      ['id', 'apellidos', 'nombre', 'fechas', 'asistencia_total', 'falta_total']);
+
+  /*estructura terciaria1er elemento de fecha de asitencia */
+  libTest.ValidarTieneProp(listaError, respuesta.data.alumnos[0].fechas[0],
+      ['fecha', 'valor']);
   return listaError;
 
 }));
 
-listaTest.push(libTest.FactoryTest("dataLocal.reporteActividades(id_grupo,y,m)  ", async () => {
+listaTest.push(libTest.FactoryTest("dataLocal.reporteActividades(id_grupo,y,m)", async () => {
 
   let id_grupo = 'g2a';
   let y = 2019;
@@ -251,8 +272,27 @@ listaTest.push(libTest.FactoryTest("dataLocal.reporteActividades(id_grupo,y,m)  
 
   let respuesta = await dataLocal.reporteActividades(id_grupo, y, m);
 
+  console.log('reporte actividad');
+  console.log(respuesta.data);
+
   let listaError = [];
+
   libTest.ValidarRespuesta(listaError, respuesta);
+
+
+  /*estructura 1er elemento de alumno*/
+  libTest.ValidarTieneProp(listaError, respuesta.data, ['alumnos']);
+
+
+  /*estructura secuntario 1er elemento de alumno*/
+  libTest.ValidarTieneProp(listaError, respuesta.data.alumnos[0],
+      ['actividades', 'apellidos', 'id', 'nombre'
+    , 'promedio','y','m']);
+
+  libTest.ValidarTieneProp(listaError, respuesta.data.alumnos[0].actividades[0],
+      ['_id','tipo','titulo','calificacion']);
+
+
 
 
   return listaError;
