@@ -25,6 +25,10 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexGrupos", async () => {
   libTest.ValidarTieneProp(listaError, row, listaP, []);
 
 
+
+  console.log("getIndexGrupos");
+  console.log(respuesta.data);
+
   let msg = libTest.GetMsgErrorTotal(listaError);
   return msg;
 
@@ -67,7 +71,8 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateGrupo(id,data)", async () =>
 listaTest.push(libTest.FactoryTest("dataLocal.insertGrupo(data)", async () => {
 
 
-  let dataInsert = {'nombre': '5z', 'materia': 'recicalje', 'alumnos': []};
+  let dataInsert = {'nombre': '5z', 'materia': 'recicalje', 'alumnos': [] ,tag_escuela:"tag", 'tipo_ciclo':{tipo:'sep',ciclo:'2019-2020'},
+    ymini:2019, ymfin:2020};
   let respuesta = await dataLocal.insertGrupo(dataInsert);
 
   let listaError = [];
@@ -77,6 +82,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.insertGrupo(data)", async () => {
   //el data trae el id del grupo creado
   libTest.Validar(listaError, typeof respuesta.data._id === 'string', 'no viene el id');
   libTest.Validar(listaError, respuesta.data._id.length > 0, 'no es un id valido');
+
 
   return listaError;
 

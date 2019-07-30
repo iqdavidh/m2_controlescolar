@@ -39,7 +39,7 @@ const getListaAsistAlumnosNew = (id_grupo) => {
 
 let dataLocal = {
   /* nos da una lista de objetos para ver como index*/
-  getIndexGrupos: async (pagina) => {
+  getIndexGrupos: async (pagina=1) => {
 
     //por el momento no importa la paginacion
     const d = {

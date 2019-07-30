@@ -19,15 +19,15 @@
                             <li class="nav-item">
                                 <router-link to="/login">Login</router-link>
                             </li>
-                            <li class="nav-item">
-                                <router-link to="/dashboard">Dashboard</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/asistencia">Asistencia</router-link>
-                            </li>
+
                             <li class="nav-item">
                                 <router-link to="/grupos">Grupos</router-link>
                             </li>
+
+                            <li class="nav-item">
+                                <router-link to="/asistencia">Asistencia</router-link>
+                            </li>
+
                             <li class="nav-item">
                                 <router-link to="/reportes">Reportes</router-link>
                             </li>

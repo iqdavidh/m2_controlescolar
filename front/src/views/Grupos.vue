@@ -1,42 +1,77 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col-md-12">
-                <h1 id="tituloSeccion">Grupos</h1>
-            </div>
-        </div>
+  <div>
 
-        <div v-if="isDebug">
-            {{}}
-        </div>
-
+    <div class="row" style="margin-bottom: 10px">
+      <div class="col-md-12">
+        <span class="btn btn-primary" title="Agregar Grupo" @click="onShowFormAdd">
+        <i class="fa fa-plus"></i> Grupos
+      </span>
+      </div>
     </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="alert alert-info"
+             v-for="g in listaGrupos"
+             :key="g._id"
+        >
+          <h3 class="display-4">{{g.materia }}  <span>Grupo {{g.nombre}}</span></h3>
+          <p class="lead">Escuela : {{g.escuela}}</p>
+          <p>Ciclo {{g.tipo_ciclo.ciclo}}</p>
+          <a class="btn btn-primary btn-lg" href="#" role="button">Ver más</a>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div v-if="isDebug && false">
+      {{listaGrupos}}
+    </div>
+
+  </div>
 
 </template>
 
 
 <script>
 
-	import libConfig from "../lib/libConfig";
-	import dataService from "../services/dataService";
+  import libConfig from "../lib/libConfig";
+  import dataService from "../services/dataService";
+  import libToast from "../lib/libToast";
 
 
-	export default {
-		name: 'grupos',
-		props: {},
-		components: {},
-		data() {
-			return {
-				isDebug:libConfig.isDebug
-            }
-		},
-		methods: {},
-		mounted() {
-			dataService.getlistaGrupos();
-		}
+  export default {
+    name: 'grupos',
+    props: {},
+    components: {},
+    data() {
+      return {
+        listaGrupos: [],
+        isDebug: libConfig.isDebug
+      }
+    },
+    methods: {
+      onShowFormAdd() {
+
+      }
+    },
+    async mounted() {
+      const response = await dataService.getIndexGrupos();
+
+      if(!response.success){
+        libToast.alert(response.msg);
+      }
+
+      this.listaGrupos=response.data.items;
+
+    }
 
 
-	}
+  }
 </script>
 
 
