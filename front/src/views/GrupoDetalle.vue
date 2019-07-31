@@ -1,7 +1,7 @@
 <template>
-  <div >
+  <div>
 
-    <div class="row mt-2 mb-2" >
+    <div class="row mt-2 mb-2">
       <div class="col-md-12">
         <h2>
           Grupo <span class="badge badge-primary">{{grupo.materia}}</span>
@@ -18,9 +18,6 @@
             <a class="nav-link active" href="#grupo" role="tab" data-toggle="tab" id="homeTab">Grupo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#alumnos" role="tab" data-toggle="tab">Alumnos</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#asistencia" role="tab" data-toggle="tab">Asistencia</a>
           </li>
           <li class="nav-item">
@@ -34,10 +31,27 @@
         <!-- Tab panes -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="grupo">
-            kkk
-            <GrupoInfo :grupo="grupo" :key="grupo._id"/>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div>
+                  <p>DATOS GENERALES</p>
+                  <hr>
+                </div>
+                <GrupoInfo :grupo="grupo" :key="grupo._id"/>
+              </div>
+              <div class="col-md-6">
+
+                <div>
+                  <P>ALUMNOS</P>
+                  <hr>
+                </div>
+
+              </div>
+            </div>
+
           </div>
-          <div role="tabpanel" class="tab-pane fade" id="alumnos">bbb</div>
+
           <div role="tabpanel" class="tab-pane fade" id="asitencia">ccc</div>
           <div role="tabpanel" class="tab-pane fade" id="actividades">ccc</div>
           <div role="tabpanel" class="tab-pane fade" id="reporte">ccc</div>
@@ -68,7 +82,7 @@
     data() {
       return {
         grupo: {},
-        componentKey:0,
+        componentKey: 0,
         isDebug: libConfig.isDebug
       };
     },
@@ -87,8 +101,6 @@
 
       this.grupo = response.data.grupo;
 
-
-      $( "#homeTab").trigger( "click")
       // this.$nextTick().then(() => {
       //
       // });
@@ -97,3 +109,9 @@
     }
   }
 </script>
+
+<style scoped>
+  .tab-pane {
+    padding-top: 20px;
+  }
+</style>
