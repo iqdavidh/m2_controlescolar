@@ -4,7 +4,7 @@
     <div class="row" style="margin-top: 10px; margin-bottom: 10px">
       <div class="col-md-12">
         <span class="btn btn-primary" title="Agregar Grupo" @click="onShowFormAdd">
-          <i class="fa fa-plus"></i> Grupos
+          <i class="fa fa-plus"></i>
         </span>
         <span style="margin-left: 20px">{{listaGrupos.length}} Grupos Registrados</span>
       </div>
