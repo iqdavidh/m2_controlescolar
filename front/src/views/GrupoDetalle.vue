@@ -52,7 +52,7 @@
 
           </div>
 
-          <div role="tabpanel" class="tab-pane fade" id="asitencia">ccc</div>
+          <div role="tabpanel" class="tab-pane fade" id="asistencia">ccc</div>
           <div role="tabpanel" class="tab-pane fade" id="actividades">ccc</div>
           <div role="tabpanel" class="tab-pane fade" id="reporte">ccc</div>
         </div>
