@@ -142,8 +142,16 @@
                 }
               });
 
+        } else if (tipoOperacion === "d") {
+          const idAlumno = data.id;
+          let index = this.grupo.alumnos.findIndex(a => {
+            return a.id === idAlumno;
+          });
+
+          this.grupo.alumnos.splice(index,1);
+
         } else {
-          alert("error");
+          alert("error - tipo de operacion no reconocdio:" + tipoOperacion);
         }
 
 

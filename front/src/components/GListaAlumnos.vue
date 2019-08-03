@@ -241,9 +241,9 @@
         listaCamposNoRequeridos: ['comentarios'],
         filtroLista: '',
         isEdit: false,
-        alumnoOld: {isEdit: false,id:''},
+        alumnoOld: {isEdit: false, id: ''},
         form: {
-          ope:'',
+          ope: '',
           data: {},
           dataError: {},
           isEnProceso: false,
@@ -257,7 +257,7 @@
           isEnProceso: false,
           isShow: false
         },
-        isDebug:libConfig.isDebug
+        isDebug: libConfig.isDebug
       }
     },
     computed: {
@@ -310,9 +310,9 @@
         const f = this.form;
 
         this.alumnoOld.isEdit = false;
-        this.alumnoOld.id='';
+        this.alumnoOld.id = '';
 
-        f.ope="c";
+        f.ope = "c";
 
         this.listaCampos.forEach(c => {
           f.data[c] = '';
@@ -361,7 +361,7 @@
 
           if (f.ope === "c") {
             dataAlumno.id = respuesta.data.id;
-          }else{
+          } else {
             dataAlumno.id = f.idAlumno;
           }
 
@@ -372,8 +372,8 @@
 
           if (f.ope === "c") {
             this.formNew.isShow = false;
-          }else{
-            this.alumnoOld.isEdit=false;
+          } else {
+            this.alumnoOld.isEdit = false;
           }
 
 
@@ -386,7 +386,7 @@
 
       },
       cancelSaveAdd() {
-
+        this.formNew.isShow = false;
       },
       onShowEdit(alumno) {
 
@@ -400,14 +400,14 @@
 
         this.listaCampos.forEach(c => {
           f.data[c] = alumno[c];
-          f.dataError[c]=false;
+          f.dataError[c] = false;
         });
-        this.listaCamposNoRequeridos.forEach(c=>{
+        this.listaCamposNoRequeridos.forEach(c => {
           f.data[c] = alumno[c];
         });
 
-        f.ope="u";
-        f.idAlumno=alumno.id;
+        f.ope = "u";
+        f.idAlumno = alumno.id;
 
         alumno.isEdit = true;
 
@@ -416,10 +416,9 @@
       onShowFormDelete(alumno) {
 
         this.formDelete.alumno = alumno;
-        $("#modalDelete").modal();
+        this.formDelete.isEnProceso = false;
 
-      },
-      exeSaveEdit(alumno) {
+        $("#modalDelete").modal();
 
       },
       onCancelEdit(alumno) {
@@ -436,62 +435,27 @@
       onShowCopiarExcel() {
 
       },
-      async exe() {
-
-        // const f = this.form;
-        //
-        // if (f.isEnProceso) {
-        //   return;
-        // }
-        //
-        // f.isEnProceso = true;
-        //
-        // let isValid = this.getIsValid();
-        //
-        // if (!isValid) {
-        //   libToast.alert('Datos incorrectos');
-        //   f.isEnProceso = true;
-        //   return;
-        // }
-        //
-        //
-        // let dataUpdate = {};
-        // this.listaCampos.forEach(c => {
-        //   dataUpdate[c] = f.data[c];
-        // });
-        //
-        // let idGrupo = this.grupo._id;
-        // let isUpdate = idGrupo !== undefined;
-        //
-        // let respuesta;
-        //
-        // if (isUpdate) {
-        //   respuesta = await dataService.updateGrupo(idGrupo, dataUpdate);
-        // } else {
-        //   respuesta = await dataService.insertGrupo(idGrupo, dataUpdate);
-        // }
-        //
-        //
-        // if (respuesta.success) {
-        //
-        //   if (!isUpdate) {
-        //     dataUpdate._id = respuesta.data._id;
-        //   }
-        //
-        //   this.$emit("onUpdated", isUpdate, dataUpdate);
-        //
-        //   libToast.success(isUpdate ? "Datos actualizados" : "Grupo agregado");
-        //   this.isEdit=false;
-        //
-        // } else {
-        //   libToast.alert(respuesta.msg());
-        // }
-        //
-        // f.isEnProceso = false;
-
-      },
-
       async exeDelete() {
+
+        let f = this.formDelete;
+
+        if (f.isEnProceso) {
+          return;
+        }
+
+        f.isEnProceso = true;
+
+        let respuesta = await dataService.deleteAlumno(this.idGrupo, this.formDelete.alumno.id);
+
+        if (respuesta.success) {
+          libToast.success("Registro eliminado");
+          this.$emit("onCrud", "d", this.formDelete.alumno);
+          $("#modalDelete").modal('hide');
+          f.isEnProceso=false;
+
+        } else {
+          libToast.alert(respuesta.msg);
+        }
 
       },
       cancel() {

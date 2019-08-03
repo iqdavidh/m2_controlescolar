@@ -149,6 +149,17 @@ let dataLocal = {
 
   },
 
+  deleteAlumno(idGrupo,idAlumno){
+
+    const respuesta = {
+      success: true,
+      msg: "",
+      data: {}
+    };
+
+    return Promise.resolve(respuesta);
+
+  },
   getIndexTipoActividad() {
 
     //por el momento no importa la paginacion
