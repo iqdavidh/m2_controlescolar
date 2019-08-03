@@ -42,7 +42,7 @@
               </div>
 
               <div class="col-md-6">
-                <h5 style="margin-bottom: 15px"><i class="fa fa-users"></i> {{grupo.alumnos.length}} ALUMNOS</h5>
+                <h5 style="margin-bottom: 15px"><i class="fa fa-users"></i> {{getNumAlumnos}} ALUMNOS</h5>
 
                 <GListaAlumnos :alumnos="grupo.alumnos" @onUpdated="onUpdateAlumnos"/>
 
@@ -103,6 +103,11 @@
 
       onUpdateAlumnos(isUpdate, listaUpdate) {
 
+      }
+    },
+    computed:{
+      getNumAlumnos(){
+        return this.grupo.alumnos ? this.grupo.alumnos.length : 0;
       }
     },
     async beforeMount() {

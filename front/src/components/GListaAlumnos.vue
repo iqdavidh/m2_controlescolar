@@ -1,6 +1,25 @@
 <template>
   <div>
 
+
+    <div style="display: flex; margin-bottom: 5px">
+      <div>
+        <span class="btn btn-primary btn-sm" title="Agregar Celebridad" @click="onShowFormAdd">
+        <i class="fa fa-plus"></i>
+      </span>
+      </div>
+      <div style="margin-left: 20px; padding-top: 4px">
+        <i class="fa fa-search"></i>
+      </div>
+      <div style="padding-left:10px">
+        <input type="text" class="form-control" placeholder="Buscar..."/>
+      </div>
+      <div style="flex-grow: 1">
+        <i class="fa fa-excel"></i>
+      </div>
+    </div>
+
+
     <table class="table table-condensed table-striped">
       <thead>
       <tr>
@@ -148,7 +167,10 @@
   export default {
     name: 'GListaAlumnos',
     props: {
-      alumnos: Array
+      alumnos: {
+        type:Array,
+        default: ()=>[]
+      }
     },
     data() {
       return {
@@ -167,6 +189,9 @@
     },
     computed: {},
     methods: {
+      onShowFormAdd() {
+
+      },
       exeSaveAdd() {
 
       },
@@ -177,7 +202,7 @@
 
 
       },
-      onShowFormDelete(alumno){
+      onShowFormDelete(alumno) {
 
       },
       exeSaveEdit(alumno) {
