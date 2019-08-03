@@ -46,7 +46,14 @@
 
           </div>
 
-          <div role="tabpanel" class="tab-pane fade" id="asistencia">ccc</div>
+          <div role="tabpanel" class="tab-pane fade" id="asistencia">
+            <h5><i class="fa fa-list"></i> ASISTENCIA</h5>
+            <hr>
+            <GAsistencia :alumnos="grupo.alumnos"
+                         :idGrupo="grupo._id"/>
+          </div>
+
+
           <div role="tabpanel" class="tab-pane fade" id="actividades">ccc</div>
           <div role="tabpanel" class="tab-pane fade" id="reporte">ccc</div>
         </div>
@@ -66,6 +73,8 @@
 
   import GDatosBasicos from '@/components/GDatosBasicos.vue';
   import GListaAlumnos from '@/components/GListaAlumnos.vue';
+  import GAsistencia from '@/components/GAsistencia.vue';
+
   import Vue from 'vue';
 
   import libConfig from "../lib/libConfig";
@@ -83,7 +92,7 @@
       };
     },
     components: {
-      GDatosBasicos, GListaAlumnos
+      GDatosBasicos, GListaAlumnos, GAsistencia
     },
     methods: {
 
@@ -148,7 +157,7 @@
             return a.id === idAlumno;
           });
 
-          this.grupo.alumnos.splice(index,1);
+          this.grupo.alumnos.splice(index, 1);
 
         } else {
           alert("error - tipo de operacion no reconocdio:" + tipoOperacion);

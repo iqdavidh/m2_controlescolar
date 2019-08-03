@@ -486,11 +486,4 @@
 <style scoped>
 
 
-  /*  tr td .btnShowOnHover {*/
-  /*    display: none;*/
-  /*  }*/
-
-  /*  tr:hover td .btnShowOnHover {*/
-  /*    display: block;*/
-  /*  }*/
 </style>
