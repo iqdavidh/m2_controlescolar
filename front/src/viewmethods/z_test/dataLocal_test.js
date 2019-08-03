@@ -205,12 +205,28 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiD
 
   libTest.ValidarRespuesta(listaError, respuesta);
 
-  let row = respuesta.data.items[0];
+
+  libTest.ValidarTieneProp(listaError, respuesta.data, ["alumnos","fechas","total","next"], []);
+
+
+
+  let row = respuesta.data.alumnos[0];
   let listaP = ['id', 'apellidos', 'nombre', 'fechas'];
   libTest.ValidarTieneProp(listaError, row, listaP, []);
 
   let rowFecha = row.fechas[0];
   libTest.ValidarTieneProp(listaError, rowFecha, ['fecha', 'valor']);
+
+
+
+  let rowF = respuesta.data.fechas[0];
+
+
+
+  libTest.ValidarTieneProp(listaError, rowF,
+      ["fecha","diaSemana","mes","y"], []);
+
+
 
 
   console.log('indexAsistencia');
