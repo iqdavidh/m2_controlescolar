@@ -34,20 +34,17 @@
 
             <div class="row">
               <div class="col-md-6">
-                <div>
-                  <p>DATOS GENERALES</p>
-                  <hr>
-                </div>
 
+                <h5><i class="fa fa-home"></i> DATOS GENERALES</h5>
+                <hr>
                 <GDatosBasicos :grupo="grupo" :key="grupo._id" @onUpdated="onUpdateDatosBasicos"/>
 
               </div>
-              <div class="col-md-6">
 
-                <div>
-                  <P>ALUMNOS</P>
-                  <hr>
-                </div>
+              <div class="col-md-6">
+                <h5 style="margin-bottom: 15px"><i class="fa fa-users"></i> {{grupo.alumnos.length}} ALUMNOS</h5>
+
+                <GListaAlumnos :alumnos="grupo.alumnos" @onUpdated="onUpdateAlumnos"/>
 
               </div>
             </div>
@@ -73,6 +70,7 @@
 <script>
 
   import GDatosBasicos from '@/components/GDatosBasicos.vue'
+  import GListaAlumnos from '@/components/GListaAlumnos.vue'
 
   import libConfig from "../lib/libConfig";
   import dataService from "../services/dataService";
@@ -89,7 +87,7 @@
       };
     },
     components: {
-      GDatosBasicos
+      GDatosBasicos, GListaAlumnos
     },
     methods: {
 
@@ -97,6 +95,13 @@
         Object.keys(dataUpdate).forEach(k => {
           this.grupo[k] = dataUpdate[k];
         });
+
+        if (!isUpdate) {
+          this.grupo.alumnos = [];
+        }
+      },
+
+      onUpdateAlumnos(isUpdate, listaUpdate) {
 
       }
     },
