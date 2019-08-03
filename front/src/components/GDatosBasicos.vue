@@ -8,7 +8,7 @@
 
       <div class="valoredit " v-show="isEdit">
         <div class="form-group">
-          <input v-model="form.data.nombre" class="form-control" required title="Nombre"/>
+          <input v-model="form.data.nombre" class="form-control form-control-sm" required title="Nombre"/>
         </div>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class="valor" v-show="!isEdit">{{grupo.materia}}</div>
       <div class="valoredit " v-show="isEdit">
         <div class="form-group">
-          <input v-model="form.data.materia" class="form-control" required title="Materia"/>
+          <input v-model="form.data.materia" class="form-control form-control-sm" required title="Materia"/>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <div class="valor" v-show="!isEdit">{{grupo.escuela}}</div>
       <div class="valoredit " v-show="isEdit">
         <div class="form-group">
-          <input v-model="form.data.escuela" class="form-control" required title="Escuela"/>
+          <input v-model="form.data.escuela" class="form-control form-control-sm" required title="Escuela"/>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
       <div class="valor" v-show="!isEdit ">{{grupo.ciclo}}</div>
       <div class="valoredit " v-show="isEdit">
         <div class="form-group">
-          <input v-model="form.data.ciclo" class="form-control"
+          <input v-model="form.data.ciclo" class="form-control form-control-sm"
                  required title="Año inicial" style="width: 190px; display: inline-block"/>
         </div>
       </div>
@@ -51,7 +51,7 @@
       <div class="valoredit " v-show="isEdit">
         <div class="form-group">
           <textarea v-model="form.data.comentarios"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     required title="Comentarios"></textarea>
         </div>
       </div>

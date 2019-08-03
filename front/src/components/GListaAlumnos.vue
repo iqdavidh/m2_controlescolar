@@ -12,7 +12,9 @@
         <i class="fa fa-search"></i>
       </div>
       <div style="padding-left:10px">
-        <input type="text" class="form-control" placeholder="Buscar..."/>
+        <input type="text" class="form-control form-control-sm"
+               v-model="filtroLista"
+               placeholder="Buscar..."/>
       </div>
       <div style="flex-grow: 1">
         <i class="fa fa-excel"></i>
@@ -23,13 +25,14 @@
     <table class="table table-condensed table-striped">
       <thead>
       <tr>
-        <th style="width: 40px">#</th>
-        <th>Nombre</th>
-        <th>Apellidos</th>
+        <th style="width: 30px">#</th>
+        <th style="width: 150px">Nombre</th>
+        <th style="width: 150px">Apellidos</th>
         <th>Comentarios</th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th style="width: 40px"></th>
+        <th style="width: 40px"></th>
+        <th style="width: 40px"></th>
+
       </tr>
       </thead>
       <tbody>
@@ -62,7 +65,7 @@
 
         <td></td>
         <td>
-                <span class="btn btn-sm btn-primary" title="Guardar"
+                <span class="btn btn-sm btn-primary " title="Guardar"
                       @click="exeSaveAdd">
                   <i class="fa fa-upload"></i>
                 </span>
@@ -76,7 +79,7 @@
         </td>
       </tr>
 
-      <tr v-for="(alumno,index) in alumnos" :key="alumno.id">
+      <tr v-for="(alumno,index) in getListaConFiltro" :key="alumno.id">
         <td>{{index+1}}</td>
         <td>
           <div v-if="!alumno.isEdit">
@@ -126,7 +129,7 @@
         </td>
         <td>
           <div v-if="!alumno.isEdit">
-                <span class="btn btn-sm btn-primary"
+                <span class="btn btn-sm btn-primary btnShowOnHover"
                       @click="onShowEdit(alumno)"
                 >
                   <i class="fa fa-edit"></i>
@@ -143,7 +146,7 @@
         </td>
         <td>
           <div v-if="!alumno.isEdit">
-                <span class="btn btn-sm btn-danger"
+                <span class="btn btn-sm btn-danger btnShowOnHover"
                       title="Eliominar Registro"
                       @click="onShowFormDelete(alumno)">
                   <i class="fa fa-trash"></i>
@@ -168,13 +171,15 @@
     name: 'GListaAlumnos',
     props: {
       alumnos: {
-        type:Array,
-        default: ()=>[]
+        type: Array,
+        default: () => []
       }
     },
     data() {
       return {
+
         listaCampos: ['nombre', 'apellidos'],
+        filtroLista: '',
         isEdit: false,
         formNew: {
           isShow: false,
@@ -187,7 +192,50 @@
         },
       }
     },
-    computed: {},
+    computed: {
+      getListaConFiltro() {
+
+        let lista = [];
+
+        let texto = this.filtroLista.toString().trim().toLowerCase();
+
+        let isFiltro = texto !== '';
+
+
+        if (isFiltro) {
+
+          lista = this.alumnos
+              .filter(a => {
+
+                let index = a.nombre.toLowerCase().indexOf(texto);
+
+                let isCoincidencia = (index > -1);
+
+                if (!isCoincidencia) {
+
+                  index = a.apellidos.toLowerCase().indexOf(texto);
+
+                  isCoincidencia = index > -1;
+                }
+
+                return isCoincidencia;
+
+              });
+
+        } else {
+          lista = this.alumnos
+              .filter(a => {
+                return true;
+              });
+
+        }
+
+
+        return lista;
+
+      }
+
+    },
     methods: {
       onShowFormAdd() {
 
@@ -216,6 +264,10 @@
         // let isValid = libValidacion.paramNotNull(this.form.data, listaRequerido, this.form.dataError);
         //
         // return isValid;
+
+
+      },
+      onFiltroChange() {
 
 
       },
@@ -283,6 +335,8 @@
         this.form.data[c] = null;
         this.form.dataError[c] = false;
       });
+
+
     },
     mounted() {
 
@@ -296,4 +350,11 @@
 <style scoped>
 
 
+  /*  tr td .btnShowOnHover {*/
+  /*    display: none;*/
+  /*  }*/
+
+  /*  tr:hover td .btnShowOnHover {*/
+  /*    display: block;*/
+  /*  }*/
 </style>

@@ -42,8 +42,8 @@
               </div>
 
               <div class="col-md-6">
-                <h5 style="margin-bottom: 15px"><i class="fa fa-users"></i> {{getNumAlumnos}} ALUMNOS</h5>
-
+                <h5><i class="fa fa-users"></i> {{getNumAlumnos}} ALUMNOS</h5>
+                <hr>
                 <GListaAlumnos :alumnos="grupo.alumnos" @onUpdated="onUpdateAlumnos"/>
 
               </div>
