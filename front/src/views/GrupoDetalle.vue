@@ -34,13 +34,15 @@
 
             <h5><i class="fa fa-home"></i> DATOS GENERALES</h5>
             <hr>
-            <GDatosBasicos :grupo="grupo" :key="grupo._id" @onUpdated="onUpdateDatosBasicos"/>
+            <GDatosBasicos :grupo="grupo"
+                           :key="grupo._id"
+                           @onUpdated="onUpdateDatosBasicos"/>
 
             <h5><i class="fa fa-users"></i> {{getNumAlumnos}} ALUMNOS</h5>
             <hr>
-            <GListaAlumnos :alumnos="grupo.alumnos" @onUpdated="onUpdateAlumnos"/>
-
-
+            <GListaAlumnos :alumnos="grupo.alumnos"
+                           :idGrupo="grupo._id"
+                           @onCrud="onCrudAlumnos"/>
 
           </div>
 
@@ -95,7 +97,13 @@
         }
       },
 
-      onUpdateAlumnos(isUpdate, listaUpdate) {
+      onCrudAlumnos(tipoOperacion, data) {
+
+        if(tipoOperacion==="c"){
+          this.alumnos.push(data);
+        }else{
+          alert("error");
+        }
 
       }
     },

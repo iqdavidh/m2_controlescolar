@@ -4,7 +4,7 @@
 
     <div style="display: flex; margin-bottom: 5px">
       <div>
-        <span class="btn btn-primary btn-sm" title="Agregar Celebridad"
+        <span class="btn btn-primary btn-sm" title="Agregar Alumno"
               @click="onShowFormAdd">
         <i class="fa fa-plus"></i>
       </span>
@@ -12,153 +12,169 @@
       <div style="margin-left: 20px; padding-top: 4px">
         <i class="fa fa-search"></i>
       </div>
-      <div style="padding-left:10px">
+      <div style="padding-left:10px; flex-grow: 1;">
         <input type="text" class="form-control form-control-sm"
                v-model="filtroLista"
                placeholder="Buscar..."/>
       </div>
-      <div style="flex-grow: 1">
-        <i class="fa fa-excel"></i>
+      <div style="margin-left: 10px; ">
+
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-secondary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+            <i class="fa fa-bolt"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button class="dropdown-item" type="button">
+              <i class="fa fa-file-excel-o"></i> Exportar a Excel
+            </button>
+          </div>
+        </div>
+
+
       </div>
     </div>
 
+    <div ref="panTablaAlumnos">
+      <table class="table table-condensed table-striped">
+        <thead>
+        <tr>
+          <th style="width: 30px">#</th>
+          <th style="width: 200px">Nombre</th>
+          <th style="width: 200px">Apellidos</th>
+          <th>Comentarios</th>
+          <th style="width: 40px"></th>
+          <th style="width: 40px"></th>
+          <th style="width: 40px"></th>
 
-    <table class="table table-condensed table-striped">
-      <thead>
-      <tr>
-        <th style="width: 30px">#</th>
-        <th style="width: 200px">Nombre</th>
-        <th style="width: 200px">Apellidos</th>
-        <th>Comentarios</th>
-        <th style="width: 40px"></th>
-        <th style="width: 40px"></th>
-        <th style="width: 40px"></th>
+        </tr>
+        </thead>
+        <tbody>
 
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-show="formNew.isShow"
-          style="background-color: lightgoldenrodyellow">
-        <td>New</td>
-        <td>
-          <div class="form-group" :class="{'error':form.dataError.nombre}">
-            <input v-model="form.data.nombre"
-                   ref="inputnombreNew"
-                   class="form-control form-control-sm"
-                   required
-                   title="Nombre"/>
-          </div>
-        </td>
+        <tr v-if="formNew.isShow"
+            style="background-color: lightgoldenrodyellow">
+          <td>New</td>
+          <td>
+            <div class="form-group" :class="{'error':form.dataError.nombre}">
+              <input v-model="form.data.nombre"
+                     ref="inputnombreNew"
+                     class="form-control form-control-sm"
+                     required
+                     title="Nombre"/>
+            </div>
+          </td>
 
-        <td :class="{'error':form.dataError.apellidos}">
-          <div class="form-group">
-            <input v-model="form.data.apellidos" class="form-control form-control-sm"
-                   required title="Apellidos"/>
-          </div>
-        </td>
+          <td :class="{'error':form.dataError.apellidos}">
+            <div class="form-group">
+              <input v-model="form.data.apellidos" class="form-control form-control-sm"
+                     required title="Apellidos"/>
+            </div>
+          </td>
 
-        <td>
-          <div class="form-group">
+          <td>
+            <div class="form-group">
             <textarea v-model="form.data.comentarios"
                       class="form-control form-control-sm"
                       required title="Comentarios"></textarea>
-          </div>
-        </td>
+            </div>
+          </td>
 
-        <td></td>
-        <td>
+          <td></td>
+          <td>
                 <span class="btn btn-sm btn-primary " title="Guardar"
                       @click="exeSaveAdd">
                   <i class="fa fa-upload"></i>
                 </span>
-        </td>
+          </td>
 
-        <td>
+          <td>
                <span class="btn btn-sm btn-dark" title="Cancelar"
                      @click="cancelSaveAdd">
                   <i class="fa fa-times"></i>
                 </span>
-        </td>
-      </tr>
+          </td>
+        </tr>
 
-      <tr v-for="(alumno,index) in getListaConFiltro" :key="alumno.id">
-        <td>{{index+1}}</td>
-        <td>
-          <div v-if="!alumno.isEdit">
-            {{alumno.nombre}}
-          </div>
-          <div v-if="alumno.isEdit">
-            <div class="form-group" :class="{'error':form.dataError.nombre}">
-              <input v-model="form.data.nombre"
-                     class="form-control"
-                     required title="Nombre"/>
+        <tr v-for="(alumno,index) in getListaConFiltro" :key="alumno.id">
+          <td>{{index+1}}</td>
+          <td>
+            <div v-if="!alumno.isEdit">
+              {{alumno.nombre}}
             </div>
-          </div>
+            <div v-if="alumno.isEdit">
+              <div class="form-group" :class="{'error':form.dataError.nombre}">
+                <input v-model="form.data.nombre"
+                       class="form-control"
+                       required title="Nombre"/>
+              </div>
+            </div>
 
-        </td>
-        <td>
-          <div v-if="!alumno.isEdit">
-            {{alumno.apellidos}}
-          </div>
-          <div v-if="alumno.isEdit">
-            <div class="form-group" :class="{'error':form.dataError.apellidos}">
-              <input v-model="form.data.apellidos" class="form-control"
-                     required title="Apellidos"/>
+          </td>
+          <td>
+            <div v-if="!alumno.isEdit">
+              {{alumno.apellidos}}
             </div>
-          </div>
-        </td>
-        <td>
-          <div v-if="!alumno.isEdit">
-            {{alumno.comentarios}}
-          </div>
-          <div v-if="alumno.isEdit">
-            <div class="form-group">
+            <div v-if="alumno.isEdit">
+              <div class="form-group" :class="{'error':form.dataError.apellidos}">
+                <input v-model="form.data.apellidos" class="form-control"
+                       required title="Apellidos"/>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div v-if="!alumno.isEdit">
+              {{alumno.comentarios}}
+            </div>
+            <div v-if="alumno.isEdit">
+              <div class="form-group">
               <textarea v-model="form.data.comentarios"
                         class="form-control" required title="Comentarios"></textarea>
+              </div>
             </div>
-          </div>
 
-        </td>
-        <td>
-          <div v-if="alumno.isEdit">
+          </td>
+          <td>
+            <div v-if="alumno.isEdit">
                 <span class="btn btn-sm btn-primary"
                       title="Guardar cambios"
                       @click="exeSaveEdit(alumno)"
                 >
                   <i class="fa fa-upload"></i>
                 </span>
-          </div>
-        </td>
-        <td>
-          <div v-if="!alumno.isEdit">
+            </div>
+          </td>
+          <td>
+            <div v-if="!alumno.isEdit">
                 <span class="btn btn-sm btn-primary btnShowOnHover"
                       @click="onShowEdit(alumno)"
                 >
                   <i class="fa fa-edit"></i>
                 </span>
-          </div>
-          <div v-if="alumno.isEdit">
+            </div>
+            <div v-if="alumno.isEdit">
                 <span class="btn btn-sm btn-dark"
                       @click="onCancelEdit(alumno)"
                 >
                   <i class="fa fa-times"></i>
                 </span>
-          </div>
+            </div>
 
-        </td>
-        <td>
-          <div v-if="!alumno.isEdit">
+          </td>
+          <td>
+            <div v-if="!alumno.isEdit">
                 <span class="btn btn-sm btn-danger btnShowOnHover"
                       title="Eliominar Registro"
                       @click="onShowFormDelete(alumno)">
                   <i class="fa fa-trash"></i>
                 </span>
-          </div>
-        </td>
-      </tr>
-      </tbody>
+            </div>
+          </td>
+        </tr>
+        </tbody>
 
-    </table>
+      </table>
+
+    </div>
 
 
     <!-- Modal -->
@@ -207,15 +223,20 @@
       alumnos: {
         type: Array,
         default: () => []
+      },
+      idGrupo:{
+        type: String,
+        default: () =>''
       }
     },
     data() {
       return {
         listaCampos: ['nombre', 'apellidos'],
+        listaCamposNoRequeridos: ['comentarios'],
         filtroLista: '',
         isEdit: false,
         form: {
-          alumnoOld:null,
+          alumnoOld: null,
           data: {},
           dataError: {},
           isEnProceso: false,
@@ -224,10 +245,10 @@
         formNew: {
           isShow: false,
         },
-        formDelete:{
-          alumno:{},
-          isEnProceso:false,
-          isShow:false
+        formDelete: {
+          alumno: {},
+          isEnProceso: false,
+          isShow: false
         },
       }
     },
@@ -278,21 +299,60 @@
     methods: {
       onShowFormAdd() {
 
-        const f=this.form;
+        const f = this.form;
 
         if (this.alumnoOld) {
           this.alumnoOld.isEdit = false;
         }
 
-        this.listaCampos.forEach(c=>{
-          this.form.data[c]='';
-          this.form.dataError[c]=false;
+        this.listaCampos.forEach(c => {
+          f.data[c] = '';
+          f.dataError[c] = false;
         });
+
+        f.data.comentarios = '';
 
         this.formNew.isShow = true;
 
       },
-      exeSaveAdd() {
+      async exeSaveAdd() {
+
+        const f = this.form;
+
+        if (f.isEnProceso) {
+          return;
+        }
+
+        f.isEnProceso = true;
+
+        let isValid = this.getIsValid();
+
+        if (!isValid) {
+          libToast.alert("Datos incorrectos");
+          f.isEnProceso = false;
+          return;
+        }
+
+
+        let dataInsert = {};
+        this.listaCampos.forEach(c => {
+          dataInsert[c] = f.data[c];
+        });
+
+        let respuesta = await dataService.insertAlumno(this.idGrupo, dataInsert);
+
+        if (respuesta.success) {
+          dataInsert.id=respuesta.data.id;
+          this.$emit("onCrud", "c", dataInsert);
+          libToast.success("Registro agregado");
+          this.formNew.isShow=false;
+
+        } else {
+          libToast.alert(respuesta.data);
+        }
+
+        f.isEnProceso = false;
+
 
       },
       cancelSaveAdd() {
@@ -316,14 +376,13 @@
       },
       getIsValid() {
 
-        // let isValid = libValidacion.paramNotNull(this.form.data, listaRequerido, this.form.dataError);
-        //
-        // return isValid;
+        let listaRequerido = ['nombre', 'apellidos'];
+        let isValid = libValidacion.paramNotNull(this.form.data, listaRequerido, this.form.dataError);
 
+        return isValid;
 
       },
-      onFiltroChange() {
-
+      onShowCopiarExcel() {
 
       },
       async exe() {
@@ -381,7 +440,7 @@
 
       },
 
-      async exeDelete(){
+      async exeDelete() {
 
       },
       cancel() {

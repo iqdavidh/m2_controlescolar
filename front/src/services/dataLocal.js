@@ -39,7 +39,7 @@ const getListaAsistAlumnosNew = (id_grupo) => {
 
 let dataLocal = {
   /* nos da una lista de objetos para ver como index*/
-  getIndexGrupos: async (pagina=1) => {
+  getIndexGrupos: async (pagina = 1) => {
 
     //por el momento no importa la paginacion
     const d = {
@@ -120,6 +120,66 @@ let dataLocal = {
     return Promise.resolve(respuesta);
 
   },
+  updateAlumno(idGrupo, idAlumno, data) {
+
+    /* actualiza los datos , se manda  un paylaod de qconfirmacion*/
+
+    const grupo = listaGrupos
+        .find(g => {
+          return g._id === id_grupo;
+        })
+    ;
+
+    const alumno = grupo.alumnos
+        .find(a => {
+          return a.id === idAlumno;
+        })
+    ;
+
+
+    Object
+        .keys(data)
+        .forEach(k => {
+          alumno[k] = data[k];
+        })
+    ;
+
+
+    const respuesta = {
+      success: true,
+      msg: "",
+      data: {}
+    };
+
+    return Promise.resolve(respuesta);
+
+  },
+  insertAlumno(idGrupo, data) {
+    /*guarda los datos del grupo, insert*/
+
+
+
+    const grupo = listaGrupos
+        .find(g => {
+          return g._id === idGrupo;
+        })
+    ;
+
+    grupo.alumnos.push(data);
+
+    const id_new = "a" + (grupo.alumnos.length + 1);
+    data._id = id_new;
+
+    const respuesta = {
+      success: true,
+      msg: "",
+      data: {_id: id_new}
+    };
+
+    return Promise.resolve(respuesta);
+
+  },
+
   getIndexTipoActividad() {
 
     //por el momento no importa la paginacion
@@ -227,7 +287,7 @@ let dataLocal = {
   },
   getIndexAsistencia(id_grupo, finiDMY, ffinDMY) {
 
-    let lista=dataSeed.indexAsistencia;
+    let lista = dataSeed.indexAsistencia;
 
     //por el momento no importa la paginacion
     const d = {
@@ -327,7 +387,7 @@ let dataLocal = {
     const d = {
       success: true,
       msg: "",
-      data: { alumnos : dataSeed.reporteActividad}
+      data: {alumnos: dataSeed.reporteActividad}
     };
 
     return Promise.resolve(d);
