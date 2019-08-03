@@ -159,6 +159,38 @@
     </table>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog"
+         aria-hidden="true">
+      <div class="modal-dialog bounceIn animated  " role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fa fa-trash"></i> Eliminar Alumno</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <small>Name:</small>
+            <h4>{{formDelete.alumno.nombre}} {{formDelete.alumno.apellidos}}</h4>
+            <small>ID</small>
+            <p>{{formDelete.alumno.id}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger"
+                    @click="exeDelete"
+            >
+              <i class="fa fa-trash"></i> Eliminar
+            </button>
+            <button type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Cancelar
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -177,7 +209,6 @@
     },
     data() {
       return {
-
         listaCampos: ['nombre', 'apellidos'],
         filtroLista: '',
         isEdit: false,
@@ -185,10 +216,16 @@
           isShow: false,
         },
         form: {
+          alumnoOld:null,
           data: {},
           dataError: {},
           isEnProceso: false,
           isShow: false
+        },
+        formDelete:{
+          alumno:{},
+          isEnProceso:false,
+          isShow:false
         },
       }
     },
@@ -239,6 +276,19 @@
     methods: {
       onShowFormAdd() {
 
+        const f=this.form;
+
+        if (this.alumnoOld) {
+          this.alumnoOld.isEdit = false;
+        }
+
+        this.listaCampos.forEach(c=>{
+          this.form.data[c]='';
+          this.form.dataError[c]=false;
+        });
+
+        f.isShow = true;
+
       },
       exeSaveAdd() {
 
@@ -251,6 +301,9 @@
 
       },
       onShowFormDelete(alumno) {
+
+        this.formDelete.alumno = alumno;
+        $("#modalDelete").modal();
 
       },
       exeSaveEdit(alumno) {
@@ -323,6 +376,10 @@
         // }
         //
         // f.isEnProceso = false;
+
+      },
+
+      async exeDelete(){
 
       },
       cancel() {

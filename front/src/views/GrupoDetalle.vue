@@ -69,8 +69,9 @@
 
 <script>
 
-  import GDatosBasicos from '@/components/GDatosBasicos.vue'
-  import GListaAlumnos from '@/components/GListaAlumnos.vue'
+  import GDatosBasicos from '@/components/GDatosBasicos.vue';
+  import GListaAlumnos from '@/components/GListaAlumnos.vue';
+  import Vue from 'vue';
 
   import libConfig from "../lib/libConfig";
   import dataService from "../services/dataService";
@@ -105,8 +106,8 @@
 
       }
     },
-    computed:{
-      getNumAlumnos(){
+    computed: {
+      getNumAlumnos() {
         return this.grupo.alumnos ? this.grupo.alumnos.length : 0;
       }
     },
@@ -121,10 +122,9 @@
 
       this.grupo = response.data.grupo;
 
-      // this.$nextTick().then(() => {
-      //
-      // });
-
+      this.grupo.alumnos.forEach(a => {
+        Vue.set(a, 'isEdit', false);
+      });
 
     }
   }
