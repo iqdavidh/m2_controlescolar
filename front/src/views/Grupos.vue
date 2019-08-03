@@ -11,27 +11,37 @@
     </div>
 
 
-    <div class="row">
+    <div class="row rowGrupo">
       <div class="col-md-12">
 
         <div class="alert alert-info"
              v-for="g in listaGrupos"
              :key="g._id"
         >
-          <h4 class="display-4">{{g.materia }} <span>Grupo {{g.nombre}}</span></h4>
-          <p class="lead"><i class="fa fa-building"></i> Escuela : {{g.escuela}}
-            <i class="fa fa-calendar" style="margin-left: 20px"></i>
-            Ciclo {{g.tipo_ciclo.ciclo}}
-          </p>
+          <h4 class="display-4">{{g.materia }}
+            <span>Grupo {{g.nombre}}</span>
+          </h4>
 
-          <div style="text-align: right">
 
-            <router-link
-                class="btn btn-primary btn-md"
-                :to="{name:'grupo', params: {id:g._id}}"
-                >Ver más</router-link>
+          <div class="" style="display: flex">
+
+            <div>
+              <i class="fa fa-building"></i> Escuela : {{g.escuela}}
+            </div>
+            <div>
+              <i class="fa fa-calendar" style="margin-left: 20px"></i>
+              Ciclo {{g.ciclo}}
+            </div>
+            <div style="flex-grow: 1; text-align: right">
+              <router-link
+                  class="btn btn-primary btn-md"
+                  :to="{name:'grupo', params: {id:g._id}}"
+              >Ver más</router-link>
+            </div>
 
           </div>
+
+
 
         </div>
 
@@ -88,4 +98,5 @@
 
 <style scoped>
 
+  .rowGrupo h4{font-size: 20px; font-weight: bold}
 </style>

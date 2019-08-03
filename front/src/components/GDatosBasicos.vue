@@ -6,8 +6,8 @@
       <div class="lab">Nombre del Grupo</div>
       <div class="valor" v-show="!isEdit">{{grupo.nombre}}</div>
 
-      <div  class="valoredit " v-show="isEdit">
-        <div class="form-group" >
+      <div class="valoredit " v-show="isEdit">
+        <div class="form-group">
           <input v-model="form.data.nombre" class="form-control" required title="Nombre"/>
         </div>
       </div>
@@ -16,8 +16,8 @@
     <div class="dataInfo" :class="{'error':form.dataError.materia}">
       <div class="lab">Materia</div>
       <div class="valor" v-show="!isEdit">{{grupo.materia}}</div>
-      <div  class="valoredit " v-show="isEdit">
-        <div class="form-group" >
+      <div class="valoredit " v-show="isEdit">
+        <div class="form-group">
           <input v-model="form.data.materia" class="form-control" required title="Materia"/>
         </div>
       </div>
@@ -27,8 +27,8 @@
     <div class="dataInfo" :class="{'error':form.dataError.escuela}">
       <div class="lab">Escuela</div>
       <div class="valor" v-show="!isEdit">{{grupo.escuela}}</div>
-      <div  class="valoredit " v-show="isEdit">
-        <div class="form-group" >
+      <div class="valoredit " v-show="isEdit">
+        <div class="form-group">
           <input v-model="form.data.escuela" class="form-control" required title="Escuela"/>
         </div>
       </div>
@@ -36,14 +36,11 @@
 
     <div class="dataInfo" :class="{'error':form.dataError.ciclo}">
       <div class="lab">Ciclo Escolar</div>
-      <div class="valor" v-show="!isEdit ">{{getCicloEscolar}}</div>
-      <div  class="valoredit " v-show="isEdit">
-        <div class="form-group" >
-          <input v-model="form.data.yini" class="form-control"
-                 required title="Año inicial" style="width: 90px; display: inline-block"/> -
-          <input v-model="form.data.yfin" class="form-control"
-                 required title="Año Final" style="width: 90px; display: inline-block"/>
-
+      <div class="valor" v-show="!isEdit ">{{grupo.ciclo}}</div>
+      <div class="valoredit " v-show="isEdit">
+        <div class="form-group">
+          <input v-model="form.data.ciclo" class="form-control"
+                 required title="Año inicial" style="width: 190px; display: inline-block"/>
         </div>
       </div>
     </div>
@@ -51,8 +48,8 @@
     <div class="dataInfo">
       <div class="lab">Comentario</div>
       <div class="valor" v-show="!isEdit">{{grupo.comentarios}}</div>
-      <div  class="valoredit " v-show="isEdit">
-        <div class="form-group" >
+      <div class="valoredit " v-show="isEdit">
+        <div class="form-group">
           <textarea v-model="form.data.comentarios"
                     class="form-control"
                     required title="Comentarios"></textarea>
@@ -92,14 +89,18 @@
 </template>
 
 <script>
+  import libValidacion from "../lib/libValidacion";
+  import libToast from "../lib/libToast";
+  import dataService from "../services/dataService";
+
   export default {
-    name: 'GrupoInfo',
+    name: 'GDatosBasicos',
     props: {
       grupo: Object
     },
     data() {
       return {
-        listaCampos: ['nombre', 'materia', 'escuela', 'ycicloini', 'yciclofin', 'comentarios'],
+        listaCampos: ['nombre', 'materia', 'escuela', 'ciclo', 'comentarios'],
         isEdit: false,
         form: {
           data: {},
@@ -109,17 +110,7 @@
         },
       }
     },
-    computed: {
-      getCicloEscolar() {
-        const t = this.grupo.tipo_ciclo;
-
-        if (t) {
-          return t.ciclo;
-        } else {
-          return '';
-        }
-      }
-    },
+    computed: {},
     methods: {
       onShowEdit() {
 
@@ -130,20 +121,81 @@
 
         this.isEdit = true;
       },
-      exe() {
+      getIsValid() {
+        let listaRequerido = ['nombre', 'materia', 'escuela', 'ciclo'];
+        let isValid = libValidacion.paramNotNull(this.form.data, listaRequerido, this.form.dataError);
+
+        return isValid;
+
+
+      },
+      async exe() {
+
+        const f = this.form;
+
+        if (f.isEnProceso) {
+          return;
+        }
+
+        f.isEnProceso = true;
+
+        let isValid = this.getIsValid();
+
+        if (!isValid) {
+          libToast.alert('Datos incorrectos');
+          f.isEnProceso = true;
+          return;
+        }
+
+
+        let dataUpdate = {};
+        this.listaCampos.forEach(c => {
+          dataUpdate[c] = f.data[c];
+        });
+
+        let idGrupo = this.grupo._id;
+        let isUpdate = idGrupo !== undefined;
+
+        let respuesta;
+
+        if (isUpdate) {
+          respuesta = await dataService.updateGrupo(idGrupo, dataUpdate);
+        } else {
+          respuesta = await dataService.insertGrupo(idGrupo, dataUpdate);
+        }
+
+
+        if (respuesta.success) {
+
+          if (!isUpdate) {
+            dataUpdate._id = respuesta.data._id;
+          }
+
+          this.$emit("onUpdated", isUpdate, dataUpdate);
+
+          libToast.success(isUpdate ? "Datos actualizados" : "Grupo agregado");
+          this.isEdit=false;
+
+        } else {
+          libToast.alert(respuesta.msg());
+        }
+
+        f.isEnProceso = false;
 
       },
       cancel() {
         this.isEdit = false;
       },
     },
-    beforeMount(){
+    beforeMount() {
+
       // this.listaCampos.forEach(c => {
       //   this.form.data[c] = null;
       //   this.form.dataError[c] = false;
       // });
     },
     mounted() {
+
 
     }
 
@@ -174,13 +226,12 @@
   }
 
 
-
   .panCmd {
     margin-top: 20px;
     text-align: center;
   }
 
-  .valoredit{
+  .valoredit {
     flex-grow: 1;
   }
 </style>

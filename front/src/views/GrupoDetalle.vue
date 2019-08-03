@@ -38,7 +38,9 @@
                   <p>DATOS GENERALES</p>
                   <hr>
                 </div>
-                <GrupoInfo :grupo="grupo" :key="grupo._id"/>
+
+                <GDatosBasicos :grupo="grupo" :key="grupo._id" @onUpdated="onUpdateDatosBasicos"/>
+
               </div>
               <div class="col-md-6">
 
@@ -70,7 +72,7 @@
 
 <script>
 
-  import GrupoInfo from '@/components/GrupoInfo.vue'
+  import GDatosBasicos from '@/components/GDatosBasicos.vue'
 
   import libConfig from "../lib/libConfig";
   import dataService from "../services/dataService";
@@ -87,9 +89,17 @@
       };
     },
     components: {
-      GrupoInfo
+      GDatosBasicos
     },
-    methods: {},
+    methods: {
+
+      onUpdateDatosBasicos(isUpdate, dataUpdate) {
+        Object.keys(dataUpdate).forEach(k => {
+          this.grupo[k] = dataUpdate[k];
+        });
+
+      }
+    },
     async beforeMount() {
 
       const response = await dataService.getGrupo(this.id);
