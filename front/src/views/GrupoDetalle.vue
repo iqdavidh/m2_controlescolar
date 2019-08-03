@@ -96,14 +96,58 @@
           this.grupo.alumnos = [];
         }
       },
+      ordenarLista() {
 
+        this.grupo.alumnos.sort((a, b) => {
+
+          if (a.apellidos === b.apellidos) {
+
+            if (a.nombre === b.nombre) {
+              return 0;
+            }
+
+            if (a.nombre > b.nombre) {
+              return 1;
+            } else {
+              return -1;
+            }
+
+          }
+
+          if (a.apellidos > b.apellidos) {
+            return 1;
+          } else {
+            return -1;
+          }
+
+        });
+      },
       onCrudAlumnos(tipoOperacion, data) {
 
-        if(tipoOperacion==="c"){
-          this.alumnos.push(data);
-        }else{
+        if (tipoOperacion === "c") {
+
+          this.grupo.alumnos.push(data);
+
+        } else if (tipoOperacion === "u") {
+
+          const idAlumno = data.id;
+          const alumno = this.grupo.alumnos.find(a => {
+            return a.id === idAlumno;
+          });
+
+          Object.keys(data)
+              .forEach(k => {
+                if (data[k] !== alumno[k]) {
+                  alumno[k] = data[k];
+                }
+              });
+
+        } else {
           alert("error");
         }
+
+
+        this.ordenarLista();
 
       }
     },
@@ -126,6 +170,8 @@
       this.grupo.alumnos.forEach(a => {
         Vue.set(a, 'isEdit', false);
       });
+
+      this.ordenarLista();
 
     }
   }

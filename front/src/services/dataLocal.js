@@ -79,19 +79,6 @@ let dataLocal = {
 
     /* actualiza los datos , se manda  un paylaod de qconfirmacion*/
 
-    const index = listaGrupos
-        .findIndex(g => {
-          return g._id === id;
-        })
-    ;
-
-    Object
-        .keys(data)
-        .forEach(k => {
-          listaGrupos[index][k] = data[k];
-        })
-    ;
-
 
     const respuesta = {
       success: true,
@@ -107,8 +94,6 @@ let dataLocal = {
 
 
     const id_new = "5z" + (listaGrupos.length + 1);
-    data._id = id_new;
-    listaGrupos.push(data);
 
 
     const respuesta = {
@@ -126,21 +111,7 @@ let dataLocal = {
 
     const grupo = listaGrupos
         .find(g => {
-          return g._id === id_grupo;
-        })
-    ;
-
-    const alumno = grupo.alumnos
-        .find(a => {
-          return a.id === idAlumno;
-        })
-    ;
-
-
-    Object
-        .keys(data)
-        .forEach(k => {
-          alumno[k] = data[k];
+          return g._id === idGrupo;
         })
     ;
 
@@ -164,8 +135,6 @@ let dataLocal = {
           return g._id === idGrupo;
         })
     ;
-
-    grupo.alumnos.push(data);
 
     const id_new = "a" + (grupo.alumnos.length + 1);
     data._id = id_new;

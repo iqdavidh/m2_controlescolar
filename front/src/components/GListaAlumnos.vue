@@ -82,7 +82,7 @@
           <td></td>
           <td>
                 <span class="btn btn-sm btn-primary " title="Guardar"
-                      @click="exeSaveAdd">
+                      @click="exeSave">
                   <i class="fa fa-upload"></i>
                 </span>
           </td>
@@ -128,7 +128,8 @@
             <div v-if="alumno.isEdit">
               <div class="form-group">
               <textarea v-model="form.data.comentarios"
-                        class="form-control" required title="Comentarios"></textarea>
+                        class="form-control" required
+                        title="Comentarios"></textarea>
               </div>
             </div>
 
@@ -137,7 +138,7 @@
             <div v-if="alumno.isEdit">
                 <span class="btn btn-sm btn-primary"
                       title="Guardar cambios"
-                      @click="exeSaveEdit(alumno)"
+                      @click="exeSave(alumno)"
                 >
                   <i class="fa fa-upload"></i>
                 </span>
@@ -209,6 +210,10 @@
       </div>
     </div>
 
+
+    <div v-if="isDebug">
+      {{form.data}}
+    </div>
   </div>
 </template>
 
@@ -216,6 +221,7 @@
   import libValidacion from "../lib/libValidacion";
   import libToast from "../lib/libToast";
   import dataService from "../services/dataService";
+  import libConfig from "../lib/libConfig";
 
   export default {
     name: 'GListaAlumnos',
@@ -224,9 +230,9 @@
         type: Array,
         default: () => []
       },
-      idGrupo:{
+      idGrupo: {
         type: String,
-        default: () =>''
+        default: () => ''
       }
     },
     data() {
@@ -235,8 +241,9 @@
         listaCamposNoRequeridos: ['comentarios'],
         filtroLista: '',
         isEdit: false,
+        alumnoOld: {isEdit: false,id:''},
         form: {
-          alumnoOld: null,
+          ope:'',
           data: {},
           dataError: {},
           isEnProceso: false,
@@ -250,6 +257,7 @@
           isEnProceso: false,
           isShow: false
         },
+        isDebug:libConfig.isDebug
       }
     },
     computed: {
@@ -301,9 +309,10 @@
 
         const f = this.form;
 
-        if (this.alumnoOld) {
-          this.alumnoOld.isEdit = false;
-        }
+        this.alumnoOld.isEdit = false;
+        this.alumnoOld.id='';
+
+        f.ope="c";
 
         this.listaCampos.forEach(c => {
           f.data[c] = '';
@@ -315,7 +324,7 @@
         this.formNew.isShow = true;
 
       },
-      async exeSaveAdd() {
+      async exeSave() {
 
         const f = this.form;
 
@@ -333,19 +342,40 @@
           return;
         }
 
+        let respuesta;
 
-        let dataInsert = {};
+        let dataAlumno = {};
         this.listaCampos.forEach(c => {
-          dataInsert[c] = f.data[c];
+          dataAlumno[c] = f.data[c];
         });
 
-        let respuesta = await dataService.insertAlumno(this.idGrupo, dataInsert);
+        if (f.ope === "c") {
+          respuesta = await dataService.insertAlumno(this.idGrupo, dataAlumno);
+
+        } else {
+          respuesta = await dataService.updateAlumno(this.idGrupo, f.idAlumno, dataAlumno);
+        }
+
 
         if (respuesta.success) {
-          dataInsert.id=respuesta.data.id;
-          this.$emit("onCrud", "c", dataInsert);
-          libToast.success("Registro agregado");
-          this.formNew.isShow=false;
+
+          if (f.ope === "c") {
+            dataAlumno.id = respuesta.data.id;
+          }else{
+            dataAlumno.id = f.idAlumno;
+          }
+
+
+          this.$emit("onCrud", f.ope, dataAlumno);
+
+          libToast.success(f.ope === "c" ? "Registro agregado" : "Registro Actualizado");
+
+          if (f.ope === "c") {
+            this.formNew.isShow = false;
+          }else{
+            this.alumnoOld.isEdit=false;
+          }
+
 
         } else {
           libToast.alert(respuesta.data);
@@ -360,6 +390,27 @@
       },
       onShowEdit(alumno) {
 
+        const f = this.form;
+
+        if (this.alumnoOld !== null) {
+          this.alumnoOld.isEdit = false;
+          this.alumnoOld = alumno;
+        }
+
+
+        this.listaCampos.forEach(c => {
+          f.data[c] = alumno[c];
+          f.dataError[c]=false;
+        });
+        this.listaCamposNoRequeridos.forEach(c=>{
+          f.data[c] = alumno[c];
+        });
+
+        f.ope="u";
+        f.idAlumno=alumno.id;
+
+        alumno.isEdit = true;
+
 
       },
       onShowFormDelete(alumno) {
@@ -372,7 +423,7 @@
 
       },
       onCancelEdit(alumno) {
-
+        alumno.isEdit = false;
       },
       getIsValid() {
 
@@ -450,10 +501,13 @@
     beforeMount() {
 
       this.listaCampos.forEach(c => {
-        this.form.data[c] = null;
+        this.form.data[c] = '';
         this.form.dataError[c] = false;
       });
 
+      this.listaCamposNoRequeridos.forEach(c => {
+        this.form.data[c] = '';
+      });
 
     },
     mounted() {
