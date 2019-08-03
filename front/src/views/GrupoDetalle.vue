@@ -32,22 +32,15 @@
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="grupo">
 
-            <div class="row">
-              <div class="col-md-6">
+            <h5><i class="fa fa-home"></i> DATOS GENERALES</h5>
+            <hr>
+            <GDatosBasicos :grupo="grupo" :key="grupo._id" @onUpdated="onUpdateDatosBasicos"/>
 
-                <h5><i class="fa fa-home"></i> DATOS GENERALES</h5>
-                <hr>
-                <GDatosBasicos :grupo="grupo" :key="grupo._id" @onUpdated="onUpdateDatosBasicos"/>
+            <h5><i class="fa fa-users"></i> {{getNumAlumnos}} ALUMNOS</h5>
+            <hr>
+            <GListaAlumnos :alumnos="grupo.alumnos" @onUpdated="onUpdateAlumnos"/>
 
-              </div>
 
-              <div class="col-md-6">
-                <h5><i class="fa fa-users"></i> {{getNumAlumnos}} ALUMNOS</h5>
-                <hr>
-                <GListaAlumnos :alumnos="grupo.alumnos" @onUpdated="onUpdateAlumnos"/>
-
-              </div>
-            </div>
 
           </div>
 

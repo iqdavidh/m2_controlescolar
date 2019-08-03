@@ -4,7 +4,8 @@
 
     <div style="display: flex; margin-bottom: 5px">
       <div>
-        <span class="btn btn-primary btn-sm" title="Agregar Celebridad" @click="onShowFormAdd">
+        <span class="btn btn-primary btn-sm" title="Agregar Celebridad"
+              @click="onShowFormAdd">
         <i class="fa fa-plus"></i>
       </span>
       </div>
@@ -26,8 +27,8 @@
       <thead>
       <tr>
         <th style="width: 30px">#</th>
-        <th style="width: 150px">Nombre</th>
-        <th style="width: 150px">Apellidos</th>
+        <th style="width: 200px">Nombre</th>
+        <th style="width: 200px">Apellidos</th>
         <th>Comentarios</th>
         <th style="width: 40px"></th>
         <th style="width: 40px"></th>
@@ -43,7 +44,7 @@
           <div class="form-group" :class="{'error':form.dataError.nombre}">
             <input v-model="form.data.nombre"
                    ref="inputnombreNew"
-                   class="form-control"
+                   class="form-control form-control-sm"
                    required
                    title="Nombre"/>
           </div>
@@ -51,7 +52,7 @@
 
         <td :class="{'error':form.dataError.apellidos}">
           <div class="form-group">
-            <input v-model="form.data.apellidos" class="form-control"
+            <input v-model="form.data.apellidos" class="form-control form-control-sm"
                    required title="Apellidos"/>
           </div>
         </td>
@@ -59,7 +60,8 @@
         <td>
           <div class="form-group">
             <textarea v-model="form.data.comentarios"
-                      class="form-control" required title="Comentarios"></textarea>
+                      class="form-control form-control-sm"
+                      required title="Comentarios"></textarea>
           </div>
         </td>
 
@@ -212,15 +214,15 @@
         listaCampos: ['nombre', 'apellidos'],
         filtroLista: '',
         isEdit: false,
-        formNew: {
-          isShow: false,
-        },
         form: {
           alumnoOld:null,
           data: {},
           dataError: {},
           isEnProceso: false,
           isShow: false
+        },
+        formNew: {
+          isShow: false,
         },
         formDelete:{
           alumno:{},
@@ -287,7 +289,7 @@
           this.form.dataError[c]=false;
         });
 
-        f.isShow = true;
+        this.formNew.isShow = true;
 
       },
       exeSaveAdd() {

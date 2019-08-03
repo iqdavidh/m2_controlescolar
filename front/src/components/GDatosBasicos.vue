@@ -1,61 +1,81 @@
 <template>
   <div>
 
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
 
-    <div class="dataInfo" :class="{'error':form.dataError.nombre}">
-      <div class="lab">Nombre del Grupo</div>
-      <div class="valor" v-show="!isEdit">{{grupo.nombre}}</div>
+        <div class="dataInfo" :class="{'error':form.dataError.nombre}">
+          <div class="lab">Nombre del Grupo</div>
+          <div class="valor" v-show="!isEdit">{{grupo.nombre}}</div>
 
-      <div class="valoredit " v-show="isEdit">
-        <div class="form-group">
-          <input v-model="form.data.nombre" class="form-control form-control-sm" required title="Nombre"/>
+          <div class="valoredit " v-show="isEdit">
+            <div class="form-group">
+              <input v-model="form.data.nombre" class="form-control form-control-sm" required title="Nombre"/>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="dataInfo" :class="{'error':form.dataError.materia}">
-      <div class="lab">Materia</div>
-      <div class="valor" v-show="!isEdit">{{grupo.materia}}</div>
-      <div class="valoredit " v-show="isEdit">
-        <div class="form-group">
-          <input v-model="form.data.materia" class="form-control form-control-sm" required title="Materia"/>
+      <div class="col-xs-12 col-md-4">
+
+        <div class="dataInfo" :class="{'error':form.dataError.materia}">
+          <div class="lab">Materia</div>
+          <div class="valor" v-show="!isEdit">{{grupo.materia}}</div>
+          <div class="valoredit " v-show="isEdit">
+            <div class="form-group">
+              <input v-model="form.data.materia" class="form-control form-control-sm" required title="Materia"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="col-xs-12 col-md-4">
+        <div class="dataInfo" :class="{'error':form.dataError.escuela}">
+          <div class="lab">Escuela</div>
+          <div class="valor" v-show="!isEdit">{{grupo.escuela}}</div>
+          <div class="valoredit " v-show="isEdit">
+            <div class="form-group">
+              <input v-model="form.data.escuela" class="form-control form-control-sm" required title="Escuela"/>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
+      <div class="col-xs-12 col-md-4">
 
-    <div class="dataInfo" :class="{'error':form.dataError.escuela}">
-      <div class="lab">Escuela</div>
-      <div class="valor" v-show="!isEdit">{{grupo.escuela}}</div>
-      <div class="valoredit " v-show="isEdit">
-        <div class="form-group">
-          <input v-model="form.data.escuela" class="form-control form-control-sm" required title="Escuela"/>
+        <div class="dataInfo" :class="{'error':form.dataError.ciclo}">
+          <div class="lab">Ciclo Escolar</div>
+          <div class="valor" v-show="!isEdit ">{{grupo.ciclo}}</div>
+          <div class="valoredit " v-show="isEdit">
+            <div class="form-group">
+              <input v-model="form.data.ciclo" class="form-control form-control-sm"
+                     required title="Año inicial" style="width: 190px; display: inline-block"/>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="dataInfo" :class="{'error':form.dataError.ciclo}">
-      <div class="lab">Ciclo Escolar</div>
-      <div class="valor" v-show="!isEdit ">{{grupo.ciclo}}</div>
-      <div class="valoredit " v-show="isEdit">
-        <div class="form-group">
-          <input v-model="form.data.ciclo" class="form-control form-control-sm"
-                 required title="Año inicial" style="width: 190px; display: inline-block"/>
-        </div>
       </div>
-    </div>
 
-    <div class="dataInfo">
-      <div class="lab">Comentario</div>
-      <div class="valor" v-show="!isEdit">{{grupo.comentarios}}</div>
-      <div class="valoredit " v-show="isEdit">
-        <div class="form-group">
+      <div class="col-xs-12 col-md-8">
+
+        <div class="dataInfo">
+          <div class="lab">Comentario</div>
+          <div class="valor" v-show="!isEdit">{{grupo.comentarios}}</div>
+          <div class="valoredit " v-show="isEdit">
+            <div class="form-group">
           <textarea v-model="form.data.comentarios"
                     class="form-control form-control-sm"
                     required title="Comentarios"></textarea>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
+
+
 
 
     <div class="panCmd"
