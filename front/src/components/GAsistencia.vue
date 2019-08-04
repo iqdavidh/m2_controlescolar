@@ -143,7 +143,7 @@
 
         <td v-show="form.isAddAsistencia" class="tdSelected">
 
-          <select class="form-control" v-model="alumno.valorNewAsistencia">
+          <select class="form-control form-control-sm" v-model="alumno.valorNewAsistencia">
             <option value="1">.</option>
             <option value="2">Retardo</option>
             <option value="3">Justificación</option>
@@ -167,7 +167,7 @@
           </div>
 
           <div v-if="f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit">
-            <select class="form-control" v-model="f.valorEdit">
+            <select class="form-control form-control-sm" v-model="f.valorEdit">
               <option value="1">.</option>
               <option value="2">Retardo</option>
               <option value="3">Justificación</option>
