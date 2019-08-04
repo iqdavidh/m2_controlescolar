@@ -265,7 +265,7 @@ let listaActividad = [...listaTareas2A, ...listaTareas2B, ...listaTareas2C];
 let listaFechasA = [];
 
 let fechasAsistencia = [];
-for (let i = 1; i <= 16; i++) {
+for (let i = 1; i <= 5; i++) {
   let code = (i < 10 ? '0' : '') + i.toString();
   code = `${code}/01/2019`;
   fechasAsistencia.push({fecha: code, valor: 1});
@@ -277,8 +277,8 @@ fechasAsistencia = JSON.stringify(fechasAsistencia);
 let listaAAlu = JSON.parse(JSON.stringify(lista2a));
 listaAAlu.forEach(aa => {
   aa.fechas = JSON.parse(fechasAsistencia);
-  aa.asistencia_total = 15;
-  aa.falta_total = 15;
+  aa.asistencia_total = 5;
+  aa.falta_total = 5;
 });
 
 /*reporte asistencia*/
