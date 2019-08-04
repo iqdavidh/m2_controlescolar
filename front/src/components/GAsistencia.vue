@@ -82,7 +82,7 @@
             <i class="fa fa-edit"></i>
           </span>
 
-          <div v-if="f.isEdit" style="width: 150px">
+          <div v-if="f.isEdit">
 
             <span class="btn btn-primary btn-sm"
                   title="Actualizar Asistencia"
@@ -96,7 +96,7 @@
                   title="Cancel"
                   style="margin-left: 25px"
 
-                  @click="onCancelAsistenciaFecha()"
+                  @click="onCancelAsistenciaFecha(f)"
             >
               <i class="fa fa-times"></i>
             </span>
@@ -200,10 +200,11 @@
 
     <div v-if="isDebug">
       <div class="row">
-        <div class="col-md-6">{{form}}</div>
         <div class="col-md-6">
-
-
+          {{form}}
+        </div>
+        <div class="col-md-6">
+          {{fechas}}
         </div>
       </div>
     </div>
@@ -286,6 +287,8 @@
   import Datepicker from 'vuejs-datepicker';
 
   const listaDias = ['Dom', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+  const listaDiasAbb = ['Dom', 'Lun', 'Ma', 'Mi', 'Ju', 'Vi', 'Sab'];
+  const listaMes = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
   export default {
     name: 'GAsistencia',
@@ -308,7 +311,7 @@
         form: {
           fechaOld: {isEdit: false},
           isEnProceso: false,
-          isAddAsistencia: true,
+          isAddAsistencia: false,
           fechaNew: new Date()
 
         },
@@ -322,12 +325,9 @@
         const fnew = this.form.fechaNew;
 
         let diaSemana = fnew.getDay();
-
         return listaDias[diaSemana];
-
       },
       getFechaNew() {
-
 
         const fnew = this.form.fechaNew;
 
@@ -335,7 +335,13 @@
           return '';
         }
 
-        return `${fnew.getDate()}/${fnew.getMonth() + 1}/${fnew.getFullYear()}`;
+        let m = fnew.getMonth() + 1;
+        m = m < 10 ? '0' + m.toString() : m.toString();
+
+        let d = fnew.getDate();
+        d = d < 10 ? '0' + d.toString() : d.toString();
+
+        return `${d}/${m}/${fnew.getFullYear()}`;
       }
     },
     methods: {
@@ -387,6 +393,8 @@
         f.isEnProceso = false;
         f.fechaOld = fecha;
 
+        f.isAddAsistencia = false;
+
         const fechaDMY = f.fechaOld.fecha;
 
         this.alumnos.forEach(a => {
@@ -429,7 +437,7 @@
             if (f.fecha === fechaDMY) {
               dataUpdate.push({
                 id: a.id,
-                valor: f.valor
+                valor: parseInt(f.valor)
               })
 
             }
@@ -471,16 +479,82 @@
       onSetFechaNew() {
         const f = this.form;
 
+        f.fechaOld = {};
+
         $("#modalAddAsistencia").modal('hide');
         f.isAddAsistencia = true;
       },
-      onCancelNewAsistencia(){
+      onCancelNewAsistencia() {
         const f = this.form;
 
-        f.isAddAsistencia=false;
+        f.isAddAsistencia = false;
       },
-      onSaveNewAsistencia(){
+      async onSaveNewAsistencia() {
 
+        /*Al gaurdar una nueva asistencia debemos de insertar el objecto fecha tambien
+         y en cada alkmno el registro de fecha*/
+
+        const f = this.form;
+        if (f.isEnProceso) {
+          return;
+        }
+
+        f.isEnProceso = true;
+
+        const fechaDMY = this.getFechaNew;
+
+        let dataUpdate = [];
+
+        this.alumnos.forEach(a => {
+
+          dataUpdate.push({
+            id: a.id,
+            valor: parseInt(a.valorNewAsistencia)
+          })
+
+        });
+
+        let respuesta = await dataService.updateAsistencia(this.idGrupo, fechaDMY, dataUpdate);
+
+        if (!respuesta.success) {
+          libToast.alert(respuesta.msg);
+          f.isEnProceso = false;
+          return;
+        }
+
+
+        libToast.success("Registro Agregado");
+
+        /*actualizar libro*/
+
+        const diaSemanaAbb = listaDiasAbb[f.fechaNew.getDay()];
+
+        this.fechas.push({
+          fecha: fechaDMY,
+          diaSemana: diaSemanaAbb,
+          dia: f.fechaNew.getDay(),
+          mes: listaMes[f.fechaNew.getMonth()],
+          y: f.fechaNew.getFullYear(),
+          isEdit: false
+        });
+
+        let indexAlumno = 0;
+        this.alumnos.forEach(a => {
+
+          a.fechas.push({
+            fecha: fechaDMY,
+            valor: dataUpdate[indexAlumno].valor
+          });
+
+          indexAlumno++;
+
+          a.valorNewAsistencia = '.'
+        });
+
+
+        f.isEnProceso = false;
+        f.fechaOld = this.fechas[this.fechas.length - 1];
+        f.isAddAsistencia = false;
 
 
       }
