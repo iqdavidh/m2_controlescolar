@@ -344,7 +344,7 @@
 
         let respuesta;
 
-        let dataAlumno = {};
+        let dataAlumno = { isEdit:false};
         this.listaCampos.forEach(c => {
           dataAlumno[c] = f.data[c];
         });

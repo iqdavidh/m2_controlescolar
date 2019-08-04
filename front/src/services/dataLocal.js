@@ -284,25 +284,7 @@ let dataLocal = {
     return Promise.resolve(d);
 
   },
-  getAsistenciaPagina(id_grupo, pagina) {
 
-    let lista = dataSeed.indexAsistencia;
-
-    //por el momento no importa la paginacion
-    const d = {
-      success: true,
-      msg: "",
-      data: {
-        total: 1,
-        alumnos: lista,
-        fechas:dataSeed.listaFechasA,
-        next: ''
-      }
-    };
-
-    return Promise.resolve(d);
-
-  },
   paginaAsistencia(id_grupo, pagina) {
 
     let lista = dataSeed.indexAsistencia;
