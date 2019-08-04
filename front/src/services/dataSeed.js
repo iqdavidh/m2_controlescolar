@@ -270,7 +270,7 @@ for (let i = 1; i <= 16; i++) {
   code = `${code}/01/2019`;
   fechasAsistencia.push({fecha: code, valor: 1});
 
-  listaFechasA.push({fecha: code, diaSemana: "Lu", mes:"Ene", y:2019});
+  listaFechasA.push({fecha: code, diaSemana: "Lu", dia:1, mes:"Ene", y:2019});
 }
 
 fechasAsistencia = JSON.stringify(fechasAsistencia);

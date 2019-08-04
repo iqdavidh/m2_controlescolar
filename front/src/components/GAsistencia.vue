@@ -17,21 +17,21 @@
       <nav aria-label="Page navigation " style="flex-grow: 1">
         <ul class="pagination pagination-sm">
           <li class="page-item"
-              v-show="pagina.totalPaginas>0 && pagina.num>1"
+              v-show="totalPaginas>0 && numPagina>1"
           >
             <a class="page-link" href="#">Previous</a>
           </li>
 
           <li class="page-item"
-              :class="{'active':pagina.num===num}"
-              v-for="num in pagina.totalPaginas" :key="num"
+              :class="{'active':numPagina===num}"
+              v-for="num in totalPaginas" :key="num"
           >
             <a class="page-link"
                href="#">{{num}}</a>
           </li>
 
           <li class="page-item"
-              v-show="pagina.totalPaginas>0 && pagina.num<pagina.totalPaginas"
+              v-show="totalPaginas>0 && numPagina<totalPaginas"
           ><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
@@ -41,10 +41,27 @@
 
     <table class="table table-condensed table-striped">
       <thead>
+
+      <tr>
+        <th></th>
+        <th></th>
+        <th v-for="f in fechas">
+          <span class="btn btn-secondary btn-sm"
+                title="Editar Asistencia"
+          >
+            <i class="fa fa-edit"></i>
+          </span>
+        </th>
+      </tr>
+
       <tr>
         <th style="width: 30px">#</th>
         <th>Alumno</th>
+        <th v-for="f in fechas" :key="f.fecha">
+          {{f.diaSemana}} {{ f.dia}} <br> {{f.mes}}
+        </th>
       </tr>
+
       </thead>
       <tbody>
 
@@ -54,6 +71,13 @@
         <td>
           {{alumno.nombre}} {{alumno.apellidos}}
         </td>
+
+
+        <td v-for="f in alumno.fechas" :key="f.fecha">
+          {{f.valor}}
+        </td>
+
+
       </tr>
 
       </tbody>
@@ -69,10 +93,6 @@
   export default {
     name: 'GAsistencia',
     props: {
-      alumnos: {
-        type: Array,
-        default: () => []
-      },
       idGrupo: {
         type: String,
         default: () => ''
@@ -81,38 +101,43 @@
     data() {
 
       return {
-        pagina : {
-          fechas:[],
-          alumnos:[],
-          num:0,
-          totalPaginas:0
-        }
+        fechas: [],
+        alumnos: [],
+        numPagina: 0,
+        totalPaginas: 0
+
       };
     },
-    computed: {},
+    computed: {
+      getAlumnosAsistencia() {
+
+      }
+    },
     methods: {
       async solicitarPagina(numPagina) {
 
         const respuesta = await dataService.paginaAsistencia(this.idGrupo, numPagina);
-
 
         if (!respuesta.success) {
           libToast.alert(respuesta.msg);
           return;
         }
 
-        console.log(respuesta);
+        this.totalPaginas = respuesta.data.total;
 
-        this.pagina.totalPaginas = respuesta.data.total;
-        this.pagina.alumnos = respuesta.data.alumnos;
-        this.pagina.fechas = respuesta.data.fechas;
+        this.alumnos.splice(0, this.alumnos.length);
+        respuesta.data.alumnos.forEach( a=>{
+          this.alumnos.push(a);
+        });
+
+
+        this.fechas = respuesta.data.fechas;
 
         if (numPagina === 0) {
-          this.pagina.num = respuesta.data.total;
+          this.numPagina = respuesta.data.total;
         } else {
-          this.pagina.num = numPagina;
+          this.numPagina = numPagina;
         }
-
 
       }
 
