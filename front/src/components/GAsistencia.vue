@@ -157,14 +157,15 @@
             :class="{'tdSelected':f.fecha === form.fechaOld.fecha}"
         >
 
-          <div v-if=" !(f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit)">
+          <div v-if=" !(f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit)"
+            :title="f.fecha"
+          >
             <span v-show="f.valor==1">.</span>
             <span v-show="f.valor==2">R</span>
             <span v-show="f.valor==3">J</span>
             <span class="tdFalta" v-show="f.valor==0">/</span>
-
-
           </div>
+
           <div v-if="f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit">
             <select class="form-control" v-model="f.valorEdit">
               <option value="1">.</option>
@@ -184,7 +185,7 @@
       <tr>
         <th class="tdindex"></th>
         <th></th>
-        <th></th>
+        <th v-show="form.isAddAsistencia"></th>
         <th v-for="f in fechas">
           <span class="btn btn-danger btn-sm"
                 title="Eliminar Fecha de Asistencias"
@@ -532,7 +533,7 @@
         this.fechas.push({
           fecha: fechaDMY,
           diaSemana: diaSemanaAbb,
-          dia: f.fechaNew.getDay(),
+          dia: f.fechaNew.getDate(),
           mes: listaMes[f.fechaNew.getMonth()],
           y: f.fechaNew.getFullYear(),
           isEdit: false
