@@ -85,7 +85,7 @@
 
       <tr>
         <th style="width: 30px">#</th>
-        <th>Alumno</th>
+        <th class="text-right">Alumno</th>
         <th v-for="f in fechas" :key="f.fecha"
             :class="{'thSelected':f.fecha===form.fechaOld.fecha
             ,'thEdit':f.fecha===form.fechaOld.fecha && form.fechaOld.isEdit
@@ -101,7 +101,7 @@
 
       <tr v-for="(alumno,index) in alumnos" :key="alumno.id">
         <td>{{index+1}}</td>
-        <td>
+        <td class="text-right">
           {{alumno.nombre}} {{alumno.apellidos}}
         </td>
 
@@ -109,18 +109,21 @@
             :key="f.fecha"
             :class="{'tdSelected':f.fecha === form.fechaOld.fecha}"
         >
+
           <div v-if=" !(f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit)">
             <span v-show="f.valor==1">.</span>
             <span v-show="f.valor==2">R</span>
             <span v-show="f.valor==3">J</span>
-            <span v-show="f.valor==0">/</span>
+            <span class="tdFalta" v-show="f.valor==0">/</span>
+
+
           </div>
           <div v-if="f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit">
-            <select class="form-control" v-model="f.valor">
-              <option value="1">.</option>
-              <option value="2">Retardo</option>
-              <option value="3">Justificación</option>
-              <option value="0">Falta</option>
+            <select class="form-control" v-model="f.valorEdit">
+              <option value="1" v-bind:selected="f.valorEdit==1">.</option>
+              <option value="2" v-bind:selected="f.valorEdit==2">Retardo</option>
+              <option value="3" v-bind:selected="f.valorEdit==3">Justificación</option>
+              <option value="0" v-bind:selected="f.valorEdit==0">Falta</option>
             </select>
           </div>
 
@@ -149,8 +152,11 @@
 
     <div v-if="isDebug">
       <div class="row">
-        <div class="col-md-6">{{alumnos}}</div>
-        <div class="col-md-6">{{fechas}}</div>
+        <div class="col-md-6">{{form}}</div>
+        <div class="col-md-6">
+
+
+        </div>
       </div>
     </div>
 
@@ -179,7 +185,7 @@
         totalPaginas: 0,
         form: {
           fechaOld: {isEdit: false},
-          isEnProceso: false
+          isEnProceso: false,
         },
         isDebug: libConfig.isDebug
 
@@ -199,9 +205,12 @@
         this.totalPaginas = respuesta.data.total;
 
         this.alumnos.splice(0, this.alumnos.length);
+
         respuesta.data.alumnos.forEach(a => {
+
           a.fechas.forEach(f => {
             f.isEdit = false;
+            f.valorEdit = f.valor;
           });
           this.alumnos.push(a);
         });
@@ -229,13 +238,76 @@
         f.isEnProceso = false;
         f.fechaOld = fecha;
 
+        const fechaDMY = f.fechaOld.fecha;
+
+        this.alumnos.forEach(a => {
+          a.fechas.forEach(f => {
+            if (f.fecha === fechaDMY) {
+              f.valorEdit = f.valor;
+            }
+
+          });
+        });
+
+
+        /* hacer una copia de los valores edit */
+        f.fechaDMYEdit = fecha.fecha;
         fecha.isEdit = true;
 
       },
-      onCancelAsistenciaFecha(fecha){
-        fecha.isEdit=false;
+      onCancelAsistenciaFecha(fecha) {
+        fecha.isEdit = false;
       },
-      onSaveAsistenciaFecha(fecha) {
+      async onSaveAsistenciaFecha(fecha) {
+
+
+        const f = this.form;
+        if (f.isEnProceso) {
+          return;
+        }
+
+        f.isEnProceso = true;
+
+        const fechaDMY = f.fechaOld.fecha;
+
+        let dataUpdate = [];
+
+        this.alumnos.forEach(a => {
+
+          a.fechas.forEach(f => {
+
+            if (f.fecha === fechaDMY) {
+              dataUpdate.push({
+                id: a.id,
+                valor: f.valor
+              })
+
+            }
+          });
+        });
+
+        let respuesta = await dataService.updateAsistencia(this.idGrupo, fechaDMY, dataUpdate);
+
+        if (!respuesta.success) {
+          libToast.alert(respuesta.msg);
+          f.isEnProceso = false;
+          return;
+        }
+
+
+        libToast.success("Registro actualizado");
+        /*actualizar libro*/
+        this.alumnos.forEach(a => {
+          a.fechas.forEach(f => {
+            if (f.fecha === fechaDMY) {
+              f.valor = f.valorEdit;
+            }
+
+          });
+        });
+
+        f.isEnProceso = false;
+        f.fechaOld.isEdit = false;
 
       }
 
@@ -249,19 +321,23 @@
 </script>
 
 <style scoped>
-  .tableAsistencia tr th , .tableAsistencia tr td  {
+  .tableAsistencia tr th, .tableAsistencia tr td {
     padding: 2px;
     width: 60px;
     text-align: center;
 
   }
 
-  .tableAsistencia tr th.thSelected , .tableAsistencia tr td.tdSelected {
+  .tableAsistencia tr th.thSelected, .tableAsistencia tr td.tdSelected {
     background-color: lightgoldenrodyellow;
   }
 
-  th.tdEdit{
+  th.tdEdit {
     width: 200px;
   }
 
+  span.tdFalta {
+    color: red;
+    font-weight: bold
+  }
 </style>
