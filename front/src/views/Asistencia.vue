@@ -30,7 +30,7 @@
           <td>{{alumno.apellidos}} {{alumno.nombre}}</td>
           <td>
             <div class="text-center" v-show="!isEdit">
-              <span v-show="alumno.fechas[0].valor==1">P</span>
+              <span v-show="alumno.fechas[0].valor==1">.</span>
               <span v-show="alumno.fechas[0].valor==2">R</span>
               <span v-show="alumno.fechas[0].valor==3">J</span>
               <span v-show="alumno.fechas[0].valor==0">/</span>
@@ -54,6 +54,7 @@
 
 <script>
 import dataService from "../services/dataService";
+import libToast from "../lib/libToast";
 
 export default {
   name: "asistencia",
@@ -62,32 +63,63 @@ export default {
   data() {
     return {
       listaAlumnos: [],
-      isEdit: false
+      isEdit: false,
+      isEnProceso: false
     };
   },
   methods: {
     onEditar() {
       this.isEdit = true;
+      this.isEnProceso = false;
     },
-    onGuardar() {
-      //Todo - falta gaurdar los datos
+    async onGuardar() {
+      
+      if (this.isEnProceso)
+      {
+        return;
+      }
+
+      this.isEnProceso=true;
+      let id_grupo = "g2a";
+      let finiDMY = "01/01/2019";
+      let dataUpdate = [];
+
+      this.listaAlumnos.forEach( alumno =>{
+          let valor= alumno.fechas[0].valor;
+          let idAlumno=alumno.id;
+
+          dataUpdate.push(
+            {
+              id:idAlumno,
+              valor:valor
+            }
+          );
+
+      });
+
+      let respuesta = await dataService.updateAsistencia(id_grupo, finiDMY, dataUpdate);
+
+      if(!respuesta.success){
+        libToast.alert( respuesta.msg);
+        return ;
+      }
+
+      libToast.success( "Registro actualizado");
       this.isEdit = false;
     }
   },
   async mounted() {
     let id_grupo = "g2a";
     let finiDMY = "01/01/2019";
-    let ffinDMY = "05/01/2019";
-    let respuesta = await dataService.getIndexAsistencia(
-      id_grupo,
-      finiDMY,
-      ffinDMY
-    );
+
+    let respuesta = await dataService.getAsistenciaDia(id_grupo, finiDMY);
     if (respuesta.success) {
       respuesta.data.alumnos.forEach(item => {
         this.listaAlumnos.push(item);
       });
     }
+
+    console.log(respuesta.data);
   }
 };
 </script>
