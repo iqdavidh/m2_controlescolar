@@ -188,7 +188,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateActividadCalificacionAlumno(
 }));
 
 
-listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiDMY, ffinDMY)  ", async () => {
+listaTest.push(libTest.FactoryTest("dataLocal.getAsistenciaDia(id_grupo, finiDMY, ffinDMY)  ", async () => {
 
 
   //este metodo devuelve un _id con el id de la nueva tarea
@@ -198,7 +198,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiD
   let ffinDMY = '05/01/2019';
 
 
-  let respuesta = await dataLocal.getIndexAsistencia(id_grupo, finiDMY, ffinDMY);
+  let respuesta = await dataLocal.getAsistenciaDia(id_grupo, finiDMY, ffinDMY);
 
 
   let listaError = [];
@@ -237,12 +237,13 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexAsistencia(id_grupo, finiD
 }));
 
 
-listaTest.push(libTest.FactoryTest("dataLocal.updateAsistencia(id_grupo, dDMY, idAlumno, estatus_asistencia)  ", async () => {
+listaTest.push(libTest.FactoryTest("dataLocal.updateAsistencia(id_grupo, dDMY, dataUpdate ", async () => {
 
   let id_grupo = 'g2a';
   let fDMY = '02/01/2019';
+  let dataUpdate=[{'id_alumno':"x", asistencia:"x" }];
 
-  let respuesta = await dataLocal.updateAsistencia(id_grupo, fDMY, "03", 0);
+  let respuesta = await dataLocal.updateAsistencia(id_grupo, fDMY, dataUpdate);
 
   let listaError = [];
 

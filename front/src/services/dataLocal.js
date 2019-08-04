@@ -265,7 +265,7 @@ let dataLocal = {
     return Promise.resolve(d);
 
   },
-  getIndexAsistencia(id_grupo, finiDMY, ffinDMY) {
+  getAsistenciaDia(id_grupo, fDMY) {
 
     let lista = dataSeed.indexAsistencia;
 
@@ -277,7 +277,25 @@ let dataLocal = {
         total: 1,
         alumnos: lista,
         fechas:dataSeed.listaFechasA,
+        next: ''
+      }
+    };
 
+    return Promise.resolve(d);
+
+  },
+  getAsistenciaPagina(id_grupo, pagina) {
+
+    let lista = dataSeed.indexAsistencia;
+
+    //por el momento no importa la paginacion
+    const d = {
+      success: true,
+      msg: "",
+      data: {
+        total: 1,
+        alumnos: lista,
+        fechas:dataSeed.listaFechasA,
         next: ''
       }
     };
@@ -305,59 +323,7 @@ let dataLocal = {
 
   },
 
-  updateAsistencia(id_grupo, fDMY, id_alumno, estatus_asistencia) {
-
-
-    let fYMD = libFecha.convertDMYToYMD(fDMY);
-
-    let grupo = listaGrupos.find(g => {
-      return g._id = id_grupo;
-    });
-
-    let listaAsistencia = grupo.asistencia;
-
-    let diaAsistencia = listaAsistencia.find(a => {
-      return a.fecha === fYMD;
-    });
-
-
-    if (diaAsistencia === undefined) {
-
-      let listaAlumnosNew = getListaAsistAlumnosNew(id_grupo);
-
-      listaAlumnosNew.forEach(a => {
-        a.valor = 1;
-      });
-
-      diaAsistencia = {
-        fecha: fYMD,
-        fechaDMY: fDMY,
-        alumnos: listaAlumnosNew
-      };
-
-      grupo.asistencia.push(diaAsistencia);
-      grupo.asistencia.sort((a, b) => {
-        if (a.fecha === b.fecha) {
-          return 0;
-        }
-
-        if (a.fecha > b.fecha) {
-          return 1;
-        } else {
-          return -1;
-        }
-
-      });
-    }
-
-    let alumno = diaAsistencia.alumnos
-        .find(d => {
-          return d.id === id_alumno
-        })
-    ;
-
-    alumno.valor = estatus_asistencia;
-
+  updateAsistencia(id_grupo, fDMY, dataUpdate) {
 
     const d = {
       success: true,
@@ -366,7 +332,6 @@ let dataLocal = {
     };
 
     return Promise.resolve(d);
-
 
   },
 
