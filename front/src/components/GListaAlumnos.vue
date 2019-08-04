@@ -211,7 +211,7 @@
     </div>
 
 
-    <div v-if="isDebug">
+    <div v-if="isDebug && false">
       {{form.data}}
     </div>
   </div>

@@ -61,7 +61,7 @@
     </div>
 
 
-    <div v-if="isDebug">
+    <div v-if="isDebug && false">
       {{grupo}}
     </div>
 
