@@ -4,6 +4,8 @@
  * Created by David on 18/07/2019.
  */
 
+const fNow = new Date();
+
 
 const supertest = require('supertest');
 const assert = require('assert');
@@ -80,34 +82,33 @@ describe('/grupo/:idGrupo GET  ok  Buscar por ID', function () {
 
 });
 
-const dataRandom = Math.random(1000).toString();
+
+
+const dataRandom = `${fNow.getHours()}:${fNow.getMinutes()}:${fNow.getSeconds()} `;
 
 describe('/grupo/:idGrupo POST  ok  Buscar por ID y actualizar grupo', function () {
   it('ok respuesta basica', function (done) {
 
-    const dataUpdate={
-
-    }
+    const dataUpdate = {
+      "comentarios": "comentario at " + dataRandom
+    };
 
     request
         .post('/api/grupo/5d48cc49a01add3ae0483a72')
-        .body(JSON.stringify( dataUpdate))
+        .send(dataUpdate)
         .expect(200)
         .end(function (err, res) {
 
           const c = JSON.parse(res.text);
 
-          LibTest.saveResponse(res.text, './grupo_findById.json');
+          LibTest.saveResponse(res.text, './grupo_update.json');
 
           assert(c.success, "Se esperada true como tipo de success");
           assert(c.msg === "");
 
           assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
 
-
-          let listaP = ['_id', 'nombre', 'escuela', 'materia', 'ciclo',
-            'ymini', 'ymfin', 'comentarios', 'alumnos'];
-
+          let listaP = ['_id'];
           let isValid = LibTest.ValidarTieneProp(c.data, listaP);
 
           assert(isValid === true, isValid);
