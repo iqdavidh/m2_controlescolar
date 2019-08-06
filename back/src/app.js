@@ -1,12 +1,15 @@
+const UrlApiConfig = require("./config/UrlApiConfig");
+const BuilderJsonResponse = require("./lib/BuilderJsonResponse");
+
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const mongoose = require('mongoose');
+
 const logger = require('morgan');
 const path = require('path');
 
 
-const BuilderJsonResponse = require("./lib/BuilderJsonResponse");
+
 
 
 if (!process.env) {
@@ -46,4 +49,13 @@ app.use(cookieParser());
 app.get("/", function (req, res) {
 	BuilderJsonResponse.Success(res,{}, "I'm backend");
 });
+
+/*grupo *************************************************** */
+{
+	const routerGrupo = require("./controller/grupo/routerGrupo");
+	let url=`/api/${UrlApiConfig.Grupo}`;
+	app.use( url, routerGrupo)
+}
+/* ******************************************************** */
+
 module.exports = app;
