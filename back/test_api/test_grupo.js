@@ -15,7 +15,7 @@ let url = "http://localhost:3003"; //<-- es nuestro sitio backend
 
 const request = supertest(url);
 
-/*
+
 describe('grupo/index get request ok', function () {
   it('ok respuesta basica', function (done) {
     request
@@ -116,18 +116,18 @@ describe('/grupo/:idGrupo POST  ok  Buscar por ID y actualizar grupo', function 
   });
 
 });
-*/
+
 
 describe('/grupo/crear POST  ok  Crear un grupo', function () {
   it('ok', function (done) {
 
     const dataCrear = {
-      "nombre":"411-" + dataRandom,
-      "materia":"dibujo-" +dataRandom,
-      "escuela":"primaria springfil" + dataRandom,
-      "ciclo":"1990-2050",
-      "ymini":199001,
-      "ymfin":205001,
+      "nombre": "411-" + dataRandom,
+      "materia": "dibujo-" + dataRandom,
+      "escuela": "primaria springfil" + dataRandom,
+      "ciclo": "1990-2050",
+      "ymini": 199001,
+      "ymfin": 205001,
       "comentarios": "comentario create-" + dataRandom
     };
 
@@ -146,10 +146,45 @@ describe('/grupo/crear POST  ok  Crear un grupo', function () {
 
           assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
 
+          const idCreado = c.data._id;
           let listaP = ['_id'];
           let isValid = LibTest.ValidarTieneProp(c.data, listaP);
 
           assert(isValid === true, isValid);
+
+          /* *********************************** */
+          describe('/grupo/:idGrupo DELETE  ok  Buscar por ID', function () {
+            it('ok respuesta basica', function (done) {
+              request
+                  .delete('/api/grupo/'+idCreado)
+                  .expect(200)
+                  .end(function (err2, res2) {
+
+                    const c2 = JSON.parse(res2.text);
+
+                    LibTest.saveResponse(res2.text, './grupo_findById.json');
+
+                    assert(c2.success, "Se esperada true como tipo de success");
+                    assert(c2.msg === "");
+
+                    assert(typeof c2.data === "object", "El objeto data deberia deberia ser un objeto");
+
+
+                    let listaP2 = ['_id'];
+
+                    let isValid2 = LibTest.ValidarTieneProp(c2.data, listaP2);
+
+                    assert(isValid2 === true, isValid2);
+
+                    if (err2) return done(err2);
+                    done();
+                  })
+              ;
+            });
+
+          });
+
+          /* *********************************** */
 
           if (err) return done(err);
           done();
@@ -158,6 +193,9 @@ describe('/grupo/crear POST  ok  Crear un grupo', function () {
   });
 
 });
+
+
+
 
 
 

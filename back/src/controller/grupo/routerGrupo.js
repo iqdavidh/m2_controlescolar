@@ -7,6 +7,7 @@ const GrupoIndexAction = require("./GrupoIndexAction");
 const GrupoFindByIDAction = require("./GrupoFindByIDAction");
 const GrupoUpdateAction = require("./GrupoUpdateAction");
 const GrupoInsertAction = require("./GrupoInsertAction");
+const GrupoDeleteAction = require("./GrupoDeleteAction");
 
 
 const routerGrupo = express.Router();
@@ -63,8 +64,15 @@ routerGrupo.post('/:idGrupo', (req, res, next) => {
 
     BuilderJsonResponse.Error(e);
   }
-
 });
 
+
+/* update to ID */
+routerGrupo.delete('/:idGrupo', (req, res, next) => {
+  const id = req.params.idGrupo;
+
+  GrupoDeleteAction.run(res,id);
+
+});
 
 module.exports = routerGrupo;
