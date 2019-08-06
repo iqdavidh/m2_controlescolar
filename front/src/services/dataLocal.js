@@ -148,7 +148,6 @@ let dataLocal = {
     return Promise.resolve(respuesta);
 
   },
-
   deleteAlumno(idGrupo,idAlumno){
 
     const respuesta = {
@@ -160,6 +159,7 @@ let dataLocal = {
     return Promise.resolve(respuesta);
 
   },
+
   getIndexTipoActividad() {
 
     //por el momento no importa la paginacion

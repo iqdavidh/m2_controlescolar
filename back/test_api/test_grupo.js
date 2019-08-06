@@ -14,7 +14,7 @@ let url = "http://localhost:3003"; //<-- es nuestro sitio backend
 const request = supertest(url);
 
 
-describe('index grupos /', function () {
+describe('grupo/index get request ok', function () {
   it('ok respuesta basica', function (done) {
     request
         .get('/api/grupo/index')
@@ -23,7 +23,7 @@ describe('index grupos /', function () {
 
           const c = JSON.parse(res.text);
 
-          LibTest.saveResponse(res.text, './grupos_index.json');
+          LibTest.saveResponse(res.text, './grupo_index.json');
 
           assert(c.success, "Se esperada true como tipo de success");
           assert(c.msg === "");
@@ -48,7 +48,7 @@ describe('index grupos /', function () {
   });
 });
 
-describe('obtiene los datos de un grupo /', function () {
+describe('/grupo/:idGrupo GET  ok  Buscar por ID', function () {
   it('ok respuesta basica', function (done) {
     request
         .get('/api/grupo/5d48cc49a01add3ae0483a72')
@@ -57,7 +57,47 @@ describe('obtiene los datos de un grupo /', function () {
 
           const c = JSON.parse(res.text);
 
-          LibTest.saveResponse(res.text, './grupo_id.json');
+          LibTest.saveResponse(res.text, './grupo_findById.json');
+
+          assert(c.success, "Se esperada true como tipo de success");
+          assert(c.msg === "");
+
+          assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
+
+
+          let listaP = ['_id', 'nombre', 'escuela', 'materia', 'ciclo',
+            'ymini', 'ymfin', 'comentarios', 'alumnos'];
+
+          let isValid = LibTest.ValidarTieneProp(c.data, listaP);
+
+          assert(isValid === true, isValid);
+
+          if (err) return done(err);
+          done();
+        })
+    ;
+  });
+
+});
+
+const dataRandom = Math.random(1000).toString();
+
+describe('/grupo/:idGrupo POST  ok  Buscar por ID y actualizar grupo', function () {
+  it('ok respuesta basica', function (done) {
+
+    const dataUpdate={
+
+    }
+
+    request
+        .post('/api/grupo/5d48cc49a01add3ae0483a72')
+        .body(JSON.stringify( dataUpdate))
+        .expect(200)
+        .end(function (err, res) {
+
+          const c = JSON.parse(res.text);
+
+          LibTest.saveResponse(res.text, './grupo_findById.json');
 
           assert(c.success, "Se esperada true como tipo de success");
           assert(c.msg === "");

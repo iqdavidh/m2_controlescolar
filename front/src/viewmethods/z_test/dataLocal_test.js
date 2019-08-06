@@ -188,6 +188,9 @@ listaTest.push(libTest.FactoryTest("dataLocal.updateActividadCalificacionAlumno(
 }));
 
 
+
+
+
 listaTest.push(libTest.FactoryTest("dataLocal.getAsistenciaDia(id_grupo, finiDMY, ffinDMY)  ", async () => {
 
 
@@ -195,10 +198,8 @@ listaTest.push(libTest.FactoryTest("dataLocal.getAsistenciaDia(id_grupo, finiDMY
 
   let id_grupo = 'g2a';
   let finiDMY = '01/01/2019';
-  let ffinDMY = '05/01/2019';
 
-
-  let respuesta = await dataLocal.getAsistenciaDia(id_grupo, finiDMY, ffinDMY);
+  let respuesta = await dataLocal.getAsistenciaDia(id_grupo, finiDMY);
 
 
   let listaError = [];

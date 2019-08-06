@@ -1,10 +1,12 @@
+const express = require('express');
+
 const BuilderJsonResponse = require("../../lib/BuilderJsonResponse");
+const LibValidacion = require("../../lib/LibValidacion");
 
 const GrupoIndexAction = require("./GrupoIndexAction");
 const GrupoFindByIDAction = require("./GrupoFindByIDAction");
 const GrupoUpdateAction = require("./GrupoUpdateAction");
 
-const express = require('express');
 
 const routerGrupo = express.Router();
 
@@ -16,21 +18,16 @@ routerGrupo.get('/index', (req, res, next) => {
 });
 
 /* find by id */
-routerGrupo.get('/:id', (req, res, next) => {
-  const id = req.params.id;
-  GrupoFindByIDAction.run(res, id);
-});
-
-/* find by id */
-routerGrupo.put('/:id', (req, res, next) => {
-  const id = req.params.id;
+routerGrupo.get('/:idGrupo', (req, res, next) => {
+  const id = req.params.idGrupo;
   GrupoFindByIDAction.run(res, id);
 });
 
 
 /* update to ID */
-routerGrupo.post('/:id', (req, res, next) => {
-  const id = req.params.id;
+routerGrupo.post('/:idGrupo', (req, res, next) => {
+  const id = req.params.idGrupo;
+
   let dataRaw = req.body;
 
   try {

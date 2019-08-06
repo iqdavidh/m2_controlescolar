@@ -1,0 +1,4 @@
+para importar los datos a mongo
+
+
+mongoimport --db controlescolar --collection grupos --file listaGrupos.json --jsonArray

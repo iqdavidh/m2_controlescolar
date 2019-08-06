@@ -3,10 +3,10 @@ const DbMongo = require("../../model/DbMongo");
 
 
 let listaCamposPermitirUpdate = [
-  '_id', 'nombre', 'escuela',
+  'nombre', 'escuela',
   'materia', 'ciclo',
   'ymini', 'ymfin',
-  'comentarios', 'alumnos'
+  'comentarios'
 ];
 
 
@@ -17,11 +17,6 @@ const GrupoUpdateAction = {
   },
   run: (res, id, dataUpdate) => {
 
-
-    const promGrupo = DbMongo.Grupos
-        .findById(id)
-        .exec()
-    ;
 
     const promUpdate = DbMongo.Grupos.findByIdAndUpdate(id, {$set: dataUpdate} , {
       new: false,upsert: false

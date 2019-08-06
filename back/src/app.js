@@ -1,13 +1,12 @@
-const UrlApiConfig = require("./config/UrlApiConfig");
-const BuilderJsonResponse = require("./lib/BuilderJsonResponse");
-
+const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const express = require('express');
-
 const logger = require('morgan');
 const path = require('path');
 
+const UrlApiConfig = require("./config/UrlApiConfig");
+const BuilderJsonResponse = require("./lib/BuilderJsonResponse");
+const DBMongo = require("./model/DbMongo"); /*<-- solo hace conexion con la base de datos */
 
 if (!process.env) {
 	process.env = {};
@@ -18,14 +17,9 @@ if (!process.env.PORT) {
 }
 
 
-const app_name = require('../package.json').name;
-
 const app = express();
 
 const cors = require("cors");
-const DBMongo = require("./model/DbMongo");
-
-
 
 app.use(cors());
 
