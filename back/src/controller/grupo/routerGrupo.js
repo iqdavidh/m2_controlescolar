@@ -1,3 +1,5 @@
+const IndexGrupoAction  = require("./IndexGrupoAction");
+
 const BuilderJsonResponse = require("../../lib/BuilderJsonResponse");
 
 
@@ -8,7 +10,14 @@ const routerGrupo = express.Router();
 
 /* index */
 routerGrupo.get('/index', (req, res, next) => {
-  BuilderJsonResponse.Success(res,{}, "pendiente no sirvo");
+  const pagina="no se usa"; //TODO
+  IndexGrupoAction.execute(res,pagina);
 });
+
+/* update data grupo */
+routerGrupo.post('/:id', (req, res, next) => {
+  BuilderJsonResponse.Error(res,"pendiente")
+});
+
 
 module.exports = routerGrupo;

@@ -9,9 +9,6 @@ const logger = require('morgan');
 const path = require('path');
 
 
-
-
-
 if (!process.env) {
 	process.env = {};
 }
@@ -36,6 +33,9 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 const app = express();
 
 const cors = require("cors");
+const DBMongo = require("./model/DbMongo");
+
+
 
 app.use(cors());
 

@@ -1,0 +1,262 @@
+[
+  {
+    "nombre": "2a",
+    "escuela": "x",
+    "tag_escuela": "x",
+    "materia": "ma",
+    "ciclo": "2019-2020",
+    "ymini": 201807,
+    "ymfin": 201907,
+    "comentarios": "",
+    "lista_alumnos": [
+      {
+        "id": "01",
+        "nombre": "Lesli Vanbrunt"
+      },
+      {
+        "id": "02",
+        "nombre": "Latrina Govan"
+      },
+      {
+        "id": "03",
+        "nombre": "Leeanna Rascon"
+      },
+      {
+        "id": "04",
+        "nombre": "Nga Toney"
+      },
+      {
+        "id": "05",
+        "nombre": "Debbra Hofmann"
+      },
+      {
+        "id": "06",
+        "nombre": "Barrie Shanklin"
+      },
+      {
+        "id": "07",
+        "nombre": "Floyd Sherrer"
+      },
+      {
+        "id": "08",
+        "nombre": "Zofia Kinsman"
+      },
+      {
+        "id": "09",
+        "nombre": "Azalee Lemos"
+      },
+      {
+        "id": "10",
+        "nombre": "Columbus Nickel"
+      },
+      {
+        "id": "11",
+        "nombre": "Deshawn Gurrola"
+      },
+      {
+        "id": "12",
+        "nombre": "Erin Mingo"
+      },
+      {
+        "id": "13",
+        "nombre": "Katelin Lovern"
+      },
+      {
+        "id": "14",
+        "nombre": "Julio Chess"
+      },
+      {
+        "id": "15",
+        "nombre": "Jarrod Bradway"
+      },
+      {
+        "id": "16",
+        "nombre": "Tobie Newhart"
+      },
+      {
+        "id": "17",
+        "nombre": "Griselda Roehr"
+      },
+      {
+        "id": "18",
+        "nombre": "George Yarbro"
+      },
+      {
+        "id": "19",
+        "nombre": "Otto Riffel"
+      },
+      {
+        "id": "20",
+        "nombre": "Lorretta Derrico"
+      },
+      {
+        "id": "21",
+        "nombre": "Epifania Lococo"
+      },
+      {
+        "id": "22",
+        "nombre": "Toni Mckeithan"
+      },
+      {
+        "id": "23",
+        "nombre": "Rocco Carmen"
+      },
+      {
+        "id": "24",
+        "nombre": "Marget Dearman"
+      },
+      {
+        "id": "25",
+        "nombre": "Celestina Greenhill"
+      },
+      {
+        "id": "26",
+        "nombre": "Rosamaria Levesque"
+      },
+      {
+        "id": "27",
+        "nombre": "Kim Beres"
+      },
+      {
+        "id": "28",
+        "nombre": "Candida Prophet"
+      },
+      {
+        "id": "29",
+        "nombre": "Lora Yarnall"
+      },
+      {
+        "id": "30",
+        "nombre": "Windy Eisen"
+      }
+    ]
+  },
+  {
+    "nombre": "2b",
+    "escuela": "x",
+    "tag_escuela": "x",
+    "materia": "ma",
+    "ciclo": "2019-2020",
+    "ymini": 201807,
+    "ymfin": 201907,
+    "comentarios": "",
+    "lista_alumnos": [
+      {
+        "id": "01",
+        "nombre": "Tonya Jerkins"
+      },
+      {
+        "id": "02",
+        "nombre": "Kenny Lamers"
+      },
+      {
+        "id": "03",
+        "nombre": "Hai Westbrooks"
+      },
+      {
+        "id": "04",
+        "nombre": "Guy Greb"
+      },
+      {
+        "id": "05",
+        "nombre": "Jacquelyn Zemke"
+      },
+      {
+        "id": "06",
+        "nombre": "Suzann Gilstrap"
+      },
+      {
+        "id": "07",
+        "nombre": "Yanira Valero"
+      },
+      {
+        "id": "08",
+        "nombre": "Ernest Graddy"
+      },
+      {
+        "id": "09",
+        "nombre": "Celena Casanova"
+      },
+      {
+        "id": "10",
+        "nombre": "Ester Dionisio"
+      },
+      {
+        "id": "11",
+        "nombre": "Lizzie Buell"
+      },
+      {
+        "id": "12",
+        "nombre": "Consuelo Sandquist"
+      },
+      {
+        "id": "13",
+        "nombre": "Belkis Schaper"
+      },
+      {
+        "id": "14",
+        "nombre": "Cedrick Janicki"
+      },
+      {
+        "id": "15",
+        "nombre": "Enola Gose"
+      },
+      {
+        "id": "16",
+        "nombre": "Linsey Bement"
+      },
+      {
+        "id": "17",
+        "nombre": "Fannie Levalley"
+      },
+      {
+        "id": "18",
+        "nombre": "Kum Delman"
+      },
+      {
+        "id": "19",
+        "nombre": "Sana Tondreau"
+      },
+      {
+        "id": "20",
+        "nombre": "Shawnna Langdon"
+      },
+      {
+        "id": "21",
+        "nombre": "Krista Janda"
+      },
+      {
+        "id": "22",
+        "nombre": "Dalia Lowrance"
+      },
+      {
+        "id": "23",
+        "nombre": "Jospeh Carter"
+      },
+      {
+        "id": "24",
+        "nombre": "Josephina Monty"
+      },
+      {
+        "id": "25",
+        "nombre": "Dulce Bealer"
+      },
+      {
+        "id": "26",
+        "nombre": "Gerard Veliz"
+      },
+      {
+        "id": "27",
+        "nombre": "Eleanor Konecny"
+      },
+      {
+        "id": "28",
+        "nombre": "Carolyn Smyers"
+      },
+      {
+        "id": "29",
+        "nombre": "Bryan Jacob"
+      }
+    ]
+  }
+]
