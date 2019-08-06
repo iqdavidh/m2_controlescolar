@@ -23,7 +23,7 @@ module.exports = {
     return Math.floor(Math.random() * (+max - +min)) + +min;
   },
 
-  ValidarTieneProp(objecto, listaCNotNull, listaCPosibleNull = []) {
+  ValidarTieneProp(objeto, listaCNotNull, listaCPosibleNull = []) {
 
     let isValid = true;
     let msg='';

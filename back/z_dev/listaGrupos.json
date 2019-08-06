@@ -8,7 +8,7 @@
     "ymini": 201807,
     "ymfin": 201907,
     "comentarios": "",
-    "lista_alumnos": [
+    "alumnos": [
       {
         "id": "01",
         "nombre": "Lesli Vanbrunt"
@@ -140,7 +140,7 @@
     "ymini": 201807,
     "ymfin": 201907,
     "comentarios": "",
-    "lista_alumnos": [
+    "alumnos": [
       {
         "id": "01",
         "nombre": "Tonya Jerkins"

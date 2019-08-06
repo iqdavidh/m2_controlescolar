@@ -16,7 +16,7 @@ const GrupoSchema = new Schema({
   ymfin: {type: Number},
 
   comentarios: {type: String},
-  lista_alumnos: Array
+  alumnos: Array
 
 });
 

@@ -4,26 +4,35 @@ const DbMongo = require("../../model/DbMongo");
 
 const IndexGrupoAction = {
 
-  execute: function (res, pagina) {
+  execute: (res, pagina) => {
 
 
-    DbMongo.Grupos
+    const promTotal = DbMongo.Grupos.countDocuments({});
+    const promItems = DbMongo.Grupos
         .find({})
-        .then((lista) => {
+        .sort({nombre: 'desc'})
+        .exec()
+    ;
 
-          const data = {
-            items: lista,
-            total: lista.length,
+
+    Promise.all([promTotal, promItems])
+        .then((values) => {
+          const total = values[0];
+          const items = values[1];
+
+
+          let data = {
+            total,
+            items,
             next: ''
           };
 
           BuilderJsonresponse.Success(res, data);
 
-        })
-        .catch(error => {
-              BuilderJsonResponse.Error(res, error);
-            }
-        );
+        }).catch(error => {
+
+      BuilderJsonresponse.Error(res, error);
+    });
 
 
   }
