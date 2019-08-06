@@ -49,5 +49,11 @@ app.get("/", function (req, res) {
 	app.use( url, routerAlumnos);
 }
 
+/*asistencia *************************************************** */
+{
+	const routerAsistencia = require("./controller/asistencia/routerAsistencia");
+	let url=`/api/${UrlApiConfig.Asistencia}`;
+	app.use( url, routerAsistencia);
+}
 
 module.exports = app;
