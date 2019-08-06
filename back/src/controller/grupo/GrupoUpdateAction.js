@@ -17,7 +17,6 @@ const GrupoUpdateAction = {
   },
   run: (res, id, dataUpdate) => {
 
-
     const promUpdate = DbMongo.Grupos.findByIdAndUpdate(id, {$set: dataUpdate} , {
       new: false,upsert: false
     });
