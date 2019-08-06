@@ -14,8 +14,45 @@ const idGRupo = "5d48cc49a01add3ae0483a72";
 const request = supertest(url);
 
 
-describe('api/alumnos/grupo/:idGrupo/alumno/crear POST get request ok', function () {
-  it('ok respuesta basica', function (done) {
+describe('alumno crear - api/alumnos/grupo/:idGrupo/alumno/crear POST ok', function () {
+  it('ok agregar alumno', function (done) {
+
+    const requestDelete= (idNewAlumno)=>{
+
+      describe('alumno delete - api/alumnos/grupo/:idGrupo/alumno/:idAlumno DELETE ok', function () {
+        it('ok agregar alumno', function (done) {
+
+
+          request
+              .delete('/api/alumnos/grupo/' + idGRupo + '/alumno/' + idNewAlumno)
+              .expect(200)
+              .end(function (err, res) {
+
+                const c = JSON.parse(res.text);
+
+                LibTest.saveResponse(res.text, './alumnos_delete.json');
+
+                assert(c.success, "Se esperada true como tipo de success");
+                assert(c.msg === "");
+
+                assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
+
+                assert(c.data._id !== "", "El id de grupo");
+                assert(c.data.idAlumno !== "", "El id de alumno");
+
+                if (err) return done(err);
+                done();
+              })
+          ;
+
+
+        });
+      });
+
+
+
+    };
+
     request
         .post('/api/alumnos/grupo/'+idGRupo +'/alumno/crear')
         .send({nombre: "bart" + dataRandom, "apellidos": "simson" + dataRandom})
@@ -33,6 +70,10 @@ describe('api/alumnos/grupo/:idGrupo/alumno/crear POST get request ok', function
 
           assert(c.data._id !=="", "El numero de grupo");
           assert(c.data.idAlumno !=="", "El numero de items deber ser  mayor a 0");
+
+
+          /*eliminar el registro *************************************** */
+          requestDelete(c.data.idAlumno);
 
           if (err) return done(err);
           done();

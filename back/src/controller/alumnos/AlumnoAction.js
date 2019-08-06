@@ -4,7 +4,7 @@ const LibAlumnos = require("./LibAlumnos");
 const uniqid = require("uniqid");
 
 
-const runAction = (res, idGrupo, dataAlumno, fnUpdate) => {
+const runAction = (res, idGrupo, idAlumno, dataAlumno, fnUpdate) => {
 
   const dataResponse = {
     _id: idGrupo
@@ -16,7 +16,7 @@ const runAction = (res, idGrupo, dataAlumno, fnUpdate) => {
 
         const alumnos = data.alumnos;
 
-        fnUpdate(alumnos, dataAlumno, dataResponse);
+        fnUpdate(alumnos, idAlumno, dataAlumno, dataResponse);
 
         LibAlumnos.sort(alumnos);
 
@@ -36,24 +36,76 @@ const runAction = (res, idGrupo, dataAlumno, fnUpdate) => {
 
 const AlumnoAction = {
 
-  runInsert: (res, id, alumnoNew) => {
+  runInsert: (res, idGrupo, alumnoNew) => {
 
 
     let dataResponse = {};
 
-    const fnUpdate = (alumnos, alumnoNew, dataResponse) => {
+    const fnUpdate = (alumnos, idAlumno, dataAlumno, dataResponse) => {
 
       /*crar un ID del Alumnmos*/
-      alumnoNew.id = uniqid();
+      dataAlumno.id = uniqid();
 
-      alumnos.push(alumnoNew);
+      alumnos.push(dataAlumno);
 
-      dataResponse.idAlumno = alumnoNew.id;
+      dataResponse.idAlumno = dataAlumno.id;
     };
 
-    runAction(res, id, alumnoNew, fnUpdate);
+    runAction(res, idGrupo, null, alumnoNew, fnUpdate);
+
+  },
+
+  runDelete: (res, idGrupo, idAlumno) => {
+
+
+    let dataResponse = {};
+
+    const fnUpdate = (alumnos, idAlumno, dataAlumno, dataResponse) => {
+
+      let index = alumnos.findIndex(a => {
+        return a.id === idAlumno;
+      });
+
+      if (index === -1) {
+        throw new Error("No se encontró el alumno con id " + idAlumno);
+      }
+
+      alumnos.splice(index, 1);
+
+      dataResponse.idAlumno = idAlumno;
+    };
+
+    runAction(res, idGrupo, idAlumno, null, fnUpdate);
+
+  },
+
+  runUpdate: (res, idGrupo, idAlumno, dataAlumno) => {
+
+
+    let dataResponse = {};
+
+    const fnUpdate = (alumnos, idAlumno, dataAlumno, dataResponse) => {
+
+      let index = alumnos.findIndex(a => {
+        return a.id === idAlumno;
+      });
+
+      if (index === -1) {
+        throw new Error("No se encontró el alumno con id " + idAlumno);
+      }
+
+      alumnos[index].nombre = dataAlumno.nombre;
+      alumnos[index].apellidos = dataAlumno.apellidos;
+      alumnos[index].apellidos = dataAlumno.comentarios;
+
+      dataResponse.idAlumno = idAlumno;
+
+    };
+
+    runAction(res, idGrupo, idAlumno, null, fnUpdate);
 
   }
+
 
 };
 
