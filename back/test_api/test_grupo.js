@@ -5,7 +5,7 @@
  */
 
 const fNow = new Date();
-
+const dataRandom = `${fNow.getHours()}:${fNow.getMinutes()}:${fNow.getSeconds()} `;
 
 const supertest = require('supertest');
 const assert = require('assert');
@@ -15,7 +15,7 @@ let url = "http://localhost:3003"; //<-- es nuestro sitio backend
 
 const request = supertest(url);
 
-
+/*
 describe('grupo/index get request ok', function () {
   it('ok respuesta basica', function (done) {
     request
@@ -82,10 +82,6 @@ describe('/grupo/:idGrupo GET  ok  Buscar por ID', function () {
 
 });
 
-
-
-const dataRandom = `${fNow.getHours()}:${fNow.getMinutes()}:${fNow.getSeconds()} `;
-
 describe('/grupo/:idGrupo POST  ok  Buscar por ID y actualizar grupo', function () {
   it('ok respuesta basica', function (done) {
 
@@ -120,8 +116,48 @@ describe('/grupo/:idGrupo POST  ok  Buscar por ID y actualizar grupo', function 
   });
 
 });
+*/
 
+describe('/grupo/crear POST  ok  Crear un grupo', function () {
+  it('ok', function (done) {
 
+    const dataCrear = {
+      "nombre":"411-" + dataRandom,
+      "materia":"dibujo-" +dataRandom,
+      "escuela":"primaria springfil" + dataRandom,
+      "ciclo":"1990-2050",
+      "ymini":199001,
+      "ymfin":205001,
+      "comentarios": "comentario create-" + dataRandom
+    };
+
+    request
+        .post('/api/grupo/crear')
+        .send(dataCrear)
+        .expect(200)
+        .end(function (err, res) {
+
+          const c = JSON.parse(res.text);
+
+          LibTest.saveResponse(res.text, './grupo_update.json');
+
+          assert(c.success, "Se esperada true como tipo de success");
+          assert(c.msg === "");
+
+          assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
+
+          let listaP = ['_id'];
+          let isValid = LibTest.ValidarTieneProp(c.data, listaP);
+
+          assert(isValid === true, isValid);
+
+          if (err) return done(err);
+          done();
+        })
+    ;
+  });
+
+});
 
 
 

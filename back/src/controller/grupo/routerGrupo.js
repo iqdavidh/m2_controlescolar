@@ -6,6 +6,7 @@ const LibValidacion = require("../../lib/LibValidacion");
 const GrupoIndexAction = require("./GrupoIndexAction");
 const GrupoFindByIDAction = require("./GrupoFindByIDAction");
 const GrupoUpdateAction = require("./GrupoUpdateAction");
+const GrupoInsertAction = require("./GrupoInsertAction");
 
 
 const routerGrupo = express.Router();
@@ -16,6 +17,28 @@ routerGrupo.get('/index', (req, res, next) => {
   const pagina = "no se usa"; //TODO
   GrupoIndexAction.run(res, pagina);
 });
+
+
+/* create */
+routerGrupo.post('/crear', (req, res, next) => {
+
+  let dataRaw = req.body;
+
+  try {
+
+    let dataClean = LibValidacion.getDataClean(dataRaw, GrupoInsertAction.getListaCamposAllowInsert());
+
+    GrupoInsertAction.run(res,dataClean);
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(e);
+  }
+
+});
+
+
+
 
 /* find by id */
 routerGrupo.get('/:idGrupo', (req, res, next) => {

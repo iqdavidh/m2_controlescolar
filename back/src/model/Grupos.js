@@ -6,17 +6,17 @@ const Schema = mongoose.Schema;
 
 
 const GrupoSchema = new Schema({
-  nombre: {type: String},
+  nombre: {type: String, required: true},
   escuela: {type: String},
   tag_escuela: {type: String},
-  materia: {type: String},
+  materia: {type: String, required: true},
   ciclo: {type: String},
 
   ymini: {type: Number},
   ymfin: {type: Number},
 
   comentarios: {type: String},
-  alumnos: Array
+  alumnos: {type:Array, required: true}
 
 });
 
