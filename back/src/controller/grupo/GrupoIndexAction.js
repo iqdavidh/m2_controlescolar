@@ -2,14 +2,22 @@ const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
 
 
-const IndexGrupoAction = {
+const GrupoIndexAction = {
 
-  execute: (res, pagina) => {
+  run: (res, pagina) => {
 
 
     const promTotal = DbMongo.Grupos.countDocuments({});
     const promItems = DbMongo.Grupos
-        .find({})
+        .find({},
+            {
+              nombre: 1,
+              materia: 1,
+              escuela: 1,
+              tag_escuela: 1,
+              ciclo: 1,
+              comentarios: 1
+            })
         .sort({nombre: 'desc'})
         .exec()
     ;
@@ -38,4 +46,4 @@ const IndexGrupoAction = {
   }
 };
 
-module.exports = IndexGrupoAction;
+module.exports = GrupoIndexAction;
