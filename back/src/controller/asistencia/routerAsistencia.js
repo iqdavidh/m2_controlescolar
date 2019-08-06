@@ -5,10 +5,19 @@ const LibValidacion = require("../../lib/LibValidacion");
 
 const routerAsistencia = express.Router();
 
+/* Get AsistenciaDia (idGrupo, fDMY) */
+routerAsistencia.get('/grupo/:idGrupo/fechaDMY/:fechaDMY', (req,res,next)=>{
+    const id = req.params.idGrupo;
+    const fechaDMY = req.params.fechaDMY;
 
+    const fecha=new Date();
+    AsistenciaFindByFecha.run(res,id,fecha);
 
-routerAsistencia.get('/', (req,res,next)=>{
-    BuilderJsonResponse.Success(res,{msg:'prioobando'});
+    
 } );
+
+routerAsistencia.post("/grupo/:idGrupo")
+
+
 
 module.exports = routerAsistencia;
