@@ -38,8 +38,16 @@ app.get("/", function (req, res) {
 {
 	const routerGrupo = require("./controller/grupo/routerGrupo");
 	let url=`/api/${UrlApiConfig.Grupo}`;
-	app.use( url, routerGrupo)
+	app.use( url, routerGrupo);
 }
-/* ******************************************************** */
+
+
+/*alumnos *************************************************** */
+{
+	const routerAlumnos = require("./controller/alumnos/routerAlumnos");
+	let url=`/api/${UrlApiConfig.Alumnos}`;
+	app.use( url, routerAlumnos);
+}
+
 
 module.exports = app;
