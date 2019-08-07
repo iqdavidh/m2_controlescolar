@@ -35,7 +35,6 @@ const AsistenciaPaginaAction = {
           }
 
           fechas.reverse();
-          alumnos.reverse();
 
 
           let data = {
