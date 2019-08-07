@@ -14,7 +14,7 @@ const idGrupo = "5d48cc49a01add3ae0483a72";
 const request = supertest(url);
 
 
-describe('asistencia idGrupo dia - api/asistencia/grupo/:idGrupo/:Y/:m/:d POST OK', function () {
+describe('asistencia idGrupo dia - api/asistencia/grupo/:idGrupo/:Y/:m/:d GET OK', function () {
   it('ok get la asitencia de un dia no registrado', function (done) {
 
 
@@ -122,7 +122,6 @@ describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m
   });
 });
 
-
 describe('asistencia   api/asistencia/grupo/:idGrupo/pagina/1 GET 1', function () {
   it('ok get la asitencia pagina de  un grupo', function (done) {
 
@@ -161,3 +160,44 @@ describe('asistencia   api/asistencia/grupo/:idGrupo/pagina/1 GET 1', function (
     ;
   });
 });
+/*
+describe('asistencia   api/asistencia/grupo/:idGrupo/y/m GET 1', function () {
+  it('ok get la asitencia y/m  un grupo', function (done) {
+
+
+    request
+        .get('/api/asistencia/grupo/' + idGrupo + '/2000/1')
+        .expect(200)
+        .end(function (err, res) {
+
+          const c = JSON.parse(res.text);
+
+          LibTest.saveResponse(res.text, './asistencia_mes.json');
+
+          assert(c.success, "Se esperada true como tipo de success");
+          assert(c.msg === "");
+
+          assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
+
+          assert(c.data.total > 0, "El total viene vacio");
+          assert(c.data.alumnos.length > 0, "El array de alumnos no esta funcioonando");
+          assert(c.data.fechas.length > 0, "El array de fechas no esta funcioonando");
+
+
+
+
+          let isValid = LibTest.ValidarTieneProp(c.data.alumnos[0][0], ['id', 'valor', 'nombre', 'apellidos']);
+          assert(isValid === true, isValid);
+
+          isValid = LibTest.ValidarTieneProp(c.data.fechas[0], ['fecha', 'diaSemana', 'dia', 'mes', 'y']);
+          assert(isValid === true, isValid);
+
+
+          if (err) return done(err);
+          done();
+        })
+    ;
+  });
+});
+
+*/

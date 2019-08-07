@@ -2,14 +2,16 @@ const express = require('express');
 
 const BuilderJsonResponse = require("../../lib/BuilderJsonResponse");
 
-const AsistenciaFindByFecha = require("./AsistenciaFindByFecha");
-const AsistenciaUpdateByFecha = require("./AsistenciaUpdateByFecha");
-const ProAsistencia = require("./proceso/ProAsistencia");
-const AsistenciaDeleteByFecha = require("./AsistenciaDeleteByFecha");
+const AsistenciaFindByFechaAction = require("./AsistenciaFindByFechaAction");
+const AsistenciaUpdateByFechaAction = require("./AsistenciaUpdateByFechaAction");
+
+const AsistenciaDeleteByFechaAction = require("./AsistenciaDeleteByFechaAction");
 const AsistenciaPaginaAction = require("./AsistenciaPaginaAction");
+const AsistenciaFindByMesAction = require("./AsistenciaFindByMesAction");
 
 const routerAsistencia = express.Router();
 
+const ProAsistencia = require("./proceso/ProAsistencia");
 
 
 
@@ -49,10 +51,10 @@ routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia?', (req, res, next) => {
     ProAsistencia.ValidarFecha(year, mes, dia);
 
     if (dia === null) {
-      //asistencia Mes
+      AsistenciaFindByMesAction.run()
     } else {
       const fecha = new Date(year, mes - 1, dia);
-      AsistenciaFindByFecha.run(res, id, fecha);
+      AsistenciaFindByFechaAction.run(res, id, fecha);
     }
 
 
@@ -104,7 +106,7 @@ routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
 
     } else {
       const fecha = new Date(year, mes - 1, dia);
-      AsistenciaUpdateByFecha.run(res, id, fecha, dataClean);
+      AsistenciaUpdateByFechaAction.run(res, id, fecha, dataClean);
     }
 
 
@@ -133,7 +135,7 @@ routerAsistencia.delete("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
 
     const fecha = new Date(year, mes - 1, dia);
 
-    AsistenciaDeleteByFecha.run(res, id, fecha);
+    AsistenciaDeleteByFechaAction.run(res, id, fecha);
 
 
   } catch (e) {

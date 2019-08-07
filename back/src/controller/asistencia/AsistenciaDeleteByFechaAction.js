@@ -2,7 +2,7 @@ const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
 
 
-const AsistenciaDeleteByFecha = {
+const AsistenciaDeleteByFechaAction = {
 
   run: (res, idGrupo, fecha) => {
 
@@ -26,4 +26,4 @@ const AsistenciaDeleteByFecha = {
   }
 };
 
-module.exports = AsistenciaDeleteByFecha;
+module.exports = AsistenciaDeleteByFechaAction;

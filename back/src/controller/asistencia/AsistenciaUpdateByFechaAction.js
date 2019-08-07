@@ -3,7 +3,7 @@ const DbMongo = require("../../model/DbMongo");
 
 
 
-const AsistenciaUpdateByFecha = {
+const AsistenciaUpdateByFechaAction = {
 
   run: (res, idGrupo, fecha, alumnos) => {
 
@@ -43,4 +43,4 @@ const AsistenciaUpdateByFecha = {
   }
 };
 
-module.exports = AsistenciaUpdateByFecha;
+module.exports = AsistenciaUpdateByFechaAction;
