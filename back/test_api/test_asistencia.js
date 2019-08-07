@@ -52,7 +52,19 @@ describe('asistencia idGrupo dia - api/asistencia/grupo/:idGrupo/:Y/:m/:d POST O
 });
 
 
-const asistenciaAlumno = [{id: 1, valor: 1}, {id: 2, valor: 1}];
+const asistenciaAlumno = [
+  {
+    id: 1,
+    valor: 1,
+    nombre: "bart",
+    apellidos: "simpson"
+  },
+  {
+    id: 2,
+    valor: 1,
+    nombre: "Milhouse",
+    apellidos: "Van Houten"
+  }];
 
 describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m/d POST OK', function () {
   it('ok post la asitencia de un dia', function (done) {
@@ -101,7 +113,7 @@ describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m
 
           assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
 
-          describeDelete(2001, 1, 1);
+           describeDelete(2001, 1, 1);
 
           if (err) return done(err);
           done();
@@ -132,11 +144,11 @@ describe('asistencia   api/asistencia/grupo/:idGrupo/pagina/1 GET 1', function (
           assert(c.data.total > 0, "El total viene vacio");
           assert(c.data.alumnos.length > 0, "El array de alumnos no esta funcioonando");
           assert(c.data.fechas.length > 0, "El array de fechas no esta funcioonando");
-          assert(c.data.pagina === 1, "Esperamos la pagina 1");
-          //prueba del next pendiente
+          assert(c.data.pagina === "1", "Esperamos la pagina 1");
 
 
-          let isValid = LibTest.ValidarTieneProp(c.data.alumnos[0], ['id', 'valor']);
+
+          let isValid = LibTest.ValidarTieneProp(c.data.alumnos[0][0], ['id', 'valor', 'nombre', 'apellidos']);
           assert(isValid === true, isValid);
 
           isValid = LibTest.ValidarTieneProp(c.data.fechas[0], ['fecha', 'diaSemana', 'dia', 'mes', 'y']);

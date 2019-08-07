@@ -1,6 +1,6 @@
 const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
-const ProAsistencia = require("./proceso/ProAsistencia");
+
 
 
 const AsistenciaUpdateByFecha = {

@@ -1,5 +1,6 @@
 const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
+const ProAsistencia = require("./proceso/ProAsistencia");
 
 
 const AsistenciaPaginaAction = {
@@ -23,19 +24,35 @@ const AsistenciaPaginaAction = {
           const total = values[0];
           const items = values[1];
 
+          const fechas = [];
+          const alumnos = [];
+
+          if (items) {
+            items.forEach(asistencia => {
+              fechas.push(ProAsistencia.GetDataFecha(asistencia.fecha));
+              alumnos.push(asistencia.alumnos)
+            });
+          }
+
+          fechas.reverse();
+          alumnos.reverse();
+
+
           let data = {
             total,
-            items,
-            pagina: pagina,
+            alumnos,
+            pagina,
+            fechas,
             next: ''
           };
 
           BuilderJsonresponse.Success(res, data);
 
-        }).catch(error => {
+        })
+        .catch(error => {
 
-      BuilderJsonresponse.Error(res, error);
-    });
+          BuilderJsonresponse.Error(res, error);
+        });
 
 
   }

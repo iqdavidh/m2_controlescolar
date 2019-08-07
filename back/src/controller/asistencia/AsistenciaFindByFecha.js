@@ -31,7 +31,7 @@ const AsistenciaFindByFechaAction = {
             grupo.alumnos
                 .forEach(a => {
                   asistencia.alumnos.push(
-                      {id: a.id, valor: 1}
+                      {id: a.id, valor: 1, nombre:a.nombre, apellidos:a.apellidos}
                   );
                 });
           }

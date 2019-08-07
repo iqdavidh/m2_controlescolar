@@ -1,13 +1,39 @@
 const express = require('express');
 
 const BuilderJsonResponse = require("../../lib/BuilderJsonResponse");
-const LibValidacion = require("../../lib/LibValidacion");
+
 const AsistenciaFindByFecha = require("./AsistenciaFindByFecha");
 const AsistenciaUpdateByFecha = require("./AsistenciaUpdateByFecha");
 const ProAsistencia = require("./proceso/ProAsistencia");
 const AsistenciaDeleteByFecha = require("./AsistenciaDeleteByFecha");
+const AsistenciaPaginaAction = require("./AsistenciaPaginaAction");
 
 const routerAsistencia = express.Router();
+
+
+
+
+/* Get AsistenciaPagina(idGrupo, pagina) */
+routerAsistencia.get('/grupo/:idGrupo/pagina/:pagina', (req, res, next) => {
+
+  const idGrupo = req.params.idGrupo;
+  const pagina = req.params.pagina;
+
+  try {
+
+    if(pagina<0|| pagina>1000 ){
+      throw new Error("Pagina incorrecta");
+    }
+
+    AsistenciaPaginaAction.run(res,idGrupo,pagina);
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(res, e);
+  }
+});
+
+
 
 /* Get AsistenciaDia (idGrupo, fDMY) */
 routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia?', (req, res, next) => {
@@ -42,16 +68,23 @@ routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
   let dataRaw = req.body;
 
   let dataClean = [];
+  const listaCamposPermitidos=['id','valor','nombre','apellidos'];
 
   dataRaw.forEach(a => {
 
-    if(!a.id || !a.valor){
-      throw new Error("Se require id y valor del objeto");
-    }
+    const asistenciaClean={};
 
-    dataClean.push(
-        {id: a.id, valor: a.valor}
-    )
+    listaCamposPermitidos.forEach(c=>{
+
+      if(!a[c]){
+        throw new Error("Se require " + c);
+      }
+
+      asistenciaClean[c]=a[c];
+    });
+
+
+    dataClean.push(asistenciaClean);
 
   });
 
@@ -112,27 +145,6 @@ routerAsistencia.delete("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
 });
 
 
-
-
-/* Get AsistenciaDia (idGrupo, fDMY) */
-routerAsistencia.get('/grupo/:idGrupo/pagina/:idPagina', (req, res, next) => {
-
-  const idGrupo = req.params.idGrupo;
-  const idPagina = req.params.idPagina;
-
-  try {
-
-    if(pagina<0|| pagina>1000 ){
-      throw new Error("Pagina incorrecta");
-    }
-
-    Siste
-
-  } catch (e) {
-
-    BuilderJsonResponse.Error(res, e);
-  }
-});
 
 
 module.exports = routerAsistencia;
