@@ -3,6 +3,8 @@ const express = require('express');
 const BuilderJsonResponse = require("../../lib/BuilderJsonResponse");
 const ActPaginaAction = require("./ActPaginaAction");
 const ActFindByIDAction = require("./ActFindByIDAction");
+const ActUpdate = require("./ActUpdateAction");
+const LibValidacion = require("../../lib/LibValidacion");
 
 const routerAct = express.Router();
 
@@ -44,9 +46,9 @@ routerAct.post('/:idAct', (req, res, next) => {
 
   try {
 
-    //  let dataClean = LibValidacion.getDataClean(dataRaw, GrupoUpdateAction.getListaCamposAllowUpdate());
+    let dataClean = LibValidacion.getDataClean(dataRaw, ActUpdate.getListaCamposAllowUpdate());
 
-    // GrupoUpdateAction.run(res, id, dataClean);
+    ActUpdate.run(res, id, dataClean);
 
   } catch (e) {
 

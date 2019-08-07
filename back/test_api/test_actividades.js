@@ -11,13 +11,13 @@ let url = "http://localhost:3003"; //<-- es nuestro sitio backend
 const fNow = new Date();
 const dataRandom = `${fNow.getHours()}:${fNow.getMinutes()}:${fNow.getSeconds()} `;
 
-const idGrupo= DataTest.idGrupo;
-const idActividad= DataTest.idActividad;
+const idGrupo = DataTest.idGrupo;
+const idActividad = DataTest.idActividad;
 
 const request = supertest(url);
 
 
-
+/*
 describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function () {
   it('ok get la actividades pagina de  un grupo', function (done) {
 
@@ -91,80 +91,55 @@ describe('actividades   api/actividades/:idActividad GET', function () {
     ;
   });
 });
+*/
 
 
-
-/*
 const actividadesAlumno = [
   {
     id: 1,
-    valor: 1,
+    calificacion: 8,
     nombre: "bart",
     apellidos: "simpson"
   },
   {
     id: 2,
-    valor: 1,
+    calificacion: 5,
     nombre: "Milhouse",
     apellidos: "Van Houten"
   }];
 
-describe('actualizar asistenciua idGrupo dia - api/actividades/grupo/:idGrupo/y/m/d POST OK', function () {
-  it('ok post la asitencia de un dia', function (done) {
 
+describe('actividad update - activiadad/:idAct POST  ok', function () {
+  it('ok update registro existente', function (done) {
 
-    const describeDelete = (y, m, d) => {
-      describe('delete asistenciua idGrupo dia - api/actividades/grupo/:idGrupo/y/m/d DELETE OK', function () {
-        it('ok delete la asitencia de un dia', function (done) {
-
-          request
-              .delete(`/api/actividades/grupo/${idGrupo}/${y}/${m}/${d}`)
-              .expect(200)
-              .end(function (err, res) {
-
-                const c = JSON.parse(res.text);
-
-                LibTest.saveResponse(res.text, './actividades_delete.json');
-
-                assert(c.success, "Se esperada true como tipo de success");
-                assert(c.msg === "");
-                assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
-
-
-                if (err) return done(err);
-                done();
-
-              })
-          ;
-        });
-      });
+    const dataUpdate = {
+      "titulo": "tit" + dataRandom,
+      "comentarios": "com" + dataRandom
     };
 
-
     request
-        .post('/api/actividades/grupo/' + idGrupo + '/2001/01/03')
+        .post('/api/actividades/' + idActividad)
+        .send(dataUpdate)
         .expect(200)
-        .send(actividadesAlumno)
         .end(function (err, res) {
 
           const c = JSON.parse(res.text);
 
-          LibTest.saveResponse(res.text, './actividades_dia_insert.json');
+          LibTest.saveResponse(res.text, './act_update.json');
 
           assert(c.success, "Se esperada true como tipo de success");
           assert(c.msg === "");
 
           assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
 
-           describeDelete(2001, 1, 3);
+          let isValid = LibTest.ValidarTieneProp(c.data, ['_id']);
+
+          assert(isValid === true, isValid);
 
           if (err) return done(err);
           done();
         })
     ;
   });
+
 });
-
-
-
-*/

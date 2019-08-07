@@ -7,7 +7,8 @@ const ActividadesSchema = new Schema({
   tipo: {type: String,require:true},
   titulo: {type: String,require:true},
   fecha: {type: Date, require:true},
-  alumnos: {type:Array, required: true}
+  alumnos: {type:Array, required: true},
+  comentarios:{type: String},
 
 });
 
