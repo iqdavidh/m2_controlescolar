@@ -180,7 +180,7 @@ let jsonEval2a = JSON.stringify(listaCalificacionAlumnos2a);
 
 listaTareas2A
     .forEach(t => {
-      t["id_grupo"] = "g2a";
+      t["idGrupo"] = "g2a";
       t["alumnos"] = JSON.parse(jsonEval2a);
     });
 
@@ -194,7 +194,7 @@ let jsonEval2b = JSON.stringify(listaCalificacionAlumnos2b);
 
 listaTareas2B
     .forEach(t => {
-      t["id_grupo"] = "g2b";
+      t["idGrupo"] = "g2b";
       t["alumnos"] = JSON.parse(jsonEval2b);
     });
 
@@ -208,7 +208,7 @@ let jsonEval2c = JSON.stringify(listaCalificacionAlumnos2c);
 
 listaTareas2C
     .forEach(t => {
-      t["id_grupo"] = "g2c";
+      t["idGrupo"] = "g2c";
       t["alumnos"] = JSON.parse(jsonEval2c);
     });
 

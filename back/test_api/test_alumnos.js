@@ -4,12 +4,13 @@
 const supertest = require('supertest');
 const assert = require('assert');
 const LibTest = require('./LibTest');
+const DataTest = require("./DataTest");
 
 let url = "http://localhost:3003"; //<-- es nuestro sitio backend
 
 const fNow = new Date();
 const dataRandom = `${fNow.getHours()}:${fNow.getMinutes()}:${fNow.getSeconds()} `;
-const idGRupo = "5d48cc49a01add3ae0483a72";
+const idGrupo= DataTest.idGrupo;
 
 const request = supertest(url);
 

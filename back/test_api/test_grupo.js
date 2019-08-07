@@ -10,8 +10,11 @@ const dataRandom = `${fNow.getHours()}:${fNow.getMinutes()}:${fNow.getSeconds()}
 const supertest = require('supertest');
 const assert = require('assert');
 const LibTest = require('./LibTest');
+const DataTest = require("./DataTest");
 
 let url = "http://localhost:3003"; //<-- es nuestro sitio backend
+
+const idGrupo= DataTest.idGrupo;
 
 const request = supertest(url);
 
@@ -53,7 +56,7 @@ describe('grupo index - grupo/index GET  ok', function () {
 describe('grupo find - /grupo/:idGrupo GET  ok' , function () {
   it('ok respuesta basica', function (done) {
     request
-        .get('/api/grupo/5d48cc49a01add3ae0483a72')
+        .get('/api/grupo/'+idGrupo)
         .expect(200)
         .end(function (err, res) {
 
@@ -71,8 +74,13 @@ describe('grupo find - /grupo/:idGrupo GET  ok' , function () {
             'ymini', 'ymfin', 'comentarios', 'alumnos'];
 
           let isValid = LibTest.ValidarTieneProp(c.data, listaP);
-
           assert(isValid === true, isValid);
+
+          let alumno=c.data.alumnos[0];
+          isValid = LibTest.ValidarTieneProp(alumno, ['id','nombre','apellidos']);
+          assert(isValid === true, isValid);
+
+
 
           if (err) return done(err);
           done();
@@ -90,7 +98,7 @@ describe('grupo update - /grupo/:idGrupo POST  ok', function () {
     };
 
     request
-        .post('/api/grupo/5d48cc49a01add3ae0483a72')
+        .post('/api/grupo/' + idGrupo)
         .send(dataUpdate)
         .expect(200)
         .end(function (err, res) {

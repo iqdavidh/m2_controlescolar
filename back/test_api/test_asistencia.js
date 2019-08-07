@@ -4,12 +4,13 @@
 const supertest = require('supertest');
 const assert = require('assert');
 const LibTest = require('./LibTest');
+const DataTest = require("./DataTest");
 
 let url = "http://localhost:3003"; //<-- es nuestro sitio backend
 
 const fNow = new Date();
 const dataRandom = `${fNow.getHours()}:${fNow.getMinutes()}:${fNow.getSeconds()} `;
-const idGrupo = "5d48cc49a01add3ae0483a72";
+const idGrupo= DataTest.idGrupo;
 
 const request = supertest(url);
 
@@ -99,7 +100,7 @@ describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m
 
 
     request
-        .post('/api/asistencia/grupo/' + idGrupo + '/2001/01/01')
+        .post('/api/asistencia/grupo/' + idGrupo + '/2001/01/03')
         .expect(200)
         .send(asistenciaAlumno)
         .end(function (err, res) {
@@ -113,7 +114,7 @@ describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m
 
           assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
 
-           describeDelete(2001, 1, 1);
+           describeDelete(2001, 1, 3);
 
           if (err) return done(err);
           done();
@@ -121,7 +122,7 @@ describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m
     ;
   });
 });
-
+/*
 describe('asistencia   api/asistencia/grupo/:idGrupo/pagina/1 GET 1', function () {
   it('ok get la asitencia pagina de  un grupo', function (done) {
 
@@ -202,3 +203,4 @@ describe('asistencia   api/asistencia/grupo/:idGrupo/y/m GET 1', function () {
   });
 });
 
+*/

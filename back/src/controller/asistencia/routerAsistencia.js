@@ -117,7 +117,9 @@ routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
     const mes = parseInt(req.params.mes);
     const dia = req.params.dia ? parseInt(req.params.dia) : null;
 
-    ProAsistencia.ValidarFechaYMD(year, mes, dia);
+    ProAsistencia.ValidarY(year);
+    ProAsistencia.ValidarM(mes);
+    ProAsistencia.ValidarD(dia);
 
     if (dia === null) {
       //asistencia Mes
@@ -148,7 +150,9 @@ routerAsistencia.delete("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
     const mes = parseInt(req.params.mes);
     const dia = parseInt(req.params.dia);
 
-    ProAsistencia.ValidarFechaYMD(year, mes, dia);
+    ProAsistencia.ValidarY(year);
+    ProAsistencia.ValidarM(mes);
+    ProAsistencia.ValidarD(dia);
 
     const fecha = new Date(year, mes - 1, dia);
 

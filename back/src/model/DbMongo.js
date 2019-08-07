@@ -30,9 +30,11 @@ const cx = mongoose.connect(url, opcionesMongoose)
 
 const Grupos = require("./Grupos");
 const Asistencia = require("./Asistencia");
+const Actividades = require("./Actividades");
 
 module.exports = {
   cx: cx,
   Grupos: Grupos,
-  Asistencia: Asistencia
+  Asistencia: Asistencia,
+  Actividades:Actividades
 };
