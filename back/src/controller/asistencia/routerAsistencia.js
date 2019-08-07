@@ -34,8 +34,6 @@ routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia?', (req, res, next) => {
 
     BuilderJsonResponse.Error(res, e);
   }
-
-
 });
 
 /* Set AsistenciaDia (idGrupo, fDMY) */
@@ -111,6 +109,29 @@ routerAsistencia.delete("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
   }
 
 
+});
+
+
+
+
+/* Get AsistenciaDia (idGrupo, fDMY) */
+routerAsistencia.get('/grupo/:idGrupo/pagina/:idPagina', (req, res, next) => {
+
+  const idGrupo = req.params.idGrupo;
+  const idPagina = req.params.idPagina;
+
+  try {
+
+    if(pagina<0|| pagina>1000 ){
+      throw new Error("Pagina incorrecta");
+    }
+
+    Siste
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(res, e);
+  }
 });
 
 
