@@ -96,7 +96,7 @@ const AlumnoAction = {
 
       alumnos[index].nombre = dataAlumno.nombre;
       alumnos[index].apellidos = dataAlumno.apellidos;
-      alumnos[index].apellidos = dataAlumno.comentarios;
+      alumnos[index].comentarios = dataAlumno.comentarios;
 
       dataResponse.idAlumno = idAlumno;
 
