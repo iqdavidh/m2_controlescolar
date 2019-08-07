@@ -5,6 +5,8 @@ const ActPaginaAction = require("./ActPaginaAction");
 const ActFindByIDAction = require("./ActFindByIDAction");
 const ActUpdate = require("./ActUpdateAction");
 const LibValidacion = require("../../lib/LibValidacion");
+const ActInsertAction = require("./ActInsertAction");
+const LibFecha = require("../../lib/LibFecha");
 
 const routerAct = express.Router();
 
@@ -34,6 +36,29 @@ routerAct.get('/grupo/:idGrupo/pagina/:pagina', (req, res, next) => {
 routerAct.get('/:idAct', (req, res, next) => {
   const id = req.params.idAct;
   ActFindByIDAction.run(res, id);
+
+});
+
+/* create */
+routerAct.post('/crear', (req, res, next) => {
+
+  let dataRaw = req.body;
+
+  try {
+
+    let dataClean = LibValidacion.getDataClean(dataRaw, ActInsertAction.getListaCamposAllowInsert());
+
+    let fecha = LibFecha.getDateFromFechaDMY(dataClean.fecha);
+
+    dataClean.fecha = fecha;
+
+
+    ActInsertAction.run(res, dataClean);
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(e);
+  }
 
 });
 

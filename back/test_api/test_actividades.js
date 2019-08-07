@@ -17,7 +17,7 @@ const idActividad = DataTest.idActividad;
 const request = supertest(url);
 
 
-
+/*
 describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function () {
   it('ok get la actividades pagina de  un grupo', function (done) {
 
@@ -56,9 +56,6 @@ describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function
     ;
   });
 });
-
-
-
 
 describe('actividades   api/actividades/:idActividad GET', function () {
 
@@ -143,3 +140,44 @@ describe('actividad update - activiadad/:idAct POST  ok', function () {
   });
 
 });
+
+*/
+
+describe('actividad crear - actividad/grupo POST  ok', function () {
+  it('ok crear actividad', function (done) {
+
+    const dataCrear = {
+      "tipo":"examen",
+      "titulo": "examen de " + dataRandom,
+      "fecha":"01/02/2019",
+      "idGrupo":idGrupo,
+      "comentarios": "com" + dataRandom
+    };
+
+    request
+        .post('/api/actividades/crear')
+        .send(dataCrear)
+        .expect(200)
+        .end(function (err, res) {
+
+          const c = JSON.parse(res.text);
+
+          LibTest.saveResponse(res.text, './act_crear.json');
+
+          assert(c.success, "Se esperada true como tipo de success");
+          assert(c.msg === "");
+
+          assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
+
+          let isValid = LibTest.ValidarTieneProp(c.data, ['_id']);
+
+          assert(isValid === true, isValid);
+
+          if (err) return done(err);
+          done();
+        })
+    ;
+  });
+
+});
+
