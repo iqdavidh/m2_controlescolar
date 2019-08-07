@@ -19,6 +19,7 @@ const importar = async () => {
   let i = 1;
   listaActividades.forEach(a => {
 
+    a.fecha=new Date(2001,1,1);
     a.idGrupo = i < 10 ? idGrupo1 : idGrupo2;
     i++;
   });

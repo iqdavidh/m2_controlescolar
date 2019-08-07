@@ -56,4 +56,11 @@ app.get("/", function (req, res) {
 	app.use( url, routerAsistencia);
 }
 
+/*actividades *************************************************** */
+{
+	const routerAct = require("./controller/actividades/routerAct");
+	let url=`/api/${UrlApiConfig.Actividades}`;
+	app.use( url, routerAct);
+}
+
 module.exports = app;
