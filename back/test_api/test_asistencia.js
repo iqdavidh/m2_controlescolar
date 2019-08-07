@@ -122,7 +122,7 @@ describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m
     ;
   });
 });
-/*
+
 describe('asistencia   api/asistencia/grupo/:idGrupo/pagina/1 GET 1', function () {
   it('ok get la asitencia pagina de  un grupo', function (done) {
 
@@ -203,4 +203,4 @@ describe('asistencia   api/asistencia/grupo/:idGrupo/y/m GET 1', function () {
   });
 });
 
-*/
+
