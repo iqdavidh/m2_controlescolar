@@ -2,6 +2,7 @@ const express = require('express');
 
 const BuilderJsonResponse = require("../../lib/BuilderJsonResponse");
 const ActPaginaAction = require("./ActPaginaAction");
+const ActFindByIDAction = require("./ActFindByIDAction");
 
 const routerAct = express.Router();
 
@@ -27,6 +28,41 @@ routerAct.get('/grupo/:idGrupo/pagina/:pagina', (req, res, next) => {
 });
 
 
+/* find by id */
+routerAct.get('/:idAct', (req, res, next) => {
+  const id = req.params.idAct;
+  ActFindByIDAction.run(res, id);
 
-module.exports=routerAct;
+});
+
+
+/* update to ID */
+routerAct.post('/:idAct', (req, res, next) => {
+  const id = req.params.idAct;
+
+  let dataRaw = req.body;
+
+  try {
+
+    //  let dataClean = LibValidacion.getDataClean(dataRaw, GrupoUpdateAction.getListaCamposAllowUpdate());
+
+    // GrupoUpdateAction.run(res, id, dataClean);
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(e);
+  }
+});
+
+
+/* update to ID */
+routerAct.delete('/:idAct', (req, res, next) => {
+  const id = req.params.idAct;
+
+  //GrupoDeleteAction.run(res,id);
+
+});
+
+
+module.exports = routerAct;
 
