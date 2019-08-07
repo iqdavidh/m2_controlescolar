@@ -58,6 +58,35 @@ const asistenciaAlumno=[{id:1,valor:1},{id:2,valor:1}];
 describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m/d POST OK', function () {
   it('ok post la asitencia de un dia', function (done) {
 
+
+    const describeDelete = (y,m,d)=>{
+      describe('delete asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m/d DELETE OK', function () {
+        it('ok delete la asitencia de un dia', function (done) {
+
+          request
+              .delete( `/api/asistencia/grupo/${idGrupo}/${y}/${m}/${d}`)
+              .expect(200)
+              .end(function (err, res) {
+
+                const c = JSON.parse(res.text);
+
+                LibTest.saveResponse(res.text, './asistencia_delete.json');
+
+                assert(c.success, "Se esperada true como tipo de success");
+                assert(c.msg === "");
+                assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
+
+
+                if (err) return done(err);
+                done();
+
+              })
+          ;
+        });
+      });
+    };
+
+
     request
         .post('/api/asistencia/grupo/' + idGrupo + '/2001/01/01')
         .expect(200)
@@ -72,6 +101,8 @@ describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m
           assert(c.msg === "");
 
           assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
+
+          describeDelete(2001,1,1);
 
           if (err) return done(err);
           done();

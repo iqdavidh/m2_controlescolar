@@ -5,6 +5,7 @@ const LibValidacion = require("../../lib/LibValidacion");
 const AsistenciaFindByFecha = require("./AsistenciaFindByFecha");
 const AsistenciaUpdateByFecha = require("./AsistenciaUpdateByFecha");
 const ProAsistencia = require("./proceso/ProAsistencia");
+const AsistenciaDeleteByFecha = require("./AsistenciaDeleteByFecha");
 
 const routerAsistencia = express.Router();
 
@@ -74,6 +75,34 @@ routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
       const fecha = new Date(year, mes - 1, dia);
       AsistenciaUpdateByFecha.run(res, id, fecha, dataClean);
     }
+
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(res, e);
+  }
+
+
+});
+
+
+
+/* eliminar AsistenciaDia (idGrupo, fDMY) */
+routerAsistencia.delete("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
+
+  const id = req.params.idGrupo;
+
+  try {
+
+    const year = parseInt(req.params.year);
+    const mes = parseInt(req.params.mes);
+    const dia = parseInt(req.params.dia);
+
+    ProAsistencia.ValidarFecha(year, mes, dia);
+
+    const fecha = new Date(year, mes - 1, dia);
+
+    AsistenciaDeleteByFecha.run(res, id, fecha);
 
 
   } catch (e) {
