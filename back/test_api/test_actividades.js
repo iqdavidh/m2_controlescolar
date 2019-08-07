@@ -17,7 +17,7 @@ const idActividad = DataTest.idActividad;
 const request = supertest(url);
 
 
-/*
+
 describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function () {
   it('ok get la actividades pagina de  un grupo', function (done) {
 
@@ -29,7 +29,7 @@ describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function
 
           const c = JSON.parse(res.text);
 
-          LibTest.saveResponse(res.text, './actividades_pagina.json');
+          LibTest.saveResponse(res.text, './act_pagina.json');
 
           assert(c.success, "Se esperada true como tipo de success");
           assert(c.msg === "");
@@ -72,7 +72,7 @@ describe('actividades   api/actividades/:idActividad GET', function () {
 
           const c = JSON.parse(res.text);
 
-          LibTest.saveResponse(res.text, './actividades_finByID.json');
+          LibTest.saveResponse(res.text, './act_finByID.json');
 
           assert(c.success, "Se esperada true como tipo de success");
           assert(c.msg === "");
@@ -91,7 +91,7 @@ describe('actividades   api/actividades/:idActividad GET', function () {
     ;
   });
 });
-*/
+
 
 
 const actividadesAlumno = [
