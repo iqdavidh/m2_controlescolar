@@ -3,6 +3,8 @@ const express = require('express');
 const BuilderJsonResponse = require("../../lib/BuilderJsonResponse");
 const LibValidacion = require("../../lib/LibValidacion");
 const AsistenciaFindByFecha = require("./AsistenciaFindByFecha");
+const AsistenciaUpdateByFecha = require("./AsistenciaUpdateByFecha");
+const ProAsistencia = require("./proceso/ProAsistencia");
 
 const routerAsistencia = express.Router();
 
@@ -17,19 +19,7 @@ routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia?', (req, res, next) => {
     const mes = parseInt(req.params.mes);
     const dia = req.params.dia ? parseInt(req.params.dia) : null;
 
-
-    if (year > 2050 || year < 2000) {
-      throw new Error("Año incorrecto " + year.toString());
-    }
-
-    if (mes > 12 || mes < 1) {
-      throw new Error("mes incorrecto " + mes.toString());
-    }
-
-    if (dia !== null && dia > 31 || dia < 1) {
-      throw new Error("dia incorrecto " + dia.toString());
-
-    }
+    ProAsistencia.ValidarFecha(year, mes, dia);
 
     if (dia === null) {
       //asistencia Mes
@@ -47,7 +37,52 @@ routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia?', (req, res, next) => {
 
 });
 
-routerAsistencia.post("/grupo/:idGrupo");
+/* Set AsistenciaDia (idGrupo, fDMY) */
+routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
+
+  let dataRaw = req.body;
+
+  let dataClean = [];
+
+  dataRaw.forEach(a => {
+
+    if(!a.id || !a.valor){
+      throw new Error("Se require id y valor del objeto");
+    }
+
+    dataClean.push(
+        {id: a.id, valor: a.valor}
+    )
+
+  });
+
+
+  const id = req.params.idGrupo;
+
+  try {
+
+    const year = parseInt(req.params.year);
+    const mes = parseInt(req.params.mes);
+    const dia = req.params.dia ? parseInt(req.params.dia) : null;
+
+    ProAsistencia.ValidarFecha(year, mes, dia);
+
+    if (dia === null) {
+      //asistencia Mes
+
+    } else {
+      const fecha = new Date(year, mes - 1, dia);
+      AsistenciaUpdateByFecha.run(res, id, fecha, dataClean);
+    }
+
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(res, e);
+  }
+
+
+});
 
 
 module.exports = routerAsistencia;

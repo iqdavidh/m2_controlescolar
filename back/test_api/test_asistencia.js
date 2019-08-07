@@ -13,8 +13,8 @@ const idGrupo = "5d48cc49a01add3ae0483a72";
 
 const request = supertest(url);
 
-
-describe('asistencia idGrupo dia - api/asistencia/grupo/:idGrupo/fecha/:fechaYMD GET OK', function () {
+/*
+describe('asistencia idGrupo dia - api/asistencia/grupo/:idGrupo/:Y/:m/:d POST OK', function () {
   it('ok get la asitencia de un dia no registrado', function (done) {
 
 
@@ -43,6 +43,35 @@ describe('asistencia idGrupo dia - api/asistencia/grupo/:idGrupo/fecha/:fechaYMD
           isValid = LibTest.ValidarTieneProp(c.data.fechas[0], ['fecha','diaSemana','dia','mes','y']);
           assert(isValid === true, isValid);
 
+
+          if (err) return done(err);
+          done();
+        })
+    ;
+  });
+});
+*/
+
+
+const asistenciaAlumno=[{id:1,valor:1},{id:2,valor:1}];
+
+describe('actualizar asistenciua idGrupo dia - api/asistencia/grupo/:idGrupo/y/m/d POST OK', function () {
+  it('ok post la asitencia de un dia', function (done) {
+
+    request
+        .post('/api/asistencia/grupo/' + idGrupo + '/2001/01/01')
+        .expect(200)
+        .send(asistenciaAlumno)
+        .end(function (err, res) {
+
+          const c = JSON.parse(res.text);
+
+          LibTest.saveResponse(res.text, './asistencia_dia_insert.json');
+
+          assert(c.success, "Se esperada true como tipo de success");
+          assert(c.msg === "");
+
+          assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
 
           if (err) return done(err);
           done();
