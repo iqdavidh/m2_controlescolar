@@ -160,13 +160,15 @@ describe('asistencia   api/asistencia/grupo/:idGrupo/pagina/1 GET 1', function (
     ;
   });
 });
-/*
+
+
 describe('asistencia   api/asistencia/grupo/:idGrupo/y/m GET 1', function () {
+
   it('ok get la asitencia y/m  un grupo', function (done) {
 
 
     request
-        .get('/api/asistencia/grupo/' + idGrupo + '/2000/1')
+        .get('/api/asistencia/grupo/' + idGrupo + '/2001/1')
         .expect(200)
         .end(function (err, res) {
 
@@ -200,4 +202,3 @@ describe('asistencia   api/asistencia/grupo/:idGrupo/y/m GET 1', function () {
   });
 });
 
-*/

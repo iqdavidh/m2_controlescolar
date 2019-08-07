@@ -7,7 +7,7 @@ const AsistenciaPaginaAction = {
 
   run: (res, idGrupo, pagina) => {
 
-    const itemsXPage = 5;
+    const itemsXPage = 7;
 
     const promTotal = DbMongo.Asistencia.countDocuments({idGrupo});
     const promItems = DbMongo.Asistencia
@@ -22,19 +22,19 @@ const AsistenciaPaginaAction = {
         .then((values) => {
 
           const total = values[0];
-          const items = values[1];
+          const listaAsistencia = values[1];
 
           const fechas = [];
           const alumnos = [];
 
-          if (items) {
-            items.forEach(asistencia => {
+          if (listaAsistencia) {
+            listaAsistencia.forEach(asistencia => {
               fechas.push(ProAsistencia.GetDataFecha(asistencia.fecha));
               alumnos.push(asistencia.alumnos)
             });
           }
 
-          fechas.reverse();
+          //fechas.reverse();  <-- no es toy seguro si se debe reverse
 
 
           let data = {

@@ -17,19 +17,21 @@ const ProAsistencia = {
       y: y
     }
   },
-  ValidarFecha:(year, mes, dia)=>{
+
+  ValidarY:(year)=>{
 
     if (year > 2050 || year < 2000) {
       throw new Error("Año incorrecto " + year.toString());
     }
-
+  },
+  ValidarM:(mes)=>{
     if (mes > 12 || mes < 1) {
       throw new Error("mes incorrecto " + mes.toString());
     }
-
-    if (dia !== null && dia > 31 || dia < 1) {
+  },
+  ValidarD:(dia)=>{
+    if ( dia > 31 || dia < 1) {
       throw new Error("dia incorrecto " + dia.toString());
-
     }
   }
 };

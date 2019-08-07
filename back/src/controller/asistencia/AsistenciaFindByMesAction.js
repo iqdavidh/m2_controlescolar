@@ -25,7 +25,7 @@ const AsistenciaFindByMesAction = {
     const promAsistencia = DbMongo.Asistencia
         .find(
             {
-              id_grupo: idGrupo,
+              idGrupo: idGrupo,
               fecha: {$gte: dateIni, $lt: dateFin}
             })
         .sort({fecha: 1})
@@ -39,7 +39,7 @@ const AsistenciaFindByMesAction = {
           const grupo = values[0];
           let asistencia = values[1];
 
-          let data = {
+          let dataRespuesta = {
             total: asistencia.length,
             alumnos: [],
             fechas: [],
@@ -48,13 +48,13 @@ const AsistenciaFindByMesAction = {
 
           if (asistencia && asistencia.length) {
             asistencia.forEach(a => {
-              data.fechas.push(ProAsistencia.GetDataFecha(a.fecha));
-              data.alumnos.push(a.alumnos);
+              dataRespuesta.fechas.push(ProAsistencia.GetDataFecha(a.fecha));
+              dataRespuesta.alumnos.push(a.alumnos);
             });
           }
 
 
-          BuilderJsonresponse.Success(res, data);
+          BuilderJsonresponse.Success(res, dataRespuesta);
 
         }).catch(error => {
 

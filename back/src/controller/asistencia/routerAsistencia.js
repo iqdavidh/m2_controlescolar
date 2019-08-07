@@ -14,7 +14,6 @@ const routerAsistencia = express.Router();
 const ProAsistencia = require("./proceso/ProAsistencia");
 
 
-
 /* Get AsistenciaPagina(idGrupo, pagina) */
 routerAsistencia.get('/grupo/:idGrupo/pagina/:pagina', (req, res, next) => {
 
@@ -23,11 +22,11 @@ routerAsistencia.get('/grupo/:idGrupo/pagina/:pagina', (req, res, next) => {
 
   try {
 
-    if(pagina<0|| pagina>1000 ){
+    if (pagina < 0 || pagina > 300) {
       throw new Error("Pagina incorrecta");
     }
 
-    AsistenciaPaginaAction.run(res,idGrupo,pagina);
+    AsistenciaPaginaAction.run(res, idGrupo, pagina);
 
   } catch (e) {
 
@@ -36,11 +35,10 @@ routerAsistencia.get('/grupo/:idGrupo/pagina/:pagina', (req, res, next) => {
 });
 
 
-
 /* Get AsistenciaDia (idGrupo, fDMY) */
-routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia?', (req, res, next) => {
+routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia', (req, res, next) => {
 
-  const id = req.params.idGrupo;
+  const idGrupo = req.params.idGrupo;
 
   try {
 
@@ -48,14 +46,12 @@ routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia?', (req, res, next) => {
     const mes = parseInt(req.params.mes);
     const dia = req.params.dia ? parseInt(req.params.dia) : null;
 
-    ProAsistencia.ValidarFecha(year, mes, dia);
+    ProAsistencia.ValidarY(year);
+    ProAsistencia.ValidarM(mes);
+    ProAsistencia.ValidarD(dia);
 
-    if (dia === null) {
-      AsistenciaFindByMesAction.run()
-    } else {
-      const fecha = new Date(year, mes - 1, dia);
-      AsistenciaFindByFechaAction.run(res, id, fecha);
-    }
+    const fecha = new Date(year, mes - 1, dia);
+    AsistenciaFindByFechaAction.run(res, idGrupo, fecha);
 
 
   } catch (e) {
@@ -64,25 +60,47 @@ routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia?', (req, res, next) => {
   }
 });
 
+/* Get AsistenciaMes()*/
+routerAsistencia.get('/grupo/:idGrupo/:year/:mes', (req, res, next) => {
+
+  const idGrupo = req.params.idGrupo;
+
+  try {
+
+    const year = parseInt(req.params.year);
+    const mes = parseInt(req.params.mes);
+
+    ProAsistencia.ValidarY(year);
+    ProAsistencia.ValidarM(mes);
+
+    AsistenciaFindByMesAction.run(res, idGrupo, year, mes);
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(res, e);
+  }
+});
+
+
 /* Set AsistenciaDia (idGrupo, fDMY) */
 routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
 
   let dataRaw = req.body;
 
   let dataClean = [];
-  const listaCamposPermitidos=['id','valor','nombre','apellidos'];
+  const listaCamposPermitidos = ['id', 'valor', 'nombre', 'apellidos'];
 
   dataRaw.forEach(a => {
 
-    const asistenciaClean={};
+    const asistenciaClean = {};
 
-    listaCamposPermitidos.forEach(c=>{
+    listaCamposPermitidos.forEach(c => {
 
-      if(!a[c]){
+      if (!a[c]) {
         throw new Error("Se require " + c);
       }
 
-      asistenciaClean[c]=a[c];
+      asistenciaClean[c] = a[c];
     });
 
 
@@ -99,7 +117,7 @@ routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
     const mes = parseInt(req.params.mes);
     const dia = req.params.dia ? parseInt(req.params.dia) : null;
 
-    ProAsistencia.ValidarFecha(year, mes, dia);
+    ProAsistencia.ValidarFechaYMD(year, mes, dia);
 
     if (dia === null) {
       //asistencia Mes
@@ -119,7 +137,6 @@ routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
 });
 
 
-
 /* eliminar AsistenciaDia (idGrupo, fDMY) */
 routerAsistencia.delete("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
 
@@ -131,7 +148,7 @@ routerAsistencia.delete("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
     const mes = parseInt(req.params.mes);
     const dia = parseInt(req.params.dia);
 
-    ProAsistencia.ValidarFecha(year, mes, dia);
+    ProAsistencia.ValidarFechaYMD(year, mes, dia);
 
     const fecha = new Date(year, mes - 1, dia);
 
@@ -145,8 +162,6 @@ routerAsistencia.delete("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
 
 
 });
-
-
 
 
 module.exports = routerAsistencia;
