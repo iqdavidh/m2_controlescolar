@@ -2,6 +2,23 @@
   <div>
     <div class="row">
       <div class="col-md-12">
+        <h2>Signup</h2>
+        <form>
+          <label>Usuario</label>
+          <input type="text" placeholder="Escriba un usuario" />
+          <br />
+          <br />
+          <label>Contraseña</label>
+          <input type="password" name="password" placeholder="Escriba una contraseña" />
+          <br />
+          <br />
+
+          <button>Crear Cuenta</button>
+          <p>
+            ¿Ya tiene una cuenta registrada?
+            <a href="/login">Login</a>
+          </p>
+        </form>
         <h1 id="tituloSeccion">Login</h1>
       </div>
     </div>
