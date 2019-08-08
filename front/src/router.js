@@ -39,6 +39,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "asistencia" */ './views/Asistencia.vue')
     },
     {
+      path: '/actividades',
+      name: 'actividades',
+      component: () => import(/* webpackChunkName: "actividades" */ './views/Actividades.vue')
+    },
+    {
       path: '/reportes',
       name: 'reportes',
       component: () => import(/* webpackChunkName: "reportes" */ './views/Reportes.vue')
