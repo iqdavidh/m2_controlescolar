@@ -25,9 +25,6 @@ const AsistenciaPaginaAction = {
           const total = values[0];
           const listaAsistencia = values[1];
 
-          const fechas = [];
-          const alumnos = [];
-
           const tabla = ProCrearTablaAsistencia.exe(listaAsistencia);
 
 

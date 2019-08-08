@@ -9,9 +9,9 @@ var assert = require('assert');
 const ProCrearTablaAsistencia = require("../../../../src/controller/asistencia/proceso/ProCrearTablaAsistencia");
 
 
-describe('Demo', function () {
-  describe('probar el funcionamiento de unit test con mocha', function () {
-    it('Probar la creaarcion de una tabla normalizada', function () {
+describe('Tabla Asistencia', function () {
+  describe('Crear tabla normalizada con alumnos y lista de asitencia', function () {
+    it('Fechas con diferentes alumnos', function () {
 
       let listaAsistencia = [
         {

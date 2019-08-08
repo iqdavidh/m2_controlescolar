@@ -1,6 +1,7 @@
 const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
 const ProAsistencia = require("../asistencia/proceso/ProAsistencia");
+const ProCrearTablaAct = require("./proceso/ProCrearTablaAct");
 
 const ActPaginaAction = {
   run: (res, idGrupo, pagina) => {
@@ -23,29 +24,15 @@ const ActPaginaAction = {
           const total = values[0];
           const listaActividades = values[1];
 
-          const actividades = [];
-          const alumnos = [];
 
-          if (listaActividades) {
-            listaActividades.forEach(actividad => {
-
-              let actividadInfoPrincipal = ProAsistencia.GetDataFecha(actividad.fecha);
-              actividadInfoPrincipal.tipo = actividad.tipo;
-              actividadInfoPrincipal.titulo = actividad.titulo;
-
-              actividades.push(actividadInfoPrincipal);
-              alumnos.push(actividad.alumnos)
-            });
-          }
-
-          //fechas.reverse();  <-- no es toy seguro si se debe reverse
+          const tabla = ProCrearTablaAct.exe(listaActividades);
 
 
           let data = {
             total,
-            alumnos,
             pagina,
-            actividades,
+            alumnos: tabla.alumnos,
+            actividades: tabla.actividades,
             next: ''
           };
 

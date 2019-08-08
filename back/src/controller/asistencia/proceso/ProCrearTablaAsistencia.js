@@ -1,4 +1,5 @@
 const LibFecha = require("../../../lib/LibFecha");
+
 const ProCrearTablaAsistencia = {
   exe: (listaAsistencia) => {
 
@@ -66,43 +67,39 @@ const ProCrearTablaAsistencia = {
     ;
 
 
-    const asistenciaDeTodos = [];
 
     alumnosEnLista.forEach(alumno => {
 
       let idAlumno = alumno.id;
 
-      let asistenciaEnFecha = null;
-
       listaAsistencia.forEach(asistencia => {
+
+        let asistenciaEnFecha = null;
 
         const f = asistencia.fecha;
         const fechaDMY = LibFecha.dateToDMY(f);
 
-        alumnosEnFecha = asistencia.alumnos;
 
-        const afecha = alumnosEnFecha.find(a => {
+        const afecha =  asistencia.alumnos.find(a => {
           return a.id === idAlumno;
         });
 
-        if (afecha !== undefined) {
-          asistenciaEnFecha = {
-            id: idAlumno,
-            valor: afecha.valor,
-            fechaDMY
-          };
-
-        }
-
-
-        /* agregar la fecha ********************** */
-        if (asistenciaEnFecha === null) {
+        if (afecha === undefined) {
           asistenciaEnFecha = {
             id: idAlumno,
             valor: null,
             fechaDMY
           };
+
+        }else{
+          asistenciaEnFecha = {
+            id: idAlumno,
+            valor: afecha.valor,
+            fechaDMY
+          };
         }
+
+        /* agregar la fecha ********************** */
 
         alumno.asistencia.push(asistenciaEnFecha);
 
