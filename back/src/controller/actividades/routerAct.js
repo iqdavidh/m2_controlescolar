@@ -7,6 +7,7 @@ const ActUpdate = require("./ActUpdateAction");
 const LibValidacion = require("../../lib/LibValidacion");
 const ActInsertAction = require("./ActInsertAction");
 const LibFecha = require("../../lib/LibFecha");
+const ActDeleteAction = require("./ActDeleteAction");
 
 const routerAct = express.Router();
 
@@ -86,7 +87,14 @@ routerAct.post('/:idAct', (req, res, next) => {
 routerAct.delete('/:idAct', (req, res, next) => {
   const id = req.params.idAct;
 
-  //GrupoDeleteAction.run(res,id);
+  try{
+
+    ActDeleteAction.run(res,id);
+
+  }catch (e) {
+    BuilderJsonResponse.Error(res,e);
+  }
+
 
 });
 
