@@ -4,8 +4,10 @@
  * Created by David on 18/07/2019.
  */
 
+
 var assert = require('assert');
 const ProCrearTablaNormalizada = require("../../../../src/controller/asistencia/proceso/ProCrearTablaNormalizada");
+
 
 describe('Demo', function () {
   describe('probar el funcionamiento de unit test con mocha', function () {
@@ -36,20 +38,20 @@ describe('Demo', function () {
       let respuestaEsperada = {
         alumnos: [
           {
-            "id": "rafita", "valor": 1, "nombre": "Rafita", "apellidos": "Gorgori",
+            "id": "rafita", "nombre": "Rafita", "apellidos": "Gorgori",
             asistencia: [
               {"id": "rafita", "valor": null, "fechaDMY": "01/01/2001"},
               {"id": "rafita", "valor": 1, "fechaDMY": "02/01/2001"}]
           },
           {
-            "id": "bs", "valor": 1, "nombre": "Bart", "apellidos": "Simpson",
+            "id": "bs",  "nombre": "Bart", "apellidos": "Simpson",
             asistencia: [
               {"id": "bs", "valor": 1, "fechaDMY": "01/01/2001"},
               {"id": "bs", "valor": 1, "fechaDMY": "02/01/2001"}
             ]
           },
           {
-            "id": "m", "valor": 1, "nombre": "Milhouse", "apellidos": "Van Houten",
+            "id": "m", "nombre": "Milhouse", "apellidos": "Van Houten",
             asistencia: [
               {"id": "m", "valor": 0, "fechaDMY": "01/01/2001"},
               {"id": "m", "valor": 1, "fechaDMY": "02/01/2001"}
@@ -57,8 +59,8 @@ describe('Demo', function () {
           }
         ],
         fechas: [
-          {"fechaDMY": "01/01/2001", "fechaAbb": "Sa 01 Enero", "Dia": 1},
-          {"fechaDMY": "02/01/2001", "fechaAbb": "Sa 02 Enero", "Dia": 2},
+          {"fechaDMY": "01/01/2001", "fechaAbb": "Dom 01 Enero", "dia": 1},
+          {"fechaDMY": "02/01/2001", "fechaAbb": "Lu 02 Enero", "dia": 2},
         ]
 
       };

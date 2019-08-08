@@ -1,11 +1,21 @@
+const LibFecha = require("../../../lib/LibFecha");
 const ProCrearTablaNormalizada = {
   exe: (listaAsistencia) => {
 
 
     const alumnosEnLista = [];
+    const fechasEnLista = [];
 
     listaAsistencia.forEach(asistencia => {
 
+
+      const dateA = asistencia.fecha;
+
+      fechasEnLista.push({
+        fechaDMY: LibFecha.dateToDMY(dateA),
+        fechaAbb: LibFecha.dateToFechaAbb(dateA),
+        dia: dateA.getDay()
+      });
 
       //buscar todos los alumnos
       asistencia.alumnos.forEach(alumno => {
@@ -22,7 +32,7 @@ const ProCrearTablaNormalizada = {
             id: alumno.id,
             nombre: alumno.nombre,
             apellidos: alumno.apellidos,
-            asistencia:[]
+            asistencia: []
           });
         }
       });
@@ -56,49 +66,54 @@ const ProCrearTablaNormalizada = {
     ;
 
 
-
-
     const asistenciaDeTodos = [];
 
-    alumnosEnLista.forEach( alumno=>{
+    alumnosEnLista.forEach(alumno => {
 
-      let idAlumno=alumno.id;
+      let idAlumno = alumno.id;
 
-      let asistenciaEnFecha=null;
+      let asistenciaEnFecha = null;
 
-      listaAsistencia.forEach(asistencia=>{
+      listaAsistencia.forEach(asistencia => {
 
-        const alumnosEnFecha=asistencia.alumnos;
+        const f = asistencia.fecha;
+        const fechaDMY = LibFecha.dateToDMY(f);
 
-        const afecha= alumnosEnFecha.find( a=>{
-          return a.id===idAlumno;
+        alumnosEnFecha = asistencia.alumnos;
+
+        const afecha = alumnosEnFecha.find(a => {
+          return a.id === idAlumno;
         });
 
-        if(afecha!==undefined){
-          asistenciaEnFecha = afecha;
+        if (afecha !== undefined) {
+          asistenciaEnFecha = {
+            id: idAlumno,
+            valor: afecha.valor,
+            fechaDMY
+          };
+
         }
+
+
+        /* agregar la fecha ********************** */
+        if (asistenciaEnFecha === null) {
+          asistenciaEnFecha = {
+            id: idAlumno,
+            valor: null,
+            fechaDMY
+          };
+        }
+
+        alumno.asistencia.push(asistenciaEnFecha);
+
       });
-
-
-      if(asistenciaEnFecha===null){
-        asistenciaEnFecha={
-          id:idAlumno,
-          valor:null,
-          nombre:alumno.nombre,
-          apellidos:alumnos.apellidos
-        };
-      }
-
-      alumno.asistencia.push( asistenciaEnFecha)
 
     });
 
 
-
-
-
     const respuesta = {
-      alumnos:alumnosEnLista
+      alumnos: alumnosEnLista,
+      fechas: fechasEnLista
     };
 
     return respuesta;
