@@ -3,7 +3,7 @@
 
 import libConfig from "../lib/libConfig";
 import dataLocal from "./dataLocal";
-
+import dataApli from "./dataApi";
 
 const isDebug = libConfig.isDebug;
 
@@ -13,7 +13,8 @@ const isDebug = libConfig.isDebug;
 
 /* aqui vamos a implementar dos tipos de bases de datos, con mongo a traves de la api y con sqlite para electron*/
 
-const dataService =  dataLocal;
+//const dataService =  dataLocal;
+const dataService =  dataApli;
 
 
 

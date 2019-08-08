@@ -181,12 +181,13 @@
         return;
       }
 
-      this.grupo = response.data.grupo;
+      const grupo = response.data;
 
-      this.grupo.alumnos.forEach(a => {
-        Vue.set(a, 'isEdit', false);
+      grupo.alumnos.forEach(a => {
+        a.isEdit = false;
       });
 
+      this.grupo = grupo;
       this.ordenarLista();
 
     }
