@@ -1,6 +1,7 @@
 const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
-const ProAsistencia = require("./proceso/ProAsistencia");
+const ProCrearTablaNormalizada = require("./proceso/ProCrearTablaNormalizada");
+
 
 
 const AsistenciaFindByMesAction = {
@@ -37,21 +38,20 @@ const AsistenciaFindByMesAction = {
         .then((values) => {
 
           const grupo = values[0];
-          let asistencia = values[1];
+          let listaAsistencia = values[1];
+
+
+          const tabla = ProCrearTablaNormalizada.exe(listaAsistencia);
+
 
           let dataRespuesta = {
-            total: asistencia.length,
-            alumnos: [],
-            fechas: [],
+            total: listaAsistencia.length,
+            alumnos: tabla.alumnos,
+            fechas: tabla.fechas,
             next: ''
           };
 
-          if (asistencia && asistencia.length) {
-            asistencia.forEach(a => {
-              dataRespuesta.fechas.push(ProAsistencia.GetDataFecha(a.fecha));
-              dataRespuesta.alumnos.push(a.alumnos);
-            });
-          }
+
 
 
           BuilderJsonresponse.Success(res, dataRespuesta);

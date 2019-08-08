@@ -197,14 +197,22 @@ describe('asistencia   api/asistencia/grupo/:idGrupo/y/m GET 1', function () {
           assert(c.data.alumnos.length > 0, "El array de alumnos no esta funcioonando");
           assert(c.data.fechas.length > 0, "El array de fechas no esta funcioonando");
 
-
-
-
-          let isValid = LibTest.ValidarTieneProp(c.data.alumnos[0][0], ['id', 'valor', 'nombre', 'apellidos']);
+          let isValid = LibTest.ValidarTieneProp(c.data, ['total','alumnos','fechas','next']);
           assert(isValid === true, isValid);
 
-          isValid = LibTest.ValidarTieneProp(c.data.fechas[0], ['fecha', 'diaSemana', 'dia', 'mes', 'y']);
+
+          const alumno=c.data.alumnos[0];
+          isValid = LibTest.ValidarTieneProp(alumno, ['id','nombre','apellidos','asistencia']);
           assert(isValid === true, isValid);
+
+          const asistenciaItem=alumno.asistencia[0];
+          isValid = LibTest.ValidarTieneProp(asistenciaItem, ['id','valor','fechaDMY']);
+          assert(isValid === true, isValid);
+
+
+          isValid = LibTest.ValidarTieneProp(c.data.fechas[0], ['fechaDMY', 'dia', 'fechaAbb']);
+          assert(isValid === true, isValid);
+
 
 
           if (err) return done(err);
