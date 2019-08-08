@@ -1,35 +1,18 @@
-import libConfig from "../lib/libConfig";
-import libRequestJson from "../lib/libRequestJson";
-import libAsyncReqJson from "../lib/libAsyncReqJson";
+import apiGrupo from "./api/apiGrupo";
 
-const urlApi = libConfig.urlApi;
+const copiarPropiedades=(origen, destino)=>{
 
-const dataApi = {
+    Object.keys(origen)
+        .forEach(k => {
+            destino[k]=origen[k];
+        })
+    ;
 
-  getIndexGrupos: async (pagina = 1) => {
-
-    let url = urlApi + '/grupo/index';
-
-    let json = await libAsyncReqJson.requestGET(url);
-
-    return json;
-
-  },
-
-  getGrupo: async (id) => {
-    let url = urlApi + '/grupo/' + id;
-
-    let json = await libAsyncReqJson.requestGET(url);
-
-    return json;
-  },
-  updateGrupo: async (id, data) => {
-    let url = urlApi + '/grupo/' + id;
-
-    let response = await fetch(url);
-    //let data = await response.json();
-    return data;
-  }
 };
+
+const dataApi = {};
+
+/* copiar los elementos de apiGrupo ****************** */
+copiarPropiedades(apiGrupo, dataApi);
 
 export default dataApi;

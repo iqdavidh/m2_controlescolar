@@ -160,6 +160,8 @@ let dataLocal = {
 
   },
 
+  /* ****************************** */
+
   getIndexTipoActividad() {
 
     //por el momento no importa la paginacion
