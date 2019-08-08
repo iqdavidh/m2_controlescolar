@@ -1,27 +1,24 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col-md-12">
-                <h1 id="tituloSeccion">Reportes</h1>
-            </div>
-			<div>
+  <div>
+    <div class="row">
+      <div class="col-md-12">
+        <h1 id="tituloSeccion">Reportes</h1>
       </div>
-      Seleccionar Grupo
+      <div></div>Seleccionar Grupo
       <select class="form-control" v-model="idGrupo" @change="onDatosCambiaron">
         <option :value="g._id" v-for="g in listaGrupos" :key="g._id">{{g.nombre}}</option>
       </select>
       <div style="padding-top:20px">
         Seleccionar fecha
-		<input>
+        <input />
         <datepicker v-model="fechaDMY" @selected="onDatosCambiaron" format="dd/MM/yyyy"></datepicker>
       </div>
-	  <div>
-			  Solicitar Tarea
-			  <input>
-		  </div> 
-		
+      <div>
+        Solicitar Tarea
+        <input />
+      </div>
+
       <div class="text-center" v-show="!isDatosListos">
-		 
         <button class="btn btn-primary" @click="mostrarAsistencia">
           <i class="fa fa-download"></i>
           Solicitar
@@ -78,37 +75,103 @@
         </tbody>
       </table>
     </div>
+
     {{idGrupo}}
-
-    </div>
-
+  </div>
 </template>
 
 
 <script>
+import dataService from "../services/dataService";
+import libToast from "../lib/libToast";
+import Datepicker from "vuejs-datepicker";
 
+export default {
+  name: "reportes",
+  props: {},
+  components: {
+    Datepicker
+  },
+  data() {
+    return {
+      listaAlumnos: [],
+      isEdit: false /* indica si esta en modo de edicion - muestra select para cambiar asistencia  */,
+      isEnProceso: false /* indica si ya estamos enviando los cambios -para no repetir doble click */,
+      idGrupo: "",
+      listaGrupos: [],
+      isDatosListos: false /* nos indica si ya podemos ver la tabla de asistencia */,
+      fechaDMY: new Date()
+    };
+  },
+  methods: {
+    onEditar() {
+      this.isEdit = true;
+      this.isEnProceso = false;
+    },
+    async onGuardar() {
+      if (this.isEnProceso) {
+        return;
+      }
 
-	import dataService from "../services/dataService";
+      this.isEnProceso = true;
+      let id_grupo = "g2a";
+      let finiDMY = "01/01/2019";
+      let dataUpdate = [];
 
+      this.listaAlumnos.forEach(alumno => {
+        let valor = alumno.fechas[0].valor;
+        let idAlumno = alumno.id;
 
+        dataUpdate.push({
+          id: idAlumno,
+          valor: valor
+        });
+      });
 
-	export default {
-		name: 'reportes',
-		props: {},
-		components: {},
-		data() {
-			return {}
-		},
-		methods: {},
-		mounted() {
-            dataService.getlistaGrupos();
-		}
+      let respuesta = await dataService.updateAsistencia(
+        id_grupo,
+        finiDMY,
+        dataUpdate
+      );
 
+      if (!respuesta.success) {
+        libToast.alert(respuesta.msg);
+        return;
+      }
 
-	}
+      libToast.success("Registro actualizado");
+      this.isEdit = false;
+    },
+    onDatosCambiaron(){
+      this.isDatosListos=false;
+    },
+    async mostrarAsistencia () {
+      
+      let respuesta = await dataService.getAsistenciaDia(this.idGrupo, this.fechaDMY);
+      if (!respuesta.success) {
+        libToast.alert(respuesta.msg);
+        return;
+      }
+
+      libToast.success("Datos Recibidos");
+
+      this.listaAlumnos= respuesta.data.alumnos;
+        this.isDatosListos=true;
+      
+    }
+  },
+ async mounted() {
+    let respuesta = await dataService.getIndexGrupos();
+    if (!respuesta.success) {
+      libToast.alert(respuesta.msg);
+      return;
+    }
+    this.listaGrupos = respuesta.data.items;
+    console.log(respuesta.data);
+  }
+};
 </script>
 
 
 <style scoped>
-
 </style>
