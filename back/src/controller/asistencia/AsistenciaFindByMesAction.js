@@ -1,6 +1,6 @@
 const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
-const ProCrearTablaNormalizada = require("./proceso/ProCrearTablaNormalizada");
+const ProCrearTablaAsistencia = require("./proceso/ProCrearTablaAsistencia");
 
 
 
@@ -41,7 +41,7 @@ const AsistenciaFindByMesAction = {
           let listaAsistencia = values[1];
 
 
-          const tabla = ProCrearTablaNormalizada.exe(listaAsistencia);
+          const tabla = ProCrearTablaAsistencia.exe(listaAsistencia);
 
 
           let dataRespuesta = {

@@ -1,7 +1,7 @@
 const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
 const ProAsistencia = require("./proceso/ProAsistencia");
-const ProCrearTablaNormalizada = require("./proceso/ProCrearTablaNormalizada");
+const ProCrearTablaAsistencia = require("./proceso/ProCrearTablaAsistencia");
 
 
 const AsistenciaPaginaAction = {
@@ -28,7 +28,7 @@ const AsistenciaPaginaAction = {
           const fechas = [];
           const alumnos = [];
 
-          const tabla = ProCrearTablaNormalizada.exe(listaAsistencia);
+          const tabla = ProCrearTablaAsistencia.exe(listaAsistencia);
 
 
           //fechas.reverse();  <-- no es toy seguro si se debe reverse

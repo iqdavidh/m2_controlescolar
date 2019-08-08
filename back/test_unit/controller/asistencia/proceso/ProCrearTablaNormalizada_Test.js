@@ -6,7 +6,7 @@
 
 
 var assert = require('assert');
-const ProCrearTablaNormalizada = require("../../../../src/controller/asistencia/proceso/ProCrearTablaNormalizada");
+const ProCrearTablaAsistencia = require("../../../../src/controller/asistencia/proceso/ProCrearTablaAsistencia");
 
 
 describe('Demo', function () {
@@ -65,7 +65,7 @@ describe('Demo', function () {
 
       };
 
-      let respuesta = ProCrearTablaNormalizada.exe(listaAsistencia);
+      let respuesta = ProCrearTablaAsistencia.exe(listaAsistencia);
 
 
       let ope = JSON.stringify(respuestaEsperada) === JSON.stringify(respuesta);

@@ -1,5 +1,5 @@
 const LibFecha = require("../../../lib/LibFecha");
-const ProCrearTablaNormalizada = {
+const ProCrearTablaAsistencia = {
   exe: (listaAsistencia) => {
 
 
@@ -120,4 +120,4 @@ const ProCrearTablaNormalizada = {
   }
 };
 
-module.exports = ProCrearTablaNormalizada;
+module.exports = ProCrearTablaAsistencia;
