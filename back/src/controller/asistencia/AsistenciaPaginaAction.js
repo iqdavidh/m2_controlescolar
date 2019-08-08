@@ -1,6 +1,7 @@
 const BuilderJsonresponse = require("../../lib/BuilderJsonResponse");
 const DbMongo = require("../../model/DbMongo");
 const ProAsistencia = require("./proceso/ProAsistencia");
+const ProCrearTablaNormalizada = require("./proceso/ProCrearTablaNormalizada");
 
 
 const AsistenciaPaginaAction = {
@@ -27,21 +28,17 @@ const AsistenciaPaginaAction = {
           const fechas = [];
           const alumnos = [];
 
-          if (listaAsistencia) {
-            listaAsistencia.forEach(asistencia => {
-              fechas.push(ProAsistencia.GetDataFecha(asistencia.fecha));
-              alumnos.push(asistencia.alumnos)
-            });
-          }
+          const tabla = ProCrearTablaNormalizada.exe(listaAsistencia);
+
 
           //fechas.reverse();  <-- no es toy seguro si se debe reverse
 
 
           let data = {
             total,
-            alumnos,
             pagina,
-            fechas,
+            alumnos: tabla.alumnos,
+            fechas: tabla.fechas,
             next: ''
           };
 
