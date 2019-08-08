@@ -25,7 +25,7 @@ describe('alumno crear - api/alumnos/grupo/:idGrupo/alumno/crear POST ok', funct
 
 
           request
-              .delete('/api/alumnos/grupo/' + idGRupo + '/alumno/' + idNewAlumno)
+              .delete('/api/alumnos/grupo/' + idGrupo + '/alumno/' + idNewAlumno)
               .expect(200)
               .end(function (err, res) {
 
@@ -55,7 +55,7 @@ describe('alumno crear - api/alumnos/grupo/:idGrupo/alumno/crear POST ok', funct
     };
 
     request
-        .post('/api/alumnos/grupo/'+idGRupo +'/alumno/crear')
+        .post('/api/alumnos/grupo/'+idGrupo +'/alumno/crear')
         .send({nombre: "bart" + dataRandom, "apellidos": "simson" + dataRandom})
         .expect(200)
         .end(function (err, res) {

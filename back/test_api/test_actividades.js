@@ -17,7 +17,7 @@ const idActividad = DataTest.idActividad;
 const request = supertest(url);
 
 
-/*
+
 describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function () {
   it('ok get la actividades pagina de  un grupo', function (done) {
 
@@ -141,7 +141,7 @@ describe('actividad update - activiadad/:idAct POST  ok', function () {
 
 });
 
-*/
+
 
 describe('actividad crear - actividad/grupo POST  ok', function () {
 
