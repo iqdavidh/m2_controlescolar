@@ -26,7 +26,7 @@ const apiActividades = {
   },
   updateCalificacionesActividad: async (idActividad, dataCalificaciones) =>{
 
-    let url = urlApi + `/actividades/grupo/${idGrupo}/index`;
+    let url = urlApi + `/actividades/grupo/${idActividad}/index`;
 
     let json = await libAsyncReqJson.requestGET(url);
 
