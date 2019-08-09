@@ -5,9 +5,28 @@ const urlApi = libConfig.urlApi;
 
 const apiActiviadades = {
 
-  getIndexActividades: async (idGrupo, pagina) =>{
+  getActividadesPagina: async (idGrupo, pagina) =>{
 
-    let url = urlApi + `/activiadades/grupo/${idGrupo}/pagina/${pagina}`;
+    let url = urlApi + `/actividades/grupo/${idGrupo}/pagina/${pagina}`;
+
+    let json = await libAsyncReqJson.requestGET(url);
+
+    return json;
+
+  },
+
+  getActividadesIndex: async (idGrupo) =>{
+
+    let url = urlApi + `/actividades/grupo/${idGrupo}/index`;
+
+    let json = await libAsyncReqJson.requestGET(url);
+
+    return json;
+
+  },
+  updateCalificacionesActividadd: async (idActividad, dataCalificaciones) =>{
+
+    let url = urlApi + `/actividades/grupo/${idGrupo}/index`;
 
     let json = await libAsyncReqJson.requestGET(url);
 

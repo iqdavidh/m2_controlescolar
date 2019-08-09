@@ -9,6 +9,7 @@ const ActInsertAction = require("./ActInsertAction");
 const LibFecha = require("../../lib/LibFecha");
 const ActDeleteAction = require("./ActDeleteAction");
 const ActIndexAction = require("./ActIndexAction");
+const ActUpdateCalificacionesAction = require("./ActUpdateCalificacionesAction");
 
 const routerAct = express.Router();
 
@@ -81,6 +82,46 @@ routerAct.post('/crear', (req, res, next) => {
 
 });
 
+/* update to ID */
+routerAct.post('/:idAct/calificaciones', (req, res, next) => {
+  const id = req.params.idAct;
+
+  let dataRaw = req.body;
+
+  try {
+
+    let dataClean = [];
+    const listaCamposPermitidos = ['id', 'valor', 'nombre', 'apellidos'];
+
+    dataRaw.forEach(a => {
+
+      const asistenciaClean = {};
+
+      listaCamposPermitidos.forEach(c => {
+
+        if (!a[c]) {
+          throw new Error("Se require " + c);
+        }
+
+        asistenciaClean[c] = a[c];
+      });
+
+
+      dataClean.push(asistenciaClean);
+
+    });
+
+
+
+    ActUpdateCalificacionesAction.run(res, id, dataClean);
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(e);
+  }
+});
+
+
 
 /* update to ID */
 routerAct.post('/:idAct', (req, res, next) => {
@@ -99,6 +140,7 @@ routerAct.post('/:idAct', (req, res, next) => {
     BuilderJsonResponse.Error(e);
   }
 });
+
 
 
 /* update to ID */
