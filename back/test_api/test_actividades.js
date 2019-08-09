@@ -23,7 +23,7 @@ describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function
 
 
     request
-        .get('/api/actividades/grupo/' + idGrupo + '/pagina/2')
+        .get('/api/actividades/grupo/' + idGrupo + '/pagina/1')
         .expect(200)
         .end(function (err, res) {
 
@@ -39,14 +39,19 @@ describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function
           assert(c.data.total > 0, "El total viene vacio");
           assert(c.data.alumnos.length > 0, "El array de alumnos no esta funcioonando");
           assert(c.data.actividades.length > 0, "El array de actividades no esta funcioonando");
-          assert(c.data.pagina === "2", "Esperamos la pagina 1");
+          assert(c.data.pagina === "1", "Esperamos la pagina 1");
 
 
 
-          let isValid = LibTest.ValidarTieneProp(c.data.alumnos[0][0], ['id', 'nombre', 'apellidos'],['calificacion']);
+          const alumno=c.data.alumnos[0];
+          let isValid = LibTest.ValidarTieneProp(alumno, ['id', 'nombre', 'apellidos','act']);
           assert(isValid === true, isValid);
 
-          isValid = LibTest.ValidarTieneProp(c.data.actividades[0], ['fecha', 'diaSemana', 'dia', 'mes', 'y', 'titulo','tipo']);
+          isValid = LibTest.ValidarTieneProp(alumno.act[0], ['_id'],['calificacion']);
+          assert(isValid === true, isValid);
+
+
+          isValid = LibTest.ValidarTieneProp(c.data.actividades[0], ['_id','tipo', 'titulo','fechaDMY','fechaAbb']);
           assert(isValid === true, isValid);
 
 
@@ -56,6 +61,42 @@ describe('actividades   api/actividades/grupo/:idGrupo/pagina/1 GET 1', function
     ;
   });
 });
+
+
+
+describe('actividades   api/actividades/grupo/:idGrupo/index GET 1', function () {
+  it('ok get la actividades de actividades  de  un grupo', function (done) {
+
+
+    request
+        .get('/api/actividades/grupo/' + idGrupo + '/index')
+        .expect(200)
+        .end(function (err, res) {
+
+          const c = JSON.parse(res.text);
+
+          LibTest.saveResponse(res.text, './act_index.json');
+
+          assert(c.success, "Se esperada true como tipo de success");
+          assert(c.msg === "");
+
+          assert(typeof c.data === "object", "El objeto data deberia deberia ser un objeto");
+
+          assert(c.data.total > 0, "El total viene vacio");
+          assert(c.data.actividades.length > 0, "El array de actividades no esta funcioonando");
+
+
+          let isValid = LibTest.ValidarTieneProp(c.data.actividades[0], ['_id','fecha', 'fechaAbb', 'titulo']);
+          assert(isValid === true, isValid);
+
+
+          if (err) return done(err);
+          done();
+        })
+    ;
+  });
+});
+
 
 describe('actividades   api/actividades/:idActividad GET', function () {
 

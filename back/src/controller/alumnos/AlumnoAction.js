@@ -102,7 +102,7 @@ const AlumnoAction = {
 
     };
 
-    runAction(res, idGrupo, idAlumno, null, fnUpdate);
+    runAction(res, idGrupo, idAlumno, dataAlumno, fnUpdate);
 
   }
 

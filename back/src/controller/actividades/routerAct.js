@@ -8,8 +8,26 @@ const LibValidacion = require("../../lib/LibValidacion");
 const ActInsertAction = require("./ActInsertAction");
 const LibFecha = require("../../lib/LibFecha");
 const ActDeleteAction = require("./ActDeleteAction");
+const ActIndexAction = require("./ActIndexAction");
 
 const routerAct = express.Router();
+
+
+routerAct.get('/grupo/:idGrupo/index', (req, res, next) => {
+
+  const idGrupo = req.params.idGrupo;
+
+  try {
+
+    ActIndexAction.run(res, idGrupo);
+
+  } catch (e) {
+
+    BuilderJsonResponse.Error(res, e);
+  }
+
+});
+
 
 /* Get ActividadesPagina(idGrupo, pagina) */
 routerAct.get('/grupo/:idGrupo/pagina/:pagina', (req, res, next) => {

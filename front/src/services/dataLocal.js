@@ -178,7 +178,7 @@ let dataLocal = {
     return Promise.resolve(d);
 
   },
-  getIndexActividades(id_grupo, fIniDMY, fFinDMY) {
+  getIndexActividades(id_grupo) {
 
     /*trae todas las actividades de una fecha*/
 

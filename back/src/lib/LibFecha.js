@@ -44,7 +44,7 @@ const LibFecha = {
     const nombreDia = listaDiaSemana[dia - 1];
     const nombreMes=listaMes[mes-1];
 
-    return `${nombreDia} ${textoDia} ${nombreMes}`;
+    return `${nombreDia} ${textoDia} ${nombreMes} ${y}`;
   }
 
 };

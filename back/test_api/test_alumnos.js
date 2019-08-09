@@ -15,7 +15,7 @@ const idGrupo= DataTest.idGrupo;
 const request = supertest(url);
 
 
-describe('alumno crear - api/alumnos/grupo/:idGrupo/alumno/crear POST ok', function () {
+describe('alumno crear - api/alumnos/grupo/:idGrupo/crear POST ok', function () {
   it('ok agregar alumno', function (done) {
 
     const requestDelete= (idNewAlumno)=>{
@@ -55,7 +55,7 @@ describe('alumno crear - api/alumnos/grupo/:idGrupo/alumno/crear POST ok', funct
     };
 
     request
-        .post('/api/alumnos/grupo/'+idGrupo +'/alumno/crear')
+        .post('/api/alumnos/grupo/'+idGrupo +'/crear')
         .send({nombre: "bart" + dataRandom, "apellidos": "simson" + dataRandom})
         .expect(200)
         .end(function (err, res) {

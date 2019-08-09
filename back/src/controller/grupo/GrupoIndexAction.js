@@ -4,7 +4,7 @@ const DbMongo = require("../../model/DbMongo");
 
 const GrupoIndexAction = {
 
-  run: (res, pagina) => {
+  run: (res) => {
 
 
     const promTotal = DbMongo.Grupos.countDocuments({});
