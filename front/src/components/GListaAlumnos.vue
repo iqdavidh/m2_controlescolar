@@ -42,7 +42,7 @@
           <th style="width: 30px">#</th>
           <th style="width: 200px">Nombre</th>
           <th style="width: 200px">Apellidos</th>
-          <th>Comentarios</th>
+<!--          <th>Comentarios</th>-->
           <th style="width: 40px"></th>
           <th style="width: 40px"></th>
           <th style="width: 40px"></th>
@@ -71,13 +71,13 @@
             </div>
           </td>
 
-          <td>
-            <div class="form-group">
-            <textarea v-model="form.data.comentarios"
-                      class="form-control form-control-sm"
-                      required title="Comentarios"></textarea>
-            </div>
-          </td>
+<!--          <td>-->
+<!--            <div class="form-group">-->
+<!--            <textarea v-model="form.data.comentarios"-->
+<!--                      class="form-control form-control-sm"-->
+<!--                      required title="Comentarios"></textarea>-->
+<!--            </div>-->
+<!--          </td>-->
 
           <td></td>
           <td>
@@ -161,15 +161,15 @@
             </div>
 
           </td>
-          <td>
-            <div v-if="!alumno.isEdit">
-                <span class="btn btn-sm btn-danger btnShowOnHover"
-                      title="Eliominar Registro"
-                      @click="onShowFormDelete(alumno)">
-                  <i class="fa fa-trash"></i>
-                </span>
-            </div>
-          </td>
+<!--          <td>-->
+<!--            <div v-if="!alumno.isEdit">-->
+<!--                <span class="btn btn-sm btn-danger btnShowOnHover"-->
+<!--                      title="Eliominar Registro"-->
+<!--                      @click="onShowFormDelete(alumno)">-->
+<!--                  <i class="fa fa-trash"></i>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--          </td>-->
         </tr>
         </tbody>
 

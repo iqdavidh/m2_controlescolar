@@ -30,7 +30,6 @@
 
       </div>
 
-
       <div class="col-xs-12 col-md-4">
         <div class="dataInfo" :class="{'error':form.dataError.escuela}">
           <div class="lab">Escuela</div>
@@ -184,21 +183,20 @@
           respuesta = await dataService.insertGrupo(idGrupo, dataUpdate);
         }
 
-
-        if (respuesta.success) {
-
-          if (!isUpdate) {
-            dataUpdate._id = respuesta.data._id;
-          }
-
-          this.$emit("onUpdated", isUpdate, dataUpdate);
-
-          libToast.success(isUpdate ? "Datos actualizados" : "Grupo agregado");
-          this.isEdit=false;
-
-        } else {
+        if (!respuesta.success) {
           libToast.alert(respuesta.msg());
+          return ;
         }
+        libToast.success(isUpdate ? "Datos actualizados" : "Grupo agregado");
+
+
+        if (!isUpdate) {
+          dataUpdate._id = respuesta.data._id;
+        }
+
+        this.$emit("onUpdated", isUpdate, dataUpdate);
+
+        this.isEdit=false;
 
         f.isEnProceso = false;
 
