@@ -42,7 +42,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Número de lista</th>
+            <th scope="col" style="width: 40px">#</th>
             <th scope="col">Nombre del alumno</th>
             <th scope="col">Asistencia</th>
           </tr>

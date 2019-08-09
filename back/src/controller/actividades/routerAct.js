@@ -91,7 +91,7 @@ routerAct.post('/:idAct/calificaciones', (req, res, next) => {
   try {
 
     let dataClean = [];
-    const listaCamposPermitidos = ['id', 'valor', 'nombre', 'apellidos'];
+    const listaCamposPermitidos = ['id', 'nombre', 'apellidos'];
 
     dataRaw.forEach(a => {
 
@@ -106,11 +106,11 @@ routerAct.post('/:idAct/calificaciones', (req, res, next) => {
         asistenciaClean[c] = a[c];
       });
 
+      asistenciaClean.calificacion = a.calificacion === null ? null : parseFloat(a.calificacion);
 
       dataClean.push(asistenciaClean);
 
     });
-
 
 
     ActUpdateCalificacionesAction.run(res, id, dataClean);
@@ -120,7 +120,6 @@ routerAct.post('/:idAct/calificaciones', (req, res, next) => {
     BuilderJsonResponse.Error(e);
   }
 });
-
 
 
 /* update to ID */
@@ -142,17 +141,16 @@ routerAct.post('/:idAct', (req, res, next) => {
 });
 
 
-
 /* update to ID */
 routerAct.delete('/:idAct', (req, res, next) => {
   const id = req.params.idAct;
 
-  try{
+  try {
 
-    ActDeleteAction.run(res,id);
+    ActDeleteAction.run(res, id);
 
-  }catch (e) {
-    BuilderJsonResponse.Error(res,e);
+  } catch (e) {
+    BuilderJsonResponse.Error(res, e);
   }
 
 
