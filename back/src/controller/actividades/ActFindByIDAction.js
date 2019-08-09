@@ -5,12 +5,12 @@ const ActFindByIDAction = {
 
   run: (res, id) => {
 
-    const promGrupo = DbMongo.Actividades
+    const promAct = DbMongo.Actividades
         .findById(id)
         .exec()
     ;
 
-    promGrupo
+    promAct
         .then((act) => {
 
           BuilderJsonresponse.Success(res, act);

@@ -3,7 +3,7 @@ import libAsyncReqJson from "../../lib/libAsyncReqJson";
 
 const urlApi = libConfig.urlApi;
 
-const apiActiviadades = {
+const apiActividades = {
 
   getActividadesPagina: async (idGrupo, pagina) =>{
 
@@ -24,7 +24,7 @@ const apiActiviadades = {
     return json;
 
   },
-  updateCalificacionesActividadd: async (idActividad, dataCalificaciones) =>{
+  updateCalificacionesActividad: async (idActividad, dataCalificaciones) =>{
 
     let url = urlApi + `/actividades/grupo/${idGrupo}/index`;
 
@@ -32,9 +32,20 @@ const apiActiviadades = {
 
     return json;
 
-  }
+  },
+  getActividad: async (idActividad) =>{
+
+    let url = urlApi + `/actividades/${idActividad}`;
+
+    let json = await libAsyncReqJson.requestGET(url);
+
+    return json;
+
+  },
+
+
 
 };
 
 
-export default apiActiviadades;
+export default apiActividades;
