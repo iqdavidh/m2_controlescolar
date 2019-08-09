@@ -42,7 +42,7 @@ const apiGrupo = {
   deleteGrupo: async (id) => {
     let url = urlApi + '/grupo/'+id;
 
-    let json = await libAsyncReqJson.requestDELETE(url,data);
+    let json = await libAsyncReqJson.requestDELETE(url);
 
     return json;
   }

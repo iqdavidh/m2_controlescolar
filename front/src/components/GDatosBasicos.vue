@@ -180,8 +180,26 @@
         $("#modalDeleteGrupo").modal();
         this.formDelete.isEnProceso = false;
       },
-      exeDelete(){
+      async exeDelete(){
+        let f=this.formDelete;
+        if(f.isEnProceso){
+          return;
+        }
 
+        f.isEnProceso=true;
+
+        let respuesta = await dataService.deleteGrupo(this.grupo._id);
+
+        if (!respuesta.success) {
+          libToast.alert(respuesta.msg());
+          return ;
+        }
+
+        libToast.success("Grupo Eliminado");
+        $("#modalDeleteGrupo").modal('hide');
+
+        /*redireccionar pra ver el grupo*/
+        this.$router.push('/grupos');
       },
       onShowEdit() {
 
