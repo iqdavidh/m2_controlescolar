@@ -5,21 +5,11 @@
       <select class="form-control" v-model="idGrupo" @change="onGrupoCambia">
         <option :value="g._id" v-for="g in listaGrupos" :key="g._id">{{g.materia}}/{{g.nombre}}</option>
       </select>
-      Seleccionar Actividad
-      <select
-        class="form-control"
-        v-model="idActividad"
-        @change="onActividadCambia"
-      >
-        <option :value="act._id" v-for="act in listaActividades" :key="act._id">{{act.titulo}}</option>
-      </select>
     </div>
     <div class="col-md-12">
-      <h1 id="tituloSeccion">Calificaciones</h1>
+      <h1 id="tituloSeccion">Actividades</h1>
     </div>
-    <table>
-    
-    </table>
+
     <br />
     <br />
 
@@ -29,6 +19,29 @@
     <div class="col-md-12">
       <h1 id="tituloSeccion">Actividades</h1>
     </div>
+
+    <table class="table">
+      <thead>
+        <tr class="trTextoVertical">
+          <th>#</th>
+          <th style="width: 200px;vertical-align: bottom; text-align:left">Nombre del alumno</th>
+          <th v-for="actividad in listaActividades" :key="actividad.titulo">{{actividad.titulo}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(alumno,index) in listaAlumnos" :key="alumno.id">
+          <td>{{index+1}}</td>
+          <td>{{alumno.apellidos}} {{alumno.nombre}}</td>
+          <td v-for="act in alumno.act" :key="act._id">
+            <span v-if="act.calificacion===null">NA</span>
+            <span v-if="act.calificacion!==null">{{act.calificacion}}</span>
+           
+          </td>
+        </tr>
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+
   </div>
 </template>
 
@@ -44,13 +57,11 @@ export default {
     return {
       listaGrupos: [],
       idGrupo: "",
-      idActividad: "",
       listaActividades: [],
       listaAlumnos: []
     };
   },
   methods: {
-    onActividadCambia() {},
     async onGrupoCambia() {
       /*
       let respuesta = await dataService.getIndexActividades(this.idGrupo);
@@ -1189,6 +1200,7 @@ export default {
     this.listaGrupos = respuesta.data.items;
   }
 };
+
 </script>
 
 <style scoped>

@@ -32,7 +32,7 @@ const libAsyncReqJson = {
         })
         .catch(error => {
 
-              consoleIfDebug(url);
+              consoleIfDebug(error);
 
               return {
                 success: false,
