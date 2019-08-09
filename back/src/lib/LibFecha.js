@@ -47,6 +47,7 @@ const LibFecha = {
     return `${nombreDia} ${textoDia} ${nombreMes} ${y}`;
   }
 
+
 };
 
 

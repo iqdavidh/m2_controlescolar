@@ -3,15 +3,18 @@
     <!-- Panel para seleccionar s y grupo-->
     <div>
       Seleccionar Grupo
-      <select class="form-control" v-model="idGrupo" @change="onDatosCambiaron">
-        <option :value="g._id" v-for="g in listaGrupos" :key="g._id">{{g.nombre}}</option>
+      <select class="form-control" v-model="idGrupo"
+              @change="onDatosCambiaron">
+        <option :value="g._id" v-for="g in listaGrupos" :key="g._id">{{g.materia}} ({{g.nombre}})</option>
       </select>
       <div style="padding-top:20px">
         Seleccionar Fecha
-        <datepicker v-model="fecha" @selected="onDatosCambiaron" format="dd/MM/yyyy"></datepicker>
+        <datepicker v-model="fecha" format="dd/MM/yyyy"
+                    @selected="onDatosCambiaron"></datepicker>
       </div>
 
-      <div class="text-center" v-show="!isDatosListos">
+      <div class="text-center"
+           v-show="!isDatosListos && idGrupo!==''">
         <button class="btn btn-primary" @click="mostrarAsistencia">
           <i class="fa fa-download"></i>
           Solicitar
@@ -50,13 +53,13 @@
             <td>{{alumno.apellidos}} {{alumno.nombre}}</td>
             <td>
               <div class="text-center" v-show="!isEdit">
-                <span v-show="alumno.fecha[0].valor==1">.</span>
-                <span v-show="alumno.fecha[0].valor==2">R</span>
-                <span v-show="alumno.fecha[0].valor==3">J</span>
-                <span v-show="alumno.fecha[0].valor==0">/</span>
+                <span v-show="alumno.valor==1">.</span>
+                <span v-show="alumno.valor==2">R</span>
+                <span v-show="alumno.valor==3">J</span>
+                <span v-show="alumno.valor==0">/</span>
               </div>
               <div v-show="isEdit">
-                <select class="form-control" v-model="alumno.fecha[0].valor">
+                <select class="form-control" v-model="alumno.valor">
                   <option value="1">Asistencia</option>
                   <option value="2">Retardo</option>
                   <option value="3">Justificación</option>
@@ -68,7 +71,7 @@
         </tbody>
       </table>
     </div>
-   
+
   </div>
 </template>
 
@@ -106,23 +109,24 @@ export default {
       }
 
       this.isEnProceso = true;
-      let id_grupo = "g2a";
-      let finiDMY = "01/01/2019";
+
       let dataUpdate = [];
 
       this.listaAlumnos.forEach(alumno => {
-        let valor = alumno.fecha[0].valor;
+        let valor = alumno.valor;
         let idAlumno = alumno.id;
 
         dataUpdate.push({
           id: idAlumno,
-          valor: valor
+          valor: valor,
+          nombre:alumno.nombre,
+          apellidos:alumno.apellidos
         });
       });
 
       let respuesta = await dataService.updateAsistencia(
-        id_grupo,
-        finiDMY,
+        this.idGrupo,
+        this.fecha,
         dataUpdate
       );
 
@@ -138,8 +142,10 @@ export default {
       this.isDatosListos=false;
     },
     async mostrarAsistencia () {
-      
+
       let respuesta = await dataService.getAsistenciaDia(this.idGrupo, this.fecha);
+
+
       if (!respuesta.success) {
         libToast.alert(respuesta.msg);
         return;
@@ -148,13 +154,13 @@ export default {
       libToast.success("Datos Recibidos");
 
       this.listaAlumnos= respuesta.data.alumnos;
-        this.isDatosListos=true;
-      
+      this.isDatosListos=true;
+
     }
   },
   async mounted() {
-    
-     
+
+
     let respuesta = await dataService.getIndexGrupos();
     if (!respuesta.success) {
       libToast.alert(respuesta.msg);

@@ -17,6 +17,19 @@ const apiAsistencia = {
     let json = await libAsyncReqJson.requestGET(url);
 
     return json;
+  },
+
+  updateAsistencia: async (id_grupo, fecha, dataUpdate) => {
+
+    let y = fecha.getFullYear();
+    let m = fecha.getMonth() + 1;
+    let d = fecha.getDate();
+    let url = urlApi + `/asistencia/grupo/${id_grupo}/${y}/${m}/${d}`;
+
+    let json = await libAsyncReqJson.requestPOST(url, dataUpdate);
+
+    return json;
+
   }
 };
 

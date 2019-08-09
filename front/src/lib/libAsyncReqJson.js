@@ -28,6 +28,9 @@ const libAsyncReqJson = {
           return response.json();
         })
         .then((json) => {
+
+          consoleIfDebug(json);
+
           return json;
         })
         .catch(error => {
@@ -46,7 +49,6 @@ const libAsyncReqJson = {
 
   requestPOST: async (url, dataObject) => {
 
-    const isDebug = libConfig.isDebug;
 
     consoleIfDebug(url);
 
@@ -72,7 +74,7 @@ const libAsyncReqJson = {
 
         })
         .catch(error => {
-              consoleIfDebug(url);
+              consoleIfDebug(error);
 
               return {
                 success: false,
@@ -106,7 +108,7 @@ const libAsyncReqJson = {
         })
         .catch(error => {
 
-              consoleIfDebug(url);
+              consoleIfDebug(error);
 
               return {
                 success: false,
@@ -141,7 +143,7 @@ const libAsyncReqJson = {
         })
         .catch(error => {
 
-              consoleIfDebug(url);
+              consoleIfDebug(error);
 
               return {
                 success: false,

@@ -12,6 +12,7 @@ const AsistenciaFindByMesAction = require("./AsistenciaFindByMesAction");
 const routerAsistencia = express.Router();
 
 const ProAsistencia = require("./proceso/ProAsistencia");
+const LibFecha = require("../../lib/LibFecha");
 
 
 /* Get AsistenciaPagina(idGrupo, pagina) */
@@ -42,16 +43,13 @@ routerAsistencia.get('/grupo/:idGrupo/:year/:mes/:dia', (req, res, next) => {
 
   try {
 
-    const year = parseInt(req.params.year);
-    const mes = parseInt(req.params.mes);
-    const dia = req.params.dia ? parseInt(req.params.dia) : null;
+    let fechaRaw=`${ req.params.dia}/${ req.params.mes}/${ req.params.year}`;
 
-    ProAsistencia.ValidarY(year);
-    ProAsistencia.ValidarM(mes);
-    ProAsistencia.ValidarD(dia);
+    fecha = LibFecha.getDateFromFechaDMY(fechaRaw);
 
-    const fecha = new Date(year, mes - 1, dia);
-    AsistenciaFindByFechaAction.run(res, idGrupo, fecha);
+    const fechaYMD=LibFecha.dateToYMD(fecha);
+
+    AsistenciaFindByFechaAction.run(res, idGrupo, fechaYMD);
 
 
   } catch (e) {
@@ -85,49 +83,43 @@ routerAsistencia.get('/grupo/:idGrupo/:year/:mes', (req, res, next) => {
 /* Set AsistenciaDia (idGrupo, fDMY) */
 routerAsistencia.post("/grupo/:idGrupo/:year/:mes/:dia", (req, res, next) => {
 
-  let dataRaw = req.body;
-
-  let dataClean = [];
-  const listaCamposPermitidos = ['id', 'valor', 'nombre', 'apellidos'];
-
-  dataRaw.forEach(a => {
-
-    const asistenciaClean = {};
-
-    listaCamposPermitidos.forEach(c => {
-
-      if (!a[c]) {
-        throw new Error("Se require " + c);
-      }
-
-      asistenciaClean[c] = a[c];
-    });
-
-
-    dataClean.push(asistenciaClean);
-
-  });
-
-
-  const id = req.params.idGrupo;
 
   try {
 
-    const year = parseInt(req.params.year);
-    const mes = parseInt(req.params.mes);
-    const dia = req.params.dia ? parseInt(req.params.dia) : null;
+    let dataRaw = req.body;
 
-    ProAsistencia.ValidarY(year);
-    ProAsistencia.ValidarM(mes);
-    ProAsistencia.ValidarD(dia);
+    let dataClean = [];
+    const listaCamposPermitidos = ['id', 'valor', 'nombre', 'apellidos'];
 
-    if (dia === null) {
-      //asistencia Mes
+    dataRaw.forEach(a => {
 
-    } else {
-      const fecha = new Date(year, mes - 1, dia);
-      AsistenciaUpdateByFechaAction.run(res, id, fecha, dataClean);
-    }
+      const asistenciaClean = {};
+
+      listaCamposPermitidos.forEach(c => {
+
+        if (!a[c]) {
+          throw new Error("Se require " + c);
+        }
+
+        asistenciaClean[c] = a[c];
+      });
+
+
+      dataClean.push(asistenciaClean);
+
+    });
+
+
+    const idGrupo = req.params.idGrupo;
+
+    let fechaRaw=`${ req.params.dia}/${ req.params.mes}/${ req.params.year}`;
+
+    fecha = LibFecha.getDateFromFechaDMY(fechaRaw);
+
+    const fechaYMD=LibFecha.dateToYMD(fecha);
+
+
+    AsistenciaUpdateByFechaAction.run(res, idGrupo, fechaYMD, dataClean);
 
 
   } catch (e) {

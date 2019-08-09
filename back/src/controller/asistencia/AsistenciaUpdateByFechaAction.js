@@ -5,11 +5,11 @@ const DbMongo = require("../../model/DbMongo");
 
 const AsistenciaUpdateByFechaAction = {
 
-  run: (res, idGrupo, fecha, alumnos) => {
+  run: (res, idGrupo, fechaYMD, alumnos) => {
 
     const filter = {
       idGrupo: idGrupo,
-      fecha: fecha
+      fecha: fechaYMD
     };
 
     const update = {

@@ -5,14 +5,14 @@ const ProAsistencia = require("./proceso/ProAsistencia");
 
 const AsistenciaFindByFechaAction = {
 
-  run: (res, idGrupo, fecha) => {
+  run: (res, idGrupo, fechaYMD) => {
 
 
     const promGrupo = DbMongo.Grupos.findById(idGrupo, {alumnos: 1});
     const promAsistencia = DbMongo.Asistencia
         .find({
-          id_grupo: idGrupo,
-          fecha: fecha
+          fecha: {"$eq":fechaYMD},
+          idGrupo: {"$eq":idGrupo},
         })
         .exec()
     ;
@@ -24,21 +24,25 @@ const AsistenciaFindByFechaAction = {
           const grupo = values[0];
           let asistencia = values[1];
 
-          if (asistencia._id === undefined) {
+          let alumnos=[];
+
+          if (asistencia.length === 0) {
 
             asistencia = {alumnos: []};
 
-            grupo.alumnos
+            alumnos
                 .forEach(a => {
                   asistencia.alumnos.push(
                       {id: a.id, valor: 1, nombre:a.nombre, apellidos:a.apellidos}
                   );
                 });
+          }else{
+            alumnos=asistencia[0].alumnos;
           }
 
           let data = {
             total:1,
-            alumnos: asistencia.alumnos,
+            alumnos: alumnos,
             fechas: [],
             next: ''
           };

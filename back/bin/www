@@ -43,5 +43,8 @@ server.on('error', error => {
 });
 
 server.listen(process.env.PORT, () => {
+  let d=new Date();
+  console.log( `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
   console.log(`Listening on http://localhost:${process.env.PORT}`);
+
 });
