@@ -282,7 +282,7 @@
 </template>
 
 <script>
-  import dataService from "../services/dataLocal";
+  import dataService from "../services/dataService";
   import libToast from "../lib/libToast";
   import libConfig from "../lib/libConfig";
   import Datepicker from 'vuejs-datepicker';
@@ -348,7 +348,7 @@
     methods: {
       async solicitarPagina(numPagina) {
 
-        const respuesta = await dataService.paginaAsistencia(this.idGrupo, numPagina);
+        const respuesta = await dataService.getAsistenciaPagina(this.idGrupo, numPagina);
 
         if (!respuesta.success) {
           libToast.alert(respuesta.msg);
@@ -563,8 +563,8 @@
 
     },
     async mounted() {
-      /*la pagina 0 nos va a devolver la ultima pagina*/
-      this.solicitarPagina(0);
+
+      this.solicitarPagina(1);
 
     }
   }

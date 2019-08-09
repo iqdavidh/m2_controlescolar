@@ -23,9 +23,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#actividades" role="tab" data-toggle="tab">Actividades</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#reporte" role="tab" data-toggle="tab">Reporte</a>
-          </li>
+
         </ul>
 
         <!-- Tab panes -->
@@ -52,9 +50,8 @@
             <GAsistencia :idGrupo="grupo._id"/>
           </div>
 
-
           <div role="tabpanel" class="tab-pane fade" id="actividades">ccc</div>
-          <div role="tabpanel" class="tab-pane fade" id="reporte">ccc</div>
+
         </div>
 
       </div>

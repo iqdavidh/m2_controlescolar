@@ -30,7 +30,17 @@ const apiAsistencia = {
 
     return json;
 
-  }
+  },
+
+  getAsistenciaPagina: async (id_grupo, numPagina) => {
+
+
+    let url = urlApi + `/asistencia/grupo/${id_grupo}/pagina/${numPagina}`;
+
+    let json = await libAsyncReqJson.requestGET(url);
+
+    return json;
+  },
 };
 
 export default apiAsistencia;

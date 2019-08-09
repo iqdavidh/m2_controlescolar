@@ -75,20 +75,31 @@
     </div>
 
 
-
-
     <div class="panCmd"
+         style="display: flex"
          v-show="!isEdit"
+
     >
 
+      <div style="flex-grow: 1; text-align: left">
+          <span class="btn btn-danger btn-sm" title="Eliminar"
+                @click="onShowDelete">
+          <i class="fa fa-trash"></i>
+        </span>
+      </div>
+      <div style="flex-grow: 1; text-align: right">
         <span class="btn btn-secondary btn-sm" title="Editar"
               @click="onShowEdit">
           <i class="fa fa-edit"></i>
         </span>
+      </div>
+
     </div>
+
 
     <div class="panCmd"
          v-show="isEdit"
+
     >
          <span class="btn btn-primary btn-sm" title="Guardar Datos"
                @click="exe">
@@ -103,6 +114,37 @@
     </div>
 
     <hr>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalDeleteGrupo" tabindex="-1" role="dialog"
+         aria-hidden="true">
+      <div class="modal-dialog bounceIn animated  " role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fa fa-trash"></i> Eliminar Grupo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Confirmar Eliminar</p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger"
+                    @click="exeDelete"
+            >
+              <i class="fa fa-trash"></i> Eliminar
+            </button>
+            <button type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Cancelar
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 </template>
@@ -127,10 +169,20 @@
           isEnProceso: false,
           isShow: false
         },
+        formDelete: {
+          isEnProceso: false
+        }
       }
     },
     computed: {},
     methods: {
+      onShowDelete() {
+        $("#modalDeleteGrupo").modal();
+        this.formDelete.isEnProceso = false;
+      },
+      exeDelete(){
+
+      },
       onShowEdit() {
 
         this.listaCampos
@@ -185,7 +237,7 @@
 
         if (!respuesta.success) {
           libToast.alert(respuesta.msg());
-          return ;
+          return;
         }
         libToast.success(isUpdate ? "Datos actualizados" : "Grupo agregado");
 
@@ -196,7 +248,7 @@
 
         this.$emit("onUpdated", isUpdate, dataUpdate);
 
-        this.isEdit=false;
+        this.isEdit = false;
 
         f.isEnProceso = false;
 
