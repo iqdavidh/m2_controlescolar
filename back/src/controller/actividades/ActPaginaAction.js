@@ -26,10 +26,11 @@ const ActPaginaAction = {
 
 
           const tabla = ProCrearTablaAct.exe(listaActividades);
-
+          const totalPaginas =  Math.ceil( total / itemsXPage);
 
           let data = {
             total,
+            totalPaginas,
             pagina,
             alumnos: tabla.alumnos,
             actividades: tabla.actividades,

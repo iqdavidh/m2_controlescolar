@@ -51,7 +51,11 @@ listaActividades.forEach(act => {
     } else {
       return -1;
     }
-  })
+  });
+
+  act.alumnos.forEach( a=>{
+    a.calificacion= 8;
+  });
 });
 
 DBMongo.cx;

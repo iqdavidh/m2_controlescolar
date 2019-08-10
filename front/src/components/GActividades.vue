@@ -14,7 +14,8 @@
 
       </div>
 
-      <nav aria-label="Page navigation " style="flex-grow: 1">
+      <nav aria-label="Page navigation "
+           style="flex-grow: 1">
         <ul class="pagination pagination-sm">
 
           <li class="page-item"
@@ -33,9 +34,25 @@
     </div>
 
 
+
     <table class="table table-condensed table-striped tableActividad">
       <thead>
 
+
+      <tr>
+        <th class="tdindex"></th>
+        <th class="text-right"></th>
+
+
+
+        <th v-for="act in actividades" :key="act._id"
+            :class="{'thSelected':act._id===form.actOld._id
+            ,'thEdit':act._id===form.actOld._id && form.actOld.isEdit
+            }"
+        >
+          {{act.fechaAbb}}
+        </th>
+      </tr>
 
       <tr>
         <th class="tdindex">#</th>
@@ -62,37 +79,24 @@
           {{alumno.apellidos}} {{alumno.nombre}}
         </td>
 
-        <td v-show="form.isAddActividad" class="tdSelected">
-
-          <select class="form-control form-control-sm" v-model="alumno.calificacion">
-            <option value="1">.</option>
-            <option value="2">Retardo</option>
-            <option value="3">Justificación</option>
-            <option value="0">Falta</option>
-          </select>
-        </td>
 
 
-        <td v-for="Actividad in alumno.Actividad"
-            :key="Actividad.fecha"
-            :class="{'tdSelected':Actividad.fecha === form.actOld.fecha}"
+        <td v-for="act in alumno.act"
+            :key="act.fecha"
+            :class="{'tdSelected':act._id === form.actOld._id}"
         >
 
-          <div v-if=" !(Actividad.fecha === form.actOld.fecha && form.actOld.isEdit)"
-               :title="Actividad.fecha"
+          <div v-if=" !(act._id === form.actOld._id && form.actOld.isEdit)"
+               :title="act.titulo"
           >
-            <span v-show="Actividad.valor==1">.</span>
-            <span v-show="Actividad.valor==2">R</span>
-            <span v-show="Actividad.valor==3">J</span>
-            <span class="tdFalta" v-show="Actividad.valor==0">/</span>
+            <span v-show="act.calificacion===null">NA</span>
+            <span v-show="act.calificacion!==null">{{act.calificacion}}</span>
+
           </div>
 
-          <div v-if="Actividad.fecha === form.actOld.fecha && form.actOld.isEdit">
-            <select class="form-control form-control-sm" v-model="Actividad.valorEdit">
-              <option value="1">.</option>
-              <option value="2">Retardo</option>
-              <option value="3">Justificación</option>
-              <option value="0">Falta</option>
+          <div v-if="act._id === form.actOld._id && form.actOld.isEdit">
+            <select class="form-control form-control-sm" v-model="act.calificacion">
+              <option value="num" v-for="num in 10">{{num}}}</option>
             </select>
           </div>
 
@@ -109,7 +113,7 @@
         <th v-show="form.isAddActividad"></th>
         <th v-for="f in fechas">
           <span class="btn btn-danger btn-sm"
-                title="Eliminar Fecha de Actividads"
+                title="Eliminar Actividad"
           >
             <i class="fa fa-trash"></i>
           </span>
@@ -120,13 +124,13 @@
     </table>
 
 
-    <div v-if="isDebug">
+    <div v-if="isDebug && false">
       <div class="row">
         <div class="col-md-6">
           {{form}}
         </div>
         <div class="col-md-6">
-          {{fechas}}
+          {{actividades}}
         </div>
       </div>
     </div>
