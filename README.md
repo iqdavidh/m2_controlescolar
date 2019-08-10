@@ -14,8 +14,8 @@ Aplicación de control escolar
 
 El objetivo de esta aplicación es ser una herramienta para que los maestros adminsitren las calificaciones y asistencia de sus grupos.  
 
-
-[Versión Online](http://52.37.165.46:4003/)
+Sitio Web
+[http://52.37.165.46:4003](http://52.37.165.46:4003/)
 
 ## Instrucciones
 
