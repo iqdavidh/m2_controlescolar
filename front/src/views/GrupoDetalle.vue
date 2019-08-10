@@ -52,7 +52,14 @@
 
           </div>
 
-          <div role="tabpanel" class="tab-pane fade" id="actividades">ccc</div>
+          <div role="tabpanel" class="tab-pane fade" id="actividades">
+
+            <h5><i class="fa fa-list"></i> LIBRO DE ACTIVIDADES</h5>
+            <hr>
+            <GActividades :idGrupo="grupo._id"/>
+
+
+          </div>
 
         </div>
 
@@ -72,6 +79,7 @@
   import GDatosBasicos from '@/components/GDatosBasicos.vue';
   import GListaAlumnos from '@/components/GListaAlumnos.vue';
   import GAsistencia from '@/components/GAsistencia.vue';
+  import GActividades from '@/components/GActividades.vue';
 
   import Vue from 'vue';
 
@@ -90,7 +98,7 @@
       };
     },
     components: {
-      GDatosBasicos, GListaAlumnos, GAsistencia
+      GDatosBasicos, GListaAlumnos, GAsistencia, GActividades
     },
     methods: {
 

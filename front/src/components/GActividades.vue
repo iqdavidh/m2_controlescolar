@@ -222,7 +222,7 @@
   const listaMes = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
   export default {
-    name: 'GAsistencia',
+    name: 'GActividades',
     props: {
       idGrupo: {
         type: String,
