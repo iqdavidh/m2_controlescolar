@@ -16,7 +16,7 @@ describe('Tabla Asistencia', function () {
       let listaAsistencia = [
         {
           "_id": "5d4ae86bbeb71079dd84b196",
-          "fecha": new Date(2001, 1 - 1, 1),
+          "fecha": '2001-01-01',
           "idGrupo": "5d4af0bd0491183d949f5c17",
           "alumnos": [
             {"id": "bs", "valor": 1, "nombre": "Bart", "apellidos": "Simpson"},
@@ -24,7 +24,7 @@ describe('Tabla Asistencia', function () {
         },
         {
           "_id": "5d4ae899beb71079dd84b1cd",
-          "fecha": new Date(2001, 1 - 1, 2),
+          "fecha": '2001-01-02',
           "idGrupo": "5d4af0bd0491183d949f5c17",
           "__v": 0,
           "alumnos": [
@@ -59,8 +59,8 @@ describe('Tabla Asistencia', function () {
           }
         ],
         fechas: [
-          {"fechaDMY": "01/01/2001", "fechaAbb": "Dom 01 Enero", "dia": 1},
-          {"fechaDMY": "02/01/2001", "fechaAbb": "Lu 02 Enero", "dia": 2},
+          {"fechaDMY": "01/01/2001", "fechaAbb": "Dom 01 Enero 2001", "dia": 1},
+          {"fechaDMY": "02/01/2001", "fechaAbb": "Lu 02 Enero 2001", "dia": 2},
         ]
 
       };

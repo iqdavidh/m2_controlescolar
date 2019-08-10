@@ -1,6 +1,7 @@
 <template>
   <div>
 
+    {{idGrupo}}
 
     <div style="display: flex">
 
@@ -158,7 +159,7 @@
         >
 
           <div v-if=" !(f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit)"
-            :title="f.fecha"
+               :title="f.fecha"
           >
             <span v-show="f.valor==1">.</span>
             <span v-show="f.valor==2">R</span>
@@ -299,6 +300,15 @@
         default: () => ''
       }
     },
+    watch:{
+      idGrupo: {
+        immediate: true,
+        handler (newVal, oldVal) {
+
+          this.solicitarPagina(1);
+        }
+      }
+    },
     components: {
       Datepicker
     },
@@ -307,7 +317,7 @@
       return {
         fechas: [],
         alumnos: [],
-        numPagina: 0,
+        numPagina: 1,
         totalPaginas: 0,
         form: {
           fechaOld: {isEdit: false},
@@ -348,6 +358,13 @@
     methods: {
       async solicitarPagina(numPagina) {
 
+
+        const x = 0;
+
+        if (this.idGrupo === '') {
+          return;
+        }
+
         const respuesta = await dataService.getAsistenciaPagina(this.idGrupo, numPagina);
 
         if (!respuesta.success) {
@@ -357,20 +374,7 @@
 
         this.totalPaginas = respuesta.data.total;
 
-        this.alumnos.splice(0, this.alumnos.length);
-
-        respuesta.data.alumnos.forEach(a => {
-
-          a.fechas.forEach(f => {
-            f.isEdit = false;
-            f.valorEdit = f.valor;
-          });
-
-          a.valorNewAsistencia = 1;
-
-          this.alumnos.push(a);
-        });
-
+        this.alumnos = respuesta.data.alumnos;
 
         respuesta.data.fechas.forEach(f => {
           f.isEdit = false;
@@ -378,11 +382,7 @@
 
         this.fechas = respuesta.data.fechas;
 
-        if (numPagina === 0) {
-          this.numPagina = respuesta.data.total;
-        } else {
-          this.numPagina = numPagina;
-        }
+        this.numPagina = numPagina;
 
       }
       ,
@@ -564,7 +564,8 @@
     },
     async mounted() {
 
-      this.solicitarPagina(1);
+      //la pagina se carga con el watcher
+      //this.solicitarPagina(1);
 
     }
   }

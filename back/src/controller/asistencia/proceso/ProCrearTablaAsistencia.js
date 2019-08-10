@@ -10,12 +10,15 @@ const ProCrearTablaAsistencia = {
     listaAsistencia.forEach(asistencia => {
 
 
-      const dateA = asistencia.fecha;
+      const fechaYMD = asistencia.fecha;
+      const fechaDMY= LibFecha.fechaYMDtoDMY(fechaYMD);
+
+      const d= LibFecha.getDateFromFechaYMD(fechaYMD);
 
       fechasEnLista.push({
-        fechaDMY: LibFecha.dateToDMY(dateA),
-        fechaAbb: LibFecha.dateToFechaAbb(dateA),
-        dia: dateA.getDay()
+        fechaDMY: fechaDMY,
+        fechaAbb: LibFecha.dateToFechaAbb(d),
+        dia: d.getDay()
       });
 
       //buscar todos los alumnos
@@ -76,8 +79,8 @@ const ProCrearTablaAsistencia = {
 
         let asistenciaEnFecha = null;
 
-        const f = asistencia.fecha;
-        const fechaDMY = LibFecha.dateToDMY(f);
+        const fechaYMD = asistencia.fecha;
+        const fechaDMY = LibFecha.fechaYMDtoDMY(fechaYMD);
 
 
         const afecha =  asistencia.alumnos.find(a => {

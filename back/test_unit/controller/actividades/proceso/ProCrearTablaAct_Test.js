@@ -21,7 +21,7 @@ describe('Tabla Actividades', function () {
               "_id": "1",
               "tipo": "tarea",
               "titulo": "Cuadro eval firmado",
-              "fecha": new Date(2001, 2 - 1, 1),
+              "fecha":'2001-02-01',
               "idGrupo": "5d4af0bd0491183d949f5c17",
               "__v": 0,
               "alumnos": [
@@ -33,7 +33,7 @@ describe('Tabla Actividades', function () {
               "_id": "examen",
               "tipo": "examen",
               "titulo": "Examen Trimestral",
-              "fecha": new Date(2001, 2 - 1, 1),
+              "fecha":'2001-02-01',
               "idGrupo": "5d4af0bd0491183d949f5c17",
               "__v": 0,
               "alumnos": [
@@ -61,8 +61,8 @@ describe('Tabla Actividades', function () {
 
         ],
         actividades: [
-          {"_id": "1", "tipo": "tarea", "titulo": "Cuadro eval firmado", "fechaDMY": "01/02/2001" , "fechaAbb":"Dom 01 Febrero" },
-          {"_id": "examen", "tipo": "examen", "titulo": "Examen Trimestral", "fechaDMY": "01/02/2001",  "fechaAbb":"Dom 01 Febrero" }
+          {"_id": "1", "tipo": "tarea", "titulo": "Cuadro eval firmado", "fechaDMY": "01/02/2001" , "fechaAbb":"Dom 01 Febrero 2001" },
+          {"_id": "examen", "tipo": "examen", "titulo": "Examen Trimestral", "fechaDMY": "01/02/2001",  "fechaAbb":"Dom 01 Febrero 2001" }
         ]
 
       };

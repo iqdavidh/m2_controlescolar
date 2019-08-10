@@ -10,14 +10,17 @@ const ProCrearTablaAct = {
     listaAct.forEach(act => {
 
 
-      const dateA = act.fecha;
+      const fechaYMD = act.fecha;
+      const fechaDMY= LibFecha.fechaYMDtoDMY(fechaYMD);
+
+      const d= LibFecha.getDateFromFechaYMD(fechaYMD);
 
       actEnLista.push({
         _id: act._id,
         tipo: act.tipo,
         titulo: act.titulo,
-        fechaDMY: LibFecha.dateToDMY(dateA),
-        fechaAbb: LibFecha.dateToFechaAbb(dateA)
+        fechaDMY: fechaDMY,
+        fechaAbb: LibFecha.dateToFechaAbb(d)
       });
 
       //buscar todos los alumnos

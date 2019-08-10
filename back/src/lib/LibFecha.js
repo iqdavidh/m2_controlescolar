@@ -4,6 +4,7 @@ const listaMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'
 const LibFecha = {
   getDateFromFechaYMD: (fymd) => {
     let lista = fymd.toString().split('-');
+    return new Date( parseInt(lista[0]), parseInt(lista[1])-1, parseInt(lista[2]) )
   },
   getDateFromFechaDMY: (fdmy) => {
 
@@ -45,6 +46,19 @@ const LibFecha = {
     const nombreMes=listaMes[mes-1];
 
     return `${nombreDia} ${textoDia} ${nombreMes} ${y}`;
+  },
+  fechaYMDtoDMY(fYMD){
+
+    let lista = fYMD.toString().split('-');
+
+    let y = parseInt(lista[0]) ;
+    let mes = parseInt(lista[1]);
+    let dia = parseInt(lista[2]) ;
+
+    dia = (dia<10?'0':'') + dia.toString();
+    mes = (mes<10?'0':'') + mes.toString();
+
+    return `${dia}/${mes}/${y}`;
   }
 
 
