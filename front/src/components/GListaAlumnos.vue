@@ -19,17 +19,17 @@
       </div>
       <div style="margin-left: 10px; ">
 
-        <div class="btn-group btn-group-sm">
-          <button type="button" class="btn btn-secondary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-            <i class="fa fa-bolt"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button">
-              <i class="fa fa-file-excel-o"></i> Exportar a Excel
-            </button>
-          </div>
-        </div>
+<!--        <div class="btn-group btn-group-sm">-->
+<!--          <button type="button" class="btn btn-secondary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
+<!--                  aria-expanded="false">-->
+<!--            <i class="fa fa-bolt"></i>-->
+<!--          </button>-->
+<!--          <div class="dropdown-menu dropdown-menu-right">-->
+<!--            <button class="dropdown-item" type="button">-->
+<!--              <i class="fa fa-file-excel-o"></i> Exportar a Excel-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
 
 
       </div>
@@ -47,7 +47,6 @@
           <th style="width: 40px"></th>
           <th style="width: 40px"></th>
           <th style="width: 40px"></th>
-
         </tr>
         </thead>
         <tbody>
