@@ -4,7 +4,8 @@
     <div style="display: flex">
 
 
-      <div style="margin-right: 50px">
+      <!-- TODO agregar una actividad-->
+      <div style="margin-right: 50px" v-if="false">
 
          <span class="btn btn-primary btn-sm" title="Agregar Alumno"
                @click="onAddFecha"

@@ -53,8 +53,10 @@ listaActividades.forEach(act => {
     }
   });
 
-  act.alumnos.forEach( a=>{
-    a.calificacion= 8;
+  act.alumnos.forEach(a => {
+    let cal = Math.floor(Math.random() * 10);
+    cal = (cal < 6) ? 6 : cal;
+    a.calificacion = cal;
   });
 });
 
@@ -80,7 +82,9 @@ const importar = async () => {
   });
 
   const responseActividades = await DBMongo.Actividades.insertMany(listaActividades);
+  console.log('terminado');
 
 };
 
 importar();
+

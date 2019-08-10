@@ -110,7 +110,7 @@ listaTest.push(libTest.FactoryTest("dataLocal.getIndexTipoActividad()", async ()
 
 listaTest.push(libTest.FactoryTest("dataLocal.getIndexActividades(id_grupo, fIniDMY,fFinDMY)", async () => {
 
-  let respuesta = await dataLocal.getIndexActividades('g2a', '01/17/2019', '01/05/202');
+  let respuesta = await dataLocal.getIndexActividades('g2a');
 
   let listaError = [];
 

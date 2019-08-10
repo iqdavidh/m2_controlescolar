@@ -2,45 +2,87 @@
   <div>
 
 
-    <h2  id="tituloSeccion">Control Escolar</h2>
+    <div class="row" style="margin-top: 20px">
+      <div class="col-md-4 col-xs-12">
 
-    <p>
-      Descripción del proyecto - para que sirve que hace , imagenes, al final tiene link para ver la página de Login
-    </p>
+        <div class="card">
+          <router-link to="/grupos">
+            <img class="card-img-top" src="http://via.placeholder.com/640x360" alt="Card image cap">
+          </router-link>
+          <div class="card-body">
+            <h5 class="card-title">Grupos</h5>
+            <p class="card-text">Administra los grupos, con información del curso y la lista de alumnos.</p>
 
-    <p>
-      Al estar autenticado esta pagina no se ve
-    </p>
-
-    <p>El Instituto Nacional para la Evaluación de la Educación (INEE), estimó que en el 2018 había en México 2 millones 66 mil docentes de nivel básico a superior, tanto en instituciones públicas como privadas. De los cuales el 75% son solo de educación básica.
-
-1 millón 549 mil 500 docentes, requieren registrar el proceso educativo de sus alumnos.
-<br>
-<br>
-Tarea que suele ser repetitiva y que requiere una gran inversión de tiempo.
-
-Con la App “Control Escolar”, buscamos brindar una herramienta que facilite el trabajo administrativo de ser docente. Es una aplicación que puede facilitar el control de calificaciones, al evitar que los docentes hagan trabajos redundantes al registro de asistencias, tareas o actividades.
-
-<br>
-<br>
-Por otra parte, es una versión que puede en un primer momento ayudar a los maestros a integrarse al mundo tecnológico, reduciendo con ello la brecha generacional en el uso de tecnologías, ya que es una herramienta que lleva el control de lo que ellos están familiarizados por años que es el manejo de listas y es una herramienta que pueden usar en su profesión diaria.
-
-</p>
+            <router-link to="/grupos">
+              <a href="#" class="btn btn-primary"><i class="fa fa-arrow-circle-right "></i></a>
+            </router-link>
 
 
-    <HelloWorld msg="Ejemplo para uasr componente"/>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="col-md-4 col-xs-12">
+        <div class="card">
+          <router-link to="/asistencia">
+            <img class="card-img-top" src="http://via.placeholder.com/640x360" alt="Card image cap">
+          </router-link>
+          <div class="card-body">
+            <h5 class="card-title">Asistencia</h5>
+            <p class="card-text">Administra la lista de asistencia. Indicando Presente,
+              Falta, Retardo y Falta con Justificante de un grupo en una fecha seleccionada
+            </p>
+            <router-link to="/asistencia">
+              <a href="#" class="btn btn-primary"><i class="fa fa-arrow-circle-right "></i></a>
+            </router-link>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-4 col-xs-12">
+        <div class="card">
+          <router-link to="/actividades">
+            <img class="card-img-top" src="http://via.placeholder.com/640x360" alt="Card image cap">
+          </router-link>
+          <div class="card-body">
+            <h5 class="card-title">Actividades</h5>
+            <p class="card-text">Administra la las calificaciones de las tareas, examenes y otras actividades
+              escolares.</p>
+            <router-link to="/actividades">
+              <a href="#" class="btn btn-primary"><i class="fa fa-arrow-circle-right "></i></a>
+            </router-link>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
 
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+  // @ is an alias to /src
+  import HelloWorld from '@/components/HelloWorld.vue'
 
-export default {
-  name: 'home',
-  components: {
-    HelloWorld
+  export default {
+    name: 'home',
+    components: {
+      HelloWorld
+    },
+    data() {
+      return {}
+    },
+    computed: {},
+    methods: {},
+    beforeMount() {
+
+    },
+    mounted() {
+
+    }
   }
-}
 </script>

@@ -16,9 +16,9 @@
                             <li class="nav-item">
                                 <router-link to="/">Home</router-link>
                             </li>
-                            <li class="nav-item">
-                                <router-link to="/login">Login</router-link>
-                            </li>
+<!--                            <li class="nav-item">-->
+<!--                                <router-link to="/login">Login</router-link>-->
+<!--                            </li>-->
 
                             <li class="nav-item">
                                 <router-link to="/grupos">Grupos</router-link>
@@ -31,9 +31,9 @@
                                 <router-link to="/actividades">Actividades</router-link>
                             </li>
 
-                            <li class="nav-item">
-                                <router-link to="/reportes">Reportes</router-link>
-                            </li>
+<!--                            <li class="nav-item">-->
+<!--                                <router-link to="/reportes">Reportes</router-link>-->
+<!--                            </li>-->
                         </ul>
                     </div>
                 </nav>

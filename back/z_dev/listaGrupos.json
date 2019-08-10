@@ -1,9 +1,9 @@
 [
   {
     "nombre": "2a",
-    "escuela": "x",
-    "tag_escuela": "x",
-    "materia": "ma",
+    "escuela": "República de Tanzania",
+    "tag_escuela": "Tanzania",
+    "materia": "Física Nuclear",
     "ciclo": "2019-2020",
     "ymini": 201807,
     "ymfin": 201907,
@@ -163,9 +163,9 @@
   },
   {
     "nombre": "2b",
-    "escuela": "x",
-    "tag_escuela": "x",
-    "materia": "ma",
+    "escuela": "M.I.T",
+    "tag_escuela": "MIT",
+    "materia": "Earth, Atmospheric, and Planetary Sciences",
     "ciclo": "2019-2020",
     "ymini": 201807,
     "ymfin": 201907,

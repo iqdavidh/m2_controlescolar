@@ -17,7 +17,6 @@
       <nav aria-label="Page navigation "
            style="flex-grow: 1">
         <ul class="pagination pagination-sm">
-
           <li class="page-item"
               :class="{'active':numPagina===num}"
               v-for="num in totalPaginas" :key="num"
@@ -26,25 +25,15 @@
                @click="solicitarPagina(num)"
                href="#">{{num}}</a>
           </li>
-
-
         </ul>
       </nav>
-
     </div>
-
-
 
     <table class="table table-condensed table-striped tableActividad">
       <thead>
-
-
       <tr>
         <th class="tdindex"></th>
         <th class="text-right"></th>
-
-
-
         <th v-for="act in actividades" :key="act._id"
             :class="{'thSelected':act._id===form.actOld._id
             ,'thEdit':act._id===form.actOld._id && form.actOld.isEdit
@@ -57,9 +46,6 @@
       <tr>
         <th class="tdindex">#</th>
         <th class="text-right">Alumno</th>
-
-
-
         <th v-for="act in actividades" :key="act._id"
             :class="{'thSelected':act._id===form.actOld._id
             ,'thEdit':act._id===form.actOld._id && form.actOld.isEdit
@@ -111,7 +97,7 @@
         <th class="tdindex"></th>
         <th></th>
         <th v-show="form.isAddActividad"></th>
-        <th v-for="f in fechas">
+        <th v-for="act in actividades">
           <span class="btn btn-danger btn-sm"
                 title="Eliminar Actividad"
           >
