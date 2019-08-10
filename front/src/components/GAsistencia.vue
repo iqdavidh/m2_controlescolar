@@ -139,7 +139,7 @@
       <tr v-for="(alumno,index) in alumnos" :key="alumno.id">
         <td class="tdindex">{{index+1}}</td>
         <td class="text-right">
-          {{alumno.nombre}} {{alumno.apellidos}}
+          {{alumno.apellidos}} {{alumno.nombre}}
         </td>
 
         <td v-show="form.isAddAsistencia" class="tdSelected">
@@ -153,22 +153,22 @@
         </td>
 
 
-        <td v-for="f in alumno.fechas"
-            :key="f.fecha"
-            :class="{'tdSelected':f.fecha === form.fechaOld.fecha}"
+        <td v-for="asistencia in alumno.asistencia"
+            :key="asistencia.fecha"
+            :class="{'tdSelected':asistencia.fecha === form.fechaOld.fecha}"
         >
 
-          <div v-if=" !(f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit)"
-               :title="f.fecha"
+          <div v-if=" !(asistencia.fecha === form.fechaOld.fecha && form.fechaOld.isEdit)"
+               :title="asistencia.fecha"
           >
-            <span v-show="f.valor==1">.</span>
-            <span v-show="f.valor==2">R</span>
-            <span v-show="f.valor==3">J</span>
-            <span class="tdFalta" v-show="f.valor==0">/</span>
+            <span v-show="asistencia.valor==1">.</span>
+            <span v-show="asistencia.valor==2">R</span>
+            <span v-show="asistencia.valor==3">J</span>
+            <span class="tdFalta" v-show="asistencia.valor==0">/</span>
           </div>
 
-          <div v-if="f.fecha === form.fechaOld.fecha && form.fechaOld.isEdit">
-            <select class="form-control form-control-sm" v-model="f.valorEdit">
+          <div v-if="asistencia.fecha === form.fechaOld.fecha && form.fechaOld.isEdit">
+            <select class="form-control form-control-sm" v-model="asistencia.valorEdit">
               <option value="1">.</option>
               <option value="2">Retardo</option>
               <option value="3">Justificación</option>
@@ -319,6 +319,7 @@
         alumnos: [],
         numPagina: 1,
         totalPaginas: 0,
+        totalRegistros:0,
         form: {
           fechaOld: {isEdit: false},
           isEnProceso: false,
@@ -372,7 +373,8 @@
           return;
         }
 
-        this.totalPaginas = respuesta.data.total;
+        this.totalPaginas = respuesta.data.totalPaginas;
+        this.totalRegistros=respuesta.data.total;
 
         this.alumnos = respuesta.data.alumnos;
 

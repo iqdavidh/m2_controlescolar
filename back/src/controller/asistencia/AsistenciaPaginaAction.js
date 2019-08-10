@@ -27,12 +27,14 @@ const AsistenciaPaginaAction = {
 
           const tabla = ProCrearTablaAsistencia.exe(listaAsistencia);
 
+          const totalPaginas =  Math.ceil( total / itemsXPage);
 
           //fechas.reverse();  <-- no es toy seguro si se debe reverse
 
 
           let data = {
             total,
+            totalPaginas,
             pagina,
             alumnos: tabla.alumnos,
             fechas: tabla.fechas,

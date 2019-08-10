@@ -2,6 +2,31 @@ const DBMongo = require("../src/model/DbMongo");
 const listaGrupo = require("./listaGrupos");
 const listaActividades = require("./listaActividades");
 
+listaGrupo.forEach(g=>{
+  g.alumnos.sort((a,b)=>{
+
+    if (a.apellidos === b.apellidos) {
+
+      if (a.nombre > b.nombre) {
+        return 1;
+      } else {
+        return -1;
+      }
+
+    } else {
+
+      if (a.apellidos === b.apellidos) {
+        return 0;
+      } else {
+        if (a.apellidos > b.apellidos) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    }
+  })
+});
 
 DBMongo.cx;
 

@@ -40,8 +40,9 @@
         <thead>
         <tr>
           <th style="width: 30px">#</th>
-          <th style="width: 200px">Nombre</th>
           <th style="width: 200px">Apellidos</th>
+          <th style="width: 200px">Nombre</th>
+
 <!--          <th>Comentarios</th>-->
           <th style="width: 40px"></th>
           <th style="width: 40px"></th>
@@ -54,6 +55,15 @@
         <tr v-if="formNew.isShow"
             style="background-color: lightgoldenrodyellow">
           <td>New</td>
+
+
+          <td :class="{'error':form.dataError.apellidos}">
+            <div class="form-group">
+              <input v-model="form.data.apellidos" class="form-control form-control-sm"
+                     required title="Apellidos"/>
+            </div>
+          </td>
+
           <td>
             <div class="form-group" :class="{'error':form.dataError.nombre}">
               <input v-model="form.data.nombre"
@@ -61,13 +71,6 @@
                      class="form-control form-control-sm"
                      required
                      title="Nombre"/>
-            </div>
-          </td>
-
-          <td :class="{'error':form.dataError.apellidos}">
-            <div class="form-group">
-              <input v-model="form.data.apellidos" class="form-control form-control-sm"
-                     required title="Apellidos"/>
             </div>
           </td>
 
@@ -97,6 +100,19 @@
 
         <tr v-for="(alumno,index) in getListaConFiltro" :key="alumno.id">
           <td>{{index+1}}</td>
+
+          <td>
+            <div v-if="!alumno.isEdit">
+              {{alumno.apellidos}}
+            </div>
+            <div v-if="alumno.isEdit">
+              <div class="form-group" :class="{'error':form.dataError.apellidos}">
+                <input v-model="form.data.apellidos" class="form-control"
+                       required title="Apellidos"/>
+              </div>
+            </div>
+          </td>
+
           <td>
             <div v-if="!alumno.isEdit">
               {{alumno.nombre}}
@@ -110,17 +126,7 @@
             </div>
 
           </td>
-          <td>
-            <div v-if="!alumno.isEdit">
-              {{alumno.apellidos}}
-            </div>
-            <div v-if="alumno.isEdit">
-              <div class="form-group" :class="{'error':form.dataError.apellidos}">
-                <input v-model="form.data.apellidos" class="form-control"
-                       required title="Apellidos"/>
-              </div>
-            </div>
-          </td>
+
           <td>
             <div v-if="!alumno.isEdit">
               {{alumno.comentarios}}

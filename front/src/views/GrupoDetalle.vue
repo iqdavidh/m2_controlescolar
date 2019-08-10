@@ -47,6 +47,7 @@
           <div role="tabpanel" class="tab-pane fade" id="asistencia">
             <h5><i class="fa fa-list"></i> LIBRO DE ASISTENCIA</h5>
             <hr>
+
             <GAsistencia :idGrupo="grupo._id"/>
 
           </div>
