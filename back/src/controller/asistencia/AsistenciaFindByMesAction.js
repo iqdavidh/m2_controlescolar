@@ -9,8 +9,6 @@ const AsistenciaFindByMesAction = {
   run: (res, idGrupo, y, m) => {
 
 
-    const dateIni = new Date(y, m - 1, 1);
-
     let mFin = m + 1;
     let yFin = y;
 
@@ -18,8 +16,9 @@ const AsistenciaFindByMesAction = {
       yFin++;
       mFin = 1;
     }
-
-    const dateFin = new Date(yFin, mFin - 1, 1);
+    m= (m<10?'0':'') + m.toString();
+    const fIni = `${y}-${m}-01`;
+    const fFin = `${yFin}-${mFin}-01`;
 
     const promGrupo = DbMongo.Grupos.findById(idGrupo, {alumnos: 1});
 
@@ -27,7 +26,7 @@ const AsistenciaFindByMesAction = {
         .find(
             {
               idGrupo: idGrupo,
-              fecha: {$gte: dateIni, $lt: dateFin}
+              fecha: {$gte: fIni, $lt: fFin}
             })
         .sort({fecha: 1})
         .exec()

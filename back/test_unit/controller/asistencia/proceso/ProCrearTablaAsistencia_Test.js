@@ -59,8 +59,8 @@ describe('Tabla Asistencia', function () {
           }
         ],
         fechas: [
-          {"fechaDMY": "01/01/2001", "fechaAbb": "Dom 01 Enero 2001", "dia": 1},
-          {"fechaDMY": "02/01/2001", "fechaAbb": "Lu 02 Enero 2001", "dia": 2},
+          {"fechaDMY": "01/01/2001", "fechaAbb": "Lu 01 Enero 2001", "dia": 1},
+          {"fechaDMY": "02/01/2001", "fechaAbb": "Ma 02 Enero 2001", "dia": 2},
         ]
 
       };

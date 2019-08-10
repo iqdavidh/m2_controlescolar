@@ -61,8 +61,8 @@ describe('Tabla Actividades', function () {
 
         ],
         actividades: [
-          {"_id": "1", "tipo": "tarea", "titulo": "Cuadro eval firmado", "fechaDMY": "01/02/2001" , "fechaAbb":"Dom 01 Febrero 2001" },
-          {"_id": "examen", "tipo": "examen", "titulo": "Examen Trimestral", "fechaDMY": "01/02/2001",  "fechaAbb":"Dom 01 Febrero 2001" }
+          {"_id": "1", "tipo": "tarea", "titulo": "Cuadro eval firmado", "fechaDMY": "01/02/2001" , "fechaAbb":"Ju 01 Febrero 2001" },
+          {"_id": "examen", "tipo": "examen", "titulo": "Examen Trimestral", "fechaDMY": "01/02/2001",  "fechaAbb":"Ju 01 Febrero 2001" }
         ]
 
       };
