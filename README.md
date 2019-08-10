@@ -3,7 +3,7 @@
 # PROYECTO MODULO 2 - PartTime 2019
 
 ## Equipo
-   - davidh
+   - davidh (@iqdavidh)
    - tamy
    
 ## Título
@@ -24,6 +24,11 @@ Es el backend de la aplicación, la autenticación es por JWT.
 Es el frontend de la aplicación, esta construido con vuecli. 
 #### electron
 Se tiene versión electrón para continuar el desarrollo. - Falta implementar un servicio de datos local (TODO - json file storage)
+
+[![Proyecto](https://img.youtube.com/vi/caiGo67p8OI/0.jpg)](http://productividadti.com.mx/controlescolar.mp4 "Control Escolar")
+
+https://youtu.be/caiGo67p8OI
+
 
 ##Antecedentes
 El Instituto Nacional para la Evaluación de la Educación (INEE), estimó que en el 2018 había en México 2 millones 66 mil docentes de nivel básico a superior, tanto en instituciones públicas como privadas. De los cuales el 75% son solo de educación básica.
