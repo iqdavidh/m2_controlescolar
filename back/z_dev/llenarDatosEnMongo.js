@@ -2,8 +2,8 @@ const DBMongo = require("../src/model/DbMongo");
 const listaGrupo = require("./listaGrupos");
 const listaActividades = require("./listaActividades");
 
-listaGrupo.forEach(g=>{
-  g.alumnos.sort((a,b)=>{
+listaGrupo.forEach(g => {
+  g.alumnos.sort((a, b) => {
 
     if (a.apellidos === b.apellidos) {
 
@@ -25,6 +25,32 @@ listaGrupo.forEach(g=>{
         }
       }
     }
+
+
+  })
+});
+
+listaActividades.forEach(act => {
+  act.alumnos.sort((a, b) => {
+
+    if (a.apellidos === b.apellidos) {
+
+      if (a.nombre > b.nombre) {
+        return 1;
+      }
+
+      return -1;
+    }
+
+    if (a.apellidos === b.apellidos) {
+      return 0;
+    }
+
+    if (a.apellidos > b.apellidos) {
+      return 1;
+    } else {
+      return -1;
+    }
   })
 });
 
@@ -44,7 +70,7 @@ const importar = async () => {
   let i = 1;
   listaActividades.forEach(a => {
 
-    a.fecha='2000-01-01';
+    a.fecha = '2000-01-01';
     a.idGrupo = i < 10 ? idGrupo1 : idGrupo2;
     i++;
   });

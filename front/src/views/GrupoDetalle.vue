@@ -56,7 +56,7 @@
 
             <h5><i class="fa fa-list"></i> LIBRO DE ACTIVIDADES</h5>
             <hr>
-            <GActividades :idGrupo="grupo._id"/>
+<!--            <GActividades :idGrupo="grupo._id"/>-->
 
 
           </div>

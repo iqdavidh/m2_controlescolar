@@ -6,8 +6,8 @@
 
       <div style="margin-right: 50px">
 
-         <span class="btn btn-primary btn-sm" title="Agregar Alumno"
-               @click="onAddFecha"
+         <span class="btn btn-primary btn-sm" title="Agregar Actividad"
+               @click="onAddActividad"
          >
            <i class="fa fa-plus"></i>
          </span>
@@ -33,7 +33,7 @@
     </div>
 
 
-    <table class="table table-condensed table-striped tableAsistencia">
+    <table class="table table-condensed table-striped tableActividad">
       <thead>
 
 
@@ -41,23 +41,14 @@
         <th class="tdindex">#</th>
         <th class="text-right">Alumno</th>
 
-        <!--- Agregar nueva fecha -->
-        <th v-show="form.isAddAsistencia" class="thSelected"
-            @click="onAddFecha"
-            style="cursor: pointer"
-        >
 
-          {{getDiaSemana}}
-          <br>
-          {{getFechaNew}} <i class="fa fa-edit"></i>
-        </th>
 
-        <th v-for="f in fechas" :key="f.fecha"
-            :class="{'thSelected':f.fecha===form.fechaOld.fecha
-            ,'thEdit':f.fecha===form.fechaOld.fecha && form.fechaOld.isEdit
+        <th v-for="act in actividades" :key="act._id"
+            :class="{'thSelected':act._id===form.actOld._id
+            ,'thEdit':act._id===form.actOld._id && form.actOld.isEdit
             }"
         >
-          {{f.fechaDMY}}
+          {{act.titulo}}
         </th>
       </tr>
 
@@ -71,9 +62,9 @@
           {{alumno.apellidos}} {{alumno.nombre}}
         </td>
 
-        <td v-show="form.isAddAsistencia" class="tdSelected">
+        <td v-show="form.isAddActividad" class="tdSelected">
 
-          <select class="form-control form-control-sm" v-model="alumno.valorNewAsistencia">
+          <select class="form-control form-control-sm" v-model="alumno.calificacion">
             <option value="1">.</option>
             <option value="2">Retardo</option>
             <option value="3">Justificación</option>
@@ -82,22 +73,22 @@
         </td>
 
 
-        <td v-for="asistencia in alumno.asistencia"
-            :key="asistencia.fecha"
-            :class="{'tdSelected':asistencia.fecha === form.fechaOld.fecha}"
+        <td v-for="Actividad in alumno.Actividad"
+            :key="Actividad.fecha"
+            :class="{'tdSelected':Actividad.fecha === form.actOld.fecha}"
         >
 
-          <div v-if=" !(asistencia.fecha === form.fechaOld.fecha && form.fechaOld.isEdit)"
-               :title="asistencia.fecha"
+          <div v-if=" !(Actividad.fecha === form.actOld.fecha && form.actOld.isEdit)"
+               :title="Actividad.fecha"
           >
-            <span v-show="asistencia.valor==1">.</span>
-            <span v-show="asistencia.valor==2">R</span>
-            <span v-show="asistencia.valor==3">J</span>
-            <span class="tdFalta" v-show="asistencia.valor==0">/</span>
+            <span v-show="Actividad.valor==1">.</span>
+            <span v-show="Actividad.valor==2">R</span>
+            <span v-show="Actividad.valor==3">J</span>
+            <span class="tdFalta" v-show="Actividad.valor==0">/</span>
           </div>
 
-          <div v-if="asistencia.fecha === form.fechaOld.fecha && form.fechaOld.isEdit">
-            <select class="form-control form-control-sm" v-model="asistencia.valorEdit">
+          <div v-if="Actividad.fecha === form.actOld.fecha && form.actOld.isEdit">
+            <select class="form-control form-control-sm" v-model="Actividad.valorEdit">
               <option value="1">.</option>
               <option value="2">Retardo</option>
               <option value="3">Justificación</option>
@@ -115,10 +106,10 @@
       <tr>
         <th class="tdindex"></th>
         <th></th>
-        <th v-show="form.isAddAsistencia"></th>
+        <th v-show="form.isAddActividad"></th>
         <th v-for="f in fechas">
           <span class="btn btn-danger btn-sm"
-                title="Eliminar Fecha de Asistencias"
+                title="Eliminar Fecha de Actividads"
           >
             <i class="fa fa-trash"></i>
           </span>
@@ -142,12 +133,12 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="modalAddAsistencia" tabindex="-1" role="dialog"
+    <div class="modal fade" id="modalAddAct" tabindex="-1" role="dialog"
          aria-hidden="true">
       <div class="modal-dialog bounceIn animated  " role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title"><i class="fa fa-trash"></i> Fecha del Registro de Asistencia</h5>
+            <h5 class="modal-title"><i class="fa fa-trash"></i> Fecha del Registro de Actividad</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -178,7 +169,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="modalDeleteAsistencia" tabindex="-1" role="dialog"
+    <div class="modal fade" id="modalDeleteActividad" tabindex="-1" role="dialog"
          aria-hidden="true">
       <div class="modal-dialog bounceIn animated  " role="document">
         <div class="modal-content">
@@ -244,50 +235,27 @@
     data() {
 
       return {
-        fechas: [],
+        actividades: [],
         alumnos: [],
         numPagina: 1,
         totalPaginas: 0,
         totalRegistros:0,
         form: {
-          fechaOld: {isEdit: false},
+          actOld: {isEdit: false},
           isEnProceso: false,
-          isAddAsistencia: false,
+          isAddAct: false,
+          titulo:'',
           fechaNew: new Date()
-
         },
         isDebug: libConfig.isDebug
 
       };
     },
     computed: {
-      getDiaSemana() {
 
-        const fnew = this.form.fechaNew;
-
-        let diaSemana = fnew.getDay();
-        return listaDias[diaSemana];
-      },
-      getFechaNew() {
-
-        const fnew = this.form.fechaNew;
-
-        if (!fnew) {
-          return '';
-        }
-
-        let m = fnew.getMonth() + 1;
-        m = m < 10 ? '0' + m.toString() : m.toString();
-
-        let d = fnew.getDate();
-        d = d < 10 ? '0' + d.toString() : d.toString();
-
-        return `${d}/${m}/${fnew.getFullYear()}`;
-      }
     },
     methods: {
       async solicitarPagina(numPagina) {
-
 
         const x = 0;
 
@@ -295,7 +263,7 @@
           return;
         }
 
-        const respuesta = await dataService.getAsistenciaPagina(this.idGrupo, numPagina);
+        const respuesta = await dataService.getActividadesPagina(this.idGrupo, numPagina);
 
         if (!respuesta.success) {
           libToast.alert(respuesta.msg);
@@ -307,48 +275,39 @@
 
         this.alumnos = respuesta.data.alumnos;
 
-        respuesta.data.fechas.forEach(f => {
-          f.isEdit = false;
+        respuesta.data.actividades.forEach(act => {
+          act.isEdit = false;
         });
 
-        this.fechas = respuesta.data.fechas;
+        this.actividades = respuesta.data.actividades;
 
         this.numPagina = numPagina;
 
       }
       ,
-      onEditarAsistenciaFecha(fecha) {
+      onEditarActividadFecha(fecha) {
 
         const f = this.form;
 
-        f.fechaOld.isEdit = false;
+        f.actOld.isEdit = false;
         f.isEnProceso = false;
-        f.fechaOld = fecha;
+        f.actOld = fecha;
 
-        f.isAddAsistencia = false;
+        f.isAddActividad = false;
 
-        const fechaDMY = f.fechaOld.fecha;
+        const fechaYMD = f.actOld.fecha;
 
-        this.alumnos.forEach(a => {
-
-          a.fechas.forEach(f => {
-            if (f.fecha === fechaDMY) {
-              f.valorEdit = f.valor;
-            }
-          });
-
-        });
-
+        /*TODO no se porque esta esto --> */
 
         /* hacer una copia de los valores edit */
         f.fechaDMYEdit = fecha.fecha;
         fecha.isEdit = true;
 
       },
-      onCancelAsistenciaFecha(fecha) {
-        fecha.isEdit = false;
+      onCancelActividadFecha(act) {
+        act.isEdit = false;
       },
-      async onSaveAsistenciaFecha(fecha) {
+      async onSaveActfecha(fecha) {
 
 
         const f = this.form;
@@ -358,7 +317,7 @@
 
         f.isEnProceso = true;
 
-        const fechaDMY = f.fechaOld.fecha;
+        const fechaDMY = f.actOld.fecha;
 
         let dataUpdate = [];
 
@@ -376,7 +335,7 @@
           });
         });
 
-        let respuesta = await dataService.updateAsistencia(this.idGrupo, fechaDMY, dataUpdate);
+        let respuesta = await dataService.updateActividad(this.idGrupo, fechaDMY, dataUpdate);
 
         if (!respuesta.success) {
           libToast.alert(respuesta.msg);
@@ -397,33 +356,33 @@
         });
 
         f.isEnProceso = false;
-        f.fechaOld.isEdit = false;
+        f.actOld.isEdit = false;
 
       },
-      onAddFecha() {
+      onAddActividad() {
 
         const f = this.form;
 
-        f.fechaOld.isEdit = false;
+        f.actOld.isEdit = false;
 
-        $("#modalAddAsistencia").modal()
+        $("#modalAddAct").modal()
       },
       onSetFechaNew() {
         const f = this.form;
 
-        f.fechaOld = {};
+        f.actOld = {};
 
-        $("#modalAddAsistencia").modal('hide');
-        f.isAddAsistencia = true;
+        $("#modalAddAct").modal('hide');
+        f.isAddActividad = true;
       },
-      onCancelNewAsistencia() {
+      onCancelNewActividad() {
         const f = this.form;
 
-        f.isAddAsistencia = false;
+        f.isAddActividad = false;
       },
-      async onSaveNewAsistencia() {
+      async onSaveNewActividad() {
 
-        /*Al gaurdar una nueva asistencia debemos de insertar el objecto fecha tambien
+        /*Al gaurdar una nueva Actividad debemos de insertar el objecto fecha tambien
          y en cada alkmno el registro de fecha*/
 
         const f = this.form;
@@ -441,12 +400,12 @@
 
           dataUpdate.push({
             id: a.id,
-            valor: parseInt(a.valorNewAsistencia)
+            valor: parseInt(a.valorNewActividad)
           })
 
         });
 
-        let respuesta = await dataService.updateAsistencia(this.idGrupo, fechaDMY, dataUpdate);
+        let respuesta = await dataService.updateActividad(this.idGrupo, fechaDMY, dataUpdate);
 
         if (!respuesta.success) {
           libToast.alert(respuesta.msg);
@@ -480,13 +439,13 @@
 
           indexAlumno++;
 
-          a.valorNewAsistencia = '.'
+          a.valorNewActividad = '.'
         });
 
 
         f.isEnProceso = false;
-        f.fechaOld = this.fechas[this.fechas.length - 1];
-        f.isAddAsistencia = false;
+        f.actOld = this.fechas[this.fechas.length - 1];
+        f.isAddActividad = false;
 
 
       }
@@ -503,18 +462,18 @@
 </script>
 
 <style scoped>
-  .tableAsistencia tr th, .tableAsistencia tr td {
+  .tableActividad tr th, .tableActividad tr td {
     padding: 2px;
     width: 60px;
     text-align: center;
 
   }
 
-  .tableAsistencia tr th.thSelected, .tableAsistencia tr td.tdSelected {
+  .tableActividad tr th.thSelected, .tableActividad tr td.tdSelected {
     background-color: lightgoldenrodyellow;
   }
 
-  .tableAsistencia tr th.tdindex, .tableAsistencia tr td.tdindex {
+  .tableActividad tr th.tdindex, .tableActividad tr td.tdindex {
     width: 30px;
   }
 

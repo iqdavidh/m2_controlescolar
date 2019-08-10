@@ -22,11 +22,13 @@ const ActIndexAction = {
 
           lista.forEach(a => {
 
+            let d = LibFecha.getDateFromFechaYMD(a.fecha);
+
             listaActividades.push({
               _id: a._id,
               titulo: a.titulo,
               fecha: a.fecha,
-              fechaAbb: LibFecha.dateToFechaAbb(a.fecha)
+              fechaAbb: LibFecha.dateToFechaAbb(d)
             });
           });
 

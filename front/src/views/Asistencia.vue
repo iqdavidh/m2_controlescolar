@@ -48,8 +48,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="alumno in listaAlumnos" :key="alumno.id">
-            <td>{{alumno.id}}</td>
+          <tr v-for="(alumno,index) in listaAlumnos" :key="alumno.id">
+            <td>{{index+1}}</td>
             <td>{{alumno.apellidos}} {{alumno.nombre}}</td>
             <td>
               <div class="text-center" v-show="!isEdit">

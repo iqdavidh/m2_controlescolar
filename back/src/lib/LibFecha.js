@@ -40,9 +40,10 @@ const LibFecha = {
     let y = d.getFullYear();
     let mes = d.getMonth() + 1;
     let dia = d.getDate();
+    let diaSemana=d.getDay();
 
     const textoDia = (dia < 10 ? '0' : '') + dia.toString();
-    const nombreDia = listaDiaSemana[dia - 1];
+    const nombreDia = listaDiaSemana[diaSemana];
     const nombreMes=listaMes[mes-1];
 
     return `${nombreDia} ${textoDia} ${nombreMes} ${y}`;

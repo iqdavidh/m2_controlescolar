@@ -53,8 +53,8 @@
         </th>
 
         <th v-for="f in fechas" :key="f.fecha"
-            :class="{'thSelected':f.fecha===form.fechaOld.fecha
-            ,'thEdit':f.fecha===form.fechaOld.fecha && form.fechaOld.isEdit
+            :class="{'thSelected':f.fecha===form.actOld.fecha
+            ,'thEdit':f.fecha===form.actOld.fecha && form.actOld.isEdit
             }"
         >
           {{f.fechaDMY}}
@@ -84,10 +84,10 @@
 
         <td v-for="asistencia in alumno.asistencia"
             :key="asistencia.fecha"
-            :class="{'tdSelected':asistencia.fecha === form.fechaOld.fecha}"
+            :class="{'tdSelected':asistencia.fecha === form.actOld.fecha}"
         >
 
-          <div v-if=" !(asistencia.fecha === form.fechaOld.fecha && form.fechaOld.isEdit)"
+          <div v-if=" !(asistencia.fecha === form.actOld.fecha && form.actOld.isEdit)"
                :title="asistencia.fecha"
           >
             <span v-show="asistencia.valor==1">.</span>
@@ -96,7 +96,7 @@
             <span class="tdFalta" v-show="asistencia.valor==0">/</span>
           </div>
 
-          <div v-if="asistencia.fecha === form.fechaOld.fecha && form.fechaOld.isEdit">
+          <div v-if="asistencia.fecha === form.actOld.fecha && form.actOld.isEdit">
             <select class="form-control form-control-sm" v-model="asistencia.valorEdit">
               <option value="1">.</option>
               <option value="2">Retardo</option>
@@ -250,7 +250,7 @@
         totalPaginas: 0,
         totalRegistros:0,
         form: {
-          fechaOld: {isEdit: false},
+          actOld: {isEdit: false},
           isEnProceso: false,
           isAddAsistencia: false,
           fechaNew: new Date()
@@ -321,13 +321,13 @@
 
         const f = this.form;
 
-        f.fechaOld.isEdit = false;
+        f.actOld.isEdit = false;
         f.isEnProceso = false;
-        f.fechaOld = fecha;
+        f.actOld = fecha;
 
         f.isAddAsistencia = false;
 
-        const fechaDMY = f.fechaOld.fecha;
+        const fechaDMY = f.actOld.fecha;
 
         this.alumnos.forEach(a => {
 
@@ -358,7 +358,7 @@
 
         f.isEnProceso = true;
 
-        const fechaDMY = f.fechaOld.fecha;
+        const fechaDMY = f.actOld.fecha;
 
         let dataUpdate = [];
 
@@ -397,21 +397,21 @@
         });
 
         f.isEnProceso = false;
-        f.fechaOld.isEdit = false;
+        f.actOld.isEdit = false;
 
       },
       onAddFecha() {
 
         const f = this.form;
 
-        f.fechaOld.isEdit = false;
+        f.actOld.isEdit = false;
 
         $("#modalAddAsistencia").modal()
       },
       onSetFechaNew() {
         const f = this.form;
 
-        f.fechaOld = {};
+        f.actOld = {};
 
         $("#modalAddAsistencia").modal('hide');
         f.isAddAsistencia = true;
@@ -485,7 +485,7 @@
 
 
         f.isEnProceso = false;
-        f.fechaOld = this.fechas[this.fechas.length - 1];
+        f.actOld = this.fechas[this.fechas.length - 1];
         f.isAddAsistencia = false;
 
 
