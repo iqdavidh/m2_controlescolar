@@ -18,8 +18,8 @@
     "vuejs-datepicker": "^1.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.9.0",
-    "@vue/cli-service": "^3.9.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
     "nodemon": "^1.19.1",
